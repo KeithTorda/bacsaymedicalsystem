@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name="description" content="KBOT Clean Dashboard">
+    <meta name="keywords" content="admin, dashboard, kbot, bootstrap, laravel">
+    <meta name="author" content="KBOT">
+    <meta name="robots" content="noindex, nofollow">
+    <title>{{ ucwords(str_replace('.', ' - ', Route::currentRouteName())) }}</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/favicon.png') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-datetimepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/fontawesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <style>
+        /* Logo Aspect-Ratio & Proportions */
+        .header .header-left .logo img,
+        .header .header-left .logo-small img {
+            max-height: 38px !important;
+            width: auto !important;
+            object-fit: contain !important;
+            border-radius: 50% !important;
+        }
+        .header-left .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 16px;
+            color: #212b36;
+        }
+
+        /* Desktop Mini-Sidebar System (Matches Dreams Template Exactly) */
+        @media (min-width: 992px) {
+            body.mini-sidebar .sidebar {
+                width: 80px !important;
+                transition: all 0.2s ease !important;
+                overflow: visible !important;
+                z-index: 1001 !important;
+            }
+            body.mini-sidebar .sidebar:hover,
+            body.mini-sidebar.expand-menu .sidebar {
+                width: 260px !important;
+                box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
+            }
+            
+            body.mini-sidebar:not(:hover) .sidebar .sidebar-menu ul li a span {
+                opacity: 0 !important;
+                visibility: hidden !important;
+                display: none !important;
+            }
+            body.mini-sidebar:not(:hover) .sidebar .sidebar-menu ul li a .menu-arrow {
+                display: none !important;
+            }
+            body.mini-sidebar:not(:hover) .sidebar .sidebar-menu ul li.submenu ul {
+                display: none !important;
+            }
+
+            body.mini-sidebar .sidebar:hover .sidebar-menu ul li a span,
+            body.mini-sidebar.expand-menu .sidebar .sidebar-menu ul li a span {
+                opacity: 1 !important;
+                visibility: visible !important;
+                display: inline-block !important;
+            }
+            body.mini-sidebar .sidebar:hover .sidebar-menu ul li a .menu-arrow,
+            body.mini-sidebar.expand-menu .sidebar .sidebar-menu ul li a .menu-arrow {
+                display: block !important;
+            }
+
+            body.mini-sidebar:not(:hover) .header-left .logo {
+                display: none !important;
+            }
+            body.mini-sidebar:not(:hover) .header-left .logo-small {
+                display: block !important;
+            }
+            body.mini-sidebar:not(:hover) .header-left {
+                width: 80px !important;
+                justify-content: center !important;
+            }
+            body.mini-sidebar .page-wrapper {
+                margin-left: 80px !important;
+                transition: margin-left 0.2s ease !important;
+            }
+        }
+        
+        /* Active Sidebar Link Style */
+        .sidebar .sidebar-menu > ul > li.active > a {
+            background-color: #1b2850 !important;
+            color: #ffffff !important;
+            border-radius: 8px;
+        }
+        .sidebar .sidebar-menu > ul > li.active > a img {
+            filter: brightness(0) invert(1);
+        }
+
+        /* ═══════════════════════════════════════════════════
+           TRUE PITCH BLACK DARK MODE SYSTEM (#000000)
+           ═══════════════════════════════════════════════════ */
+        body[data-theme="dark"],
+        body.dark-mode {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+        }
+        body[data-theme="dark"] .main-wrapper,
+        body[data-theme="dark"] .page-wrapper {
+            background-color: #000000 !important;
+        }
+        body[data-theme="dark"] .header {
+            background-color: #0d0d0d !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+        }
+        body[data-theme="dark"] .header .header-left {
+            background-color: #0d0d0d !important;
+            border-right: 1px solid rgba(255, 255, 255, 0.12) !important;
+            color: #ffffff !important;
+        }
+        body[data-theme="dark"] .sidebar {
+            background-color: #09090b !important;
+            border-right: 1px solid rgba(255, 255, 255, 0.12) !important;
+        }
+        body[data-theme="dark"] .sidebar .slimScrollDiv {
+            background-color: #09090b !important;
+        }
+        body[data-theme="dark"] .sidebar-menu ul li a span,
+        body[data-theme="dark"] .sidebar-menu ul li.menu-title span {
+            color: #cbd5e1 !important;
+        }
+        body[data-theme="dark"] .sidebar-menu ul li.submenu ul {
+            background-color: #121214 !important;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        body[data-theme="dark"] .sidebar-menu ul li.submenu ul li a {
+            color: #cbd5e1 !important;
+        }
+        body[data-theme="dark"] .sidebar-menu ul li.submenu ul li a:hover {
+            color: #38bdf8 !important;
+        }
+        body[data-theme="dark"] .sidebar .sidebar-menu > ul > li.active > a {
+            background-color: #18181b !important;
+            color: #38bdf8 !important;
+            border-left: 3px solid #38bdf8;
+        }
+
+        /* Pure Black Cards & Elevated Panels */
+        body[data-theme="dark"] .card,
+        body[data-theme="dark"] .dash-widget,
+        body[data-theme="dark"] .dash-count {
+            background-color: #121214 !important;
+            border: 1px solid rgba(255, 255, 255, 0.12) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6) !important;
+        }
+        body[data-theme="dark"] .dash-widgetcontent h5,
+        body[data-theme="dark"] .dash-counts h4,
+        body[data-theme="dark"] .card-title,
+        body[data-theme="dark"] h1, body[data-theme="dark"] h2, body[data-theme="dark"] h3, 
+        body[data-theme="dark"] h4, body[data-theme="dark"] h5, body[data-theme="dark"] h6 {
+            color: #ffffff !important;
+        }
+        body[data-theme="dark"] .dash-widgetcontent h6,
+        body[data-theme="dark"] .dash-counts h5,
+        body[data-theme="dark"] .card-header span,
+        body[data-theme="dark"] p {
+            color: #cbd5e1 !important;
+        }
+
+        /* High Contrast Chart Text & Axis Labels */
+        body[data-theme="dark"] .apexcharts-text tspan,
+        body[data-theme="dark"] .apexcharts-xaxis-label,
+        body[data-theme="dark"] .apexcharts-yaxis-label,
+        body[data-theme="dark"] .apexcharts-xaxis text,
+        body[data-theme="dark"] .apexcharts-yaxis text,
+        body[data-theme="dark"] .apexcharts-legend-text,
+        body[data-theme="dark"] text.apexcharts-yaxis-title-text,
+        body[data-theme="dark"] text.apexcharts-xaxis-title-text {
+            fill: #e2e8f0 !important;
+            color: #e2e8f0 !important;
+            font-weight: 600 !important;
+        }
+        body[data-theme="dark"] .apexcharts-gridline,
+        body[data-theme="dark"] .apexcharts-xaxis-tick,
+        body[data-theme="dark"] .apexcharts-ycrosshairs,
+        body[data-theme="dark"] .apexcharts-xcrosshairs,
+        body[data-theme="dark"] line {
+            stroke: rgba(255, 255, 255, 0.15) !important;
+        }
+
+        /* Pitch Black Table & High Contrast */
+        body[data-theme="dark"] .table {
+            color: #ffffff !important;
+        }
+        body[data-theme="dark"] .table thead th {
+            background-color: #09090b !important;
+            color: #cbd5e1 !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+            font-weight: 600;
+        }
+        body[data-theme="dark"] .table tbody tr td {
+            color: #f1f5f9 !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+        }
+        body[data-theme="dark"] .table tbody tr td a {
+            color: #38bdf8 !important;
+        }
+        body[data-theme="dark"] .table tbody tr:hover {
+            background-color: rgba(255, 255, 255, 0.05) !important;
+        }
+
+        /* Pitch Black Form Controls & Input Fields */
+        body[data-theme="dark"] .form-group label {
+            color: #cbd5e1 !important;
+            font-weight: 500;
+        }
+        body[data-theme="dark"] .form-group input,
+        body[data-theme="dark"] .form-control {
+            background-color: #18181b !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            color: #ffffff !important;
+        }
+        body[data-theme="dark"] .form-group input::placeholder,
+        body[data-theme="dark"] .form-control::placeholder {
+            color: #64748b !important;
+        }
+
+        /* Pitch Black Notifications Dropdown */
+        body[data-theme="dark"] .notifications {
+            background-color: #121214 !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9) !important;
+        }
+        body[data-theme="dark"] .topnav-dropdown-header {
+            background-color: #18181b !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        }
+        body[data-theme="dark"] .topnav-dropdown-header .notification-title {
+            color: #ffffff !important;
+            font-weight: 600;
+        }
+        body[data-theme="dark"] .noti-title,
+        body[data-theme="dark"] .noti-details {
+            color: #f1f5f9 !important;
+        }
+        body[data-theme="dark"] .notification-time,
+        body[data-theme="dark"] .noti-details span {
+            color: #94a3b8 !important;
+        }
+        body[data-theme="dark"] .topnav-dropdown-footer {
+            background-color: #18181b !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+        }
+        body[data-theme="dark"] .topnav-dropdown-footer a {
+            color: #38bdf8 !important;
+        }
+
+        /* Pitch Black Profile Headings & Set */
+        body[data-theme="dark"] .profile-set .profile-content .profile-contentname h2 {
+            color: #ffffff !important;
+        }
+        body[data-theme="dark"] .profile-set .profile-content .profile-contentname h4 {
+            color: #94a3b8 !important;
+        }
+
+        /* Pitch Black Dropdown & Popovers */
+        body[data-theme="dark"] .dropdown-menu {
+            background-color: #121214 !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
+        }
+        body[data-theme="dark"] .dropdown-menu .dropdown-item {
+            color: #f1f5f9 !important;
+        }
+        body[data-theme="dark"] .dropdown-menu .dropdown-item:hover {
+            background-color: #18181b !important;
+            color: #38bdf8 !important;
+        }
+
+        /* ═══════════════════════════════════════════════════
+           MODERN COHESIVE CARD COLOR SYSTEM & GRADIENTS
+           ═══════════════════════════════════════════════════ */
+        .dash-count {
+            background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%) !important;
+            border-radius: 10px !important;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.25) !important;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .dash-count.das1 {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%) !important;
+            border-radius: 10px !important;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.25) !important;
+        }
+        .dash-count.das2 {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%) !important;
+            border-radius: 10px !important;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.25) !important;
+        }
+        .dash-count.das3 {
+            background: linear-gradient(135deg, #10b981 0%, #047857 100%) !important;
+            border-radius: 10px !important;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.25) !important;
+        }
+        .dash-count:hover {
+            transform: translateY(-2px);
+        }
+        .dash-count .dash-counts h4,
+        .dash-count .dash-counts h5 {
+            color: #ffffff !important;
+        }
+        .dash-count .dash-imgs {
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+
+        /* Sidebar / Header-Left Logo Display Toggle Rules */
+        body:not(.mini-sidebar) .header-left .logo-small {
+            display: none !important;
+        }
+        body.mini-sidebar .header-left .logo {
+            display: none !important;
+        }
+        body.mini-sidebar .header-left .logo-small {
+            display: flex !important;
+        }
+
+        /* Toggle Icon & Button Styling */
+        #dark_mode_toggle,
+        #mobile_dark_mode_toggle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        body:not([data-theme="dark"]) #dark_mode_toggle,
+        body:not([data-theme="dark"]) #mobile_dark_mode_toggle {
+            background-color: #f1f5f9 !important;
+            color: #0f172a !important;
+            border: 1px solid #e2e8f0;
+        }
+        body[data-theme="dark"] #dark_mode_toggle,
+        body[data-theme="dark"] #mobile_dark_mode_toggle {
+            background-color: #18181b !important;
+            color: #fbbf24 !important;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+        }
+
+        .header-action-btn {
+            width: 36px !important;
+            height: 36px !important;
+            border-radius: 50% !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            transition: all 0.2s ease !important;
+        }
+        body:not([data-theme="dark"]) .header-action-btn {
+            background-color: #f1f5f9 !important;
+            color: #0f172a !important;
+            border: 1px solid #e2e8f0 !important;
+        }
+        body[data-theme="dark"] .header-action-btn {
+            background-color: #18181b !important;
+            color: #fbbf24 !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        }
+        body[data-theme="dark"] .header-action-btn .fa-bell,
+        body[data-theme="dark"] .header-action-btn .fa-user {
+            color: #e2e8f0 !important;
+        }
+
+        /* ═══════════════════════════════════════════════════
+           BULLETPROOF CUSTOM MOBILE DRAWER SYSTEM (< 992px)
+           ═══════════════════════════════════════════════════ */
+        @media (max-width: 991.98px) {
+            .page-wrapper {
+                margin-left: 0 !important;
+                padding-top: 60px !important;
+            }
+            .header {
+                height: 60px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                padding: 0 12px !important;
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                z-index: 1040 !important;
+            }
+            #custom_mobile_toggle {
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+            }
+            .mobile-header-center {
+                position: absolute !important;
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+            }
+            .brand-logo-text-small {
+                font-size: 13px !important;
+                font-weight: 700 !important;
+                letter-spacing: 1.5px !important;
+                color: #38bdf8 !important;
+                background: rgba(56, 189, 248, 0.12);
+                padding: 3px 10px;
+                border-radius: 6px;
+                border: 1px solid rgba(56, 189, 248, 0.25);
+                text-transform: uppercase;
+            }
+            body:not([data-theme="dark"]) .brand-logo-text-small {
+                color: #0284c7 !important;
+                background: rgba(2, 132, 199, 0.08);
+                border: 1px solid rgba(2, 132, 199, 0.2);
+            }
+            
+            /* Custom Mobile Sidebar Drawer (Snug 230px Width & Locked Top Header) */
+            .sidebar {
+                position: fixed !important;
+                top: 0 !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                width: 230px !important;
+                height: 100vh !important;
+                z-index: 1055 !important;
+                margin-left: 0 !important;
+                transform: translateX(-230px) !important;
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                display: flex !important;
+                flex-direction: column !important;
+                overflow: hidden !important;
+            }
+            body.custom-drawer-open .sidebar {
+                transform: translateX(0) !important;
+                box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5) !important;
+            }
+            #mobile_sidebar_header {
+                height: 56px !important;
+                flex-shrink: 0 !important;
+            }
+            .sidebar .sidebar-inner {
+                flex-grow: 1 !important;
+                height: calc(100vh - 56px) !important;
+                overflow-y: auto !important;
+            }
+            body[data-theme="dark"] .sidebar-menu ul li a span {
+                color: #cbd5e1 !important;
+            }
+
+            /* Custom Overlay Backdrop */
+            #custom_mobile_overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background-color: rgba(0, 0, 0, 0.6);
+                z-index: 1050;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s ease;
+            }
+            body.custom-drawer-open #custom_mobile_overlay {
+                opacity: 1;
+                pointer-events: auto;
+            }
+            body[data-theme="dark"] #custom_mobile_overlay {
+                background-color: rgba(0, 0, 0, 0.85);
+            }
+        }
+        @media (max-width: 767.98px) {
+            .content {
+                padding: 15px !important;
+            }
+            .dash-widget {
+                margin-bottom: 15px !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Custom Mobile Backdrop Overlay -->
+    <div id="custom_mobile_overlay" class="d-lg-none"></div>
+
+    <div class="main-wrapper">
+        <div class="header">
+            <!-- Desktop Header Left (Hidden on Mobile, Displayed >= 992px) -->
+            <div class="header-left active d-none d-lg-flex">
+                <a href="{{ route('home') }}" class="logo text-decoration-none d-flex align-items-center">
+                    <span class="fw-bold fs-5 brand-logo-text text-primary"><i class="fas fa-clinic-medical me-1"></i> BACSAY HEALTH</span>
+                </a>
+                <a href="{{ route('home') }}" class="logo-small text-decoration-none d-flex align-items-center">
+                    <span class="fw-bold fs-4 brand-logo-text text-primary">B</span>
+                </a>
+                <a id="toggle_btn" href="javascript:void(0);">
+                </a>
+            </div>
+
+            <!-- Custom Mobile Left: Hamburger Toggle Button -->
+            <button type="button" id="custom_mobile_toggle" class="btn btn-link text-body p-0 d-lg-none text-decoration-none border-0" aria-label="Open Menu">
+                <i class="fas fa-bars fs-4"></i>
+            </button>
+
+            <!-- Mobile Center: Sleek Small BACSAY HEALTH Badge -->
+            <div class="mobile-header-center d-lg-none">
+                <a href="{{ route('home') }}" class="text-decoration-none">
+                    <span class="brand-logo-text-small"><i class="fas fa-clinic-medical me-1"></i> BACSAY HEALTH</span>
+                </a>
+            </div>
+
+            <!-- Desktop User Menu (Hidden on Mobile, Displayed >= 992px) -->
+            <ul class="nav user-menu d-none d-lg-flex">
+                <!-- Dark Mode Toggle Button -->
+                <li class="nav-item me-3 d-flex align-items-center">
+                    <a href="javascript:void(0);" id="dark_mode_toggle" class="nav-link p-0 d-flex align-items-center justify-content-center" title="Toggle Theme">
+                        <i id="theme_icon" class="fas fa-moon" style="font-size: 18px;"></i>
+                    </a>
+                </li>
+
+                <!-- Flag Nav -->
+                <li class="nav-item dropdown has-arrow flag-nav">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="javascript:void(0);" role="button" title="Philippines (PHP)">
+                        <img src="{{ asset('assets/img/flags/ph.svg') }}" alt="PH Flag" height="20" style="border-radius: 2px;">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a href="javascript:void(0);" class="dropdown-item active d-flex align-items-center">
+                            <img src="{{ asset('assets/img/flags/ph.svg') }}" alt="" height="16" class="me-2" style="border-radius: 2px;"> Philippines (₱)
+                        </a>
+                    </div>
+                </li>
+
+                <!-- Notification Bell -->
+                <li class="nav-item dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+                        <img src="{{ asset('assets/img/icons/notification-bing.svg') }}" alt="img">
+                        <span class="badge rounded-pill">4</span>
+                    </a>
+                    <div class="dropdown-menu notifications">
+                        <div class="topnav-dropdown-header">
+                            <span class="notification-title">Notifications</span>
+                            <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+                        </div>
+                        <div class="noti-content">
+                            <ul class="notification-list">
+                                <li class="notification-message">
+                                    <a href="javascript:void(0);">
+                                        <div class="media d-flex">
+                                            <span class="avatar flex-shrink-0">
+                                                <img alt="" src="{{ asset('assets/img/kbot_logo.jpg') }}">
+                                            </span>
+                                            <div class="media-body flex-grow-1">
+                                                <p class="noti-details">
+                                                    <span class="noti-title">KBOT System</span> 
+                                                    Welcome to the clean KBOT Dashboard!
+                                                </p>
+                                                <p class="noti-time"><span class="notification-time">Just now</span></p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="topnav-dropdown-footer">
+                            <a href="javascript:void(0);">View all Notifications</a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- User Profile Dropdown -->
+                <li class="nav-item dropdown has-arrow main-drop">
+                    <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
+                        <span class="user-img">
+                            <img src="{{ asset('assets/img/kbot_logo.jpg') }}" alt="KBOT User" style="border-radius: 50%;">
+                            <span class="status online"></span>
+                        </span>
+                    </a>
+                    <div class="dropdown-menu menu-drop-user">
+                        <div class="profilename">
+                            <div class="profileset">
+                                <span class="user-img"><img src="{{ asset('assets/img/kbot_logo.jpg') }}" alt="KBOT User" style="border-radius: 50%;">
+                                    <span class="status online"></span></span>
+                                <div class="profilesets">
+                                    <h6>{{ Auth::user()->name ?? 'KBOT Admin' }}</h6>
+                                    <h5>{{ Auth::user()->role_name ?? 'Admin' }}</h5>
+                                </div>
+                            </div>
+                            <hr class="m-0">
+                            <a class="dropdown-item" href="{{ route('profile') }}">
+                                <i class="me-2" data-feather="user"></i>
+                                My Profile
+                            </a>
+                            <a class="dropdown-item" href="{{ route('settings') }}">
+                                <i class="me-2" data-feather="settings"></i>Settings</a>
+                            <hr class="m-0">
+                            <a class="dropdown-item logout pb-0" href="{{ route('logout') }}">
+                                <img src="{{ asset('assets/img/icons/log-out.svg') }}" class="me-2" alt="img">Logout
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <!-- Mobile Right Actions: Theme Toggle, Notifications, Profile Button (Same Size, NO 3-Dots!) -->
+            <div class="d-flex align-items-center gap-2 d-lg-none me-1" style="height: 60px;">
+                <!-- Mobile Dark Mode Toggle Button -->
+                <a href="javascript:void(0);" id="mobile_dark_mode_toggle" class="header-action-btn text-decoration-none" title="Toggle Theme">
+                    <i id="mobile_theme_icon" class="fas fa-moon fs-6"></i>
+                </a>
+
+                <!-- Mobile Notification Bell Button -->
+                <div class="dropdown">
+                    <a href="javascript:void(0);" class="header-action-btn position-relative text-decoration-none" data-bs-toggle="dropdown" title="Notifications">
+                        <i class="fas fa-bell fs-6"></i>
+                        <span class="badge rounded-pill bg-danger position-absolute" style="top: -2px; right: -2px; font-size: 8px; padding: 2px 4px;">4</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end notifications p-0">
+                        <div class="topnav-dropdown-header p-3 border-bottom">
+                            <span class="notification-title fw-bold">Notifications</span>
+                        </div>
+                        <div class="noti-content p-2">
+                            <ul class="notification-list list-unstyled mb-0">
+                                <li class="notification-message p-2 border-bottom">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="{{ asset('assets/img/kbot_logo.jpg') }}" alt="KBOT" class="rounded-circle" style="width: 30px; height: 30px;">
+                                        <div>
+                                            <span class="fw-semibold fs-7 d-block">KBOT System</span>
+                                            <span class="text-muted fs-8">Welcome to KBOT Mobile Dashboard!</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile User Profile Menu Button (Replaces 3-dots!) -->
+                <div class="dropdown">
+                    <a href="javascript:void(0);" class="header-action-btn text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false" title="User Profile">
+                        <i class="fas fa-user fs-6"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <a class="dropdown-item" href="{{ route('profile') }}"><i class="fas fa-user-circle me-2"></i>My Profile</a>
+                        <a class="dropdown-item" href="{{ route('settings') }}"><i class="fas fa-cog me-2"></i>Settings</a>
+                        <a class="dropdown-item text-danger" href="{{ route('logout') }}"><i class="fas fa-sign-out-alt me-2"></i>Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @include('sidebar.sidebar')
+        @yield('content')
+    </div>
+
+    <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('assets/js/feather.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.slimscroll.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/js/moment.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/apexchart/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/apexchart/chart-data.js') }}?v={{ time() }}"></script>
+    <script src="{{ asset('assets/js/script.js') }}?v={{ time() }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // SweetAlert2 Toast Helper for Session Notifications
+            @if (session('success'))
+                const isDarkSuccess = document.body.getAttribute('data-theme') === 'dark';
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: "{{ session('success') }}",
+                    timer: 3000,
+                    showConfirmButton: false,
+                    background: isDarkSuccess ? '#121214' : '#ffffff',
+                    color: isDarkSuccess ? '#f8fafc' : '#0f172a',
+                    iconColor: '#10b981'
+                });
+            @endif
+
+            @if (session('error'))
+                const isDarkError = document.body.getAttribute('data-theme') === 'dark';
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops!',
+                    text: "{{ session('error') }}",
+                    timer: 3500,
+                    showConfirmButton: false,
+                    background: isDarkError ? '#121214' : '#ffffff',
+                    color: isDarkError ? '#f8fafc' : '#0f172a',
+                    iconColor: '#ef4444'
+                });
+            @endif
+
+            // Global Confirmation Dialog Helper
+            window.confirmAction = function(options, onConfirm) {
+                const isDark = document.body.getAttribute('data-theme') === 'dark';
+                Swal.fire({
+                    title: options.title || 'Are you sure?',
+                    text: options.text || 'This action cannot be undone!',
+                    icon: options.icon || 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: options.confirmButtonColor || '#38bdf8',
+                    cancelButtonColor: isDark ? '#27272a' : '#94a3b8',
+                    confirmButtonText: options.confirmButtonText || 'Yes, proceed!',
+                    cancelButtonText: options.cancelButtonText || 'Cancel',
+                    background: isDark ? '#121214' : '#ffffff',
+                    color: isDark ? '#f8fafc' : '#0f172a',
+                }).then((result) => {
+                    if (result.isConfirmed && typeof onConfirm === 'function') {
+                        onConfirm();
+                    }
+                });
+            };
+            const toggleBtn = document.getElementById('dark_mode_toggle');
+            const mobileToggleBtn = document.getElementById('mobile_dark_mode_toggle');
+            const themeIcon = document.getElementById('theme_icon');
+            const mobileThemeIcon = document.getElementById('mobile_theme_icon');
+            const currentTheme = localStorage.getItem('theme');
+
+            function applyTheme(theme) {
+                if (theme === 'dark') {
+                    document.body.setAttribute('data-theme', 'dark');
+                    document.body.classList.add('dark-mode');
+                    if (themeIcon) themeIcon.className = 'fas fa-sun';
+                    if (mobileThemeIcon) mobileThemeIcon.className = 'fas fa-sun';
+                } else {
+                    document.body.setAttribute('data-theme', 'light');
+                    document.body.classList.remove('dark-mode');
+                    if (themeIcon) themeIcon.className = 'fas fa-moon';
+                    if (mobileThemeIcon) mobileThemeIcon.className = 'fas fa-moon';
+                }
+            }
+
+            if (currentTheme) {
+                applyTheme(currentTheme);
+            }
+
+            function toggleTheme() {
+                let activeTheme = document.body.getAttribute('data-theme');
+                let nextTheme = activeTheme === 'dark' ? 'light' : 'dark';
+                localStorage.setItem('theme', nextTheme);
+                applyTheme(nextTheme);
+            }
+
+            if (toggleBtn) toggleBtn.addEventListener('click', toggleTheme);
+            if (mobileToggleBtn) mobileToggleBtn.addEventListener('click', toggleTheme);
+
+            // Custom Mobile Drawer Controller
+            const customMobileToggle = document.getElementById('custom_mobile_toggle');
+            const customMobileOverlay = document.getElementById('custom_mobile_overlay');
+
+            function openCustomDrawer() {
+                document.body.classList.add('custom-drawer-open');
+            }
+
+            function closeCustomDrawer() {
+                document.body.classList.remove('custom-drawer-open');
+            }
+
+            if (customMobileToggle) customMobileToggle.addEventListener('click', openCustomDrawer);
+            if (customMobileOverlay) customMobileOverlay.addEventListener('click', closeCustomDrawer);
+
+            $(document).on('click', '#custom_mobile_close_btn', function() {
+                closeCustomDrawer();
+            });
+        });
+    </script>
+    @yield('script')
+    
+</body>
+</html>

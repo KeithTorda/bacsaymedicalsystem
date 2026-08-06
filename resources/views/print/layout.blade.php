@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@yield('title', 'Print — Barangay Bacsay Health Center')</title>
+    <style>
+        /* ─── A4 Print Reset ─── */
+        @page {
+            size: A4;
+            margin: 12mm 15mm;
+        }
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 11pt;
+            color: #1a1a1a;
+            background: #fff;
+            line-height: 1.5;
+        }
+
+        /* ─── Official Header Block ─── */
+        .print-header {
+            text-align: center;
+            border-bottom: 2px solid #1a1a1a;
+            padding-bottom: 10px;
+            margin-bottom: 18px;
+        }
+        .print-header .gov-line {
+            font-size: 9pt;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #555;
+        }
+        .print-header .facility-name {
+            font-size: 16pt;
+            font-weight: 700;
+            margin: 4px 0 2px;
+        }
+        .print-header .facility-sub {
+            font-size: 10pt;
+            color: #444;
+        }
+
+        /* ─── Document Title ─── */
+        .doc-title {
+            text-align: center;
+            font-size: 13pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            border: 1px solid #aaa;
+            padding: 6px 0;
+            background: #f5f5f5;
+        }
+
+        /* ─── Info Grid ─── */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 24px;
+            margin-bottom: 16px;
+        }
+        .info-grid .item {
+            display: flex;
+            gap: 8px;
+        }
+        .info-grid .lbl {
+            font-weight: 600;
+            min-width: 130px;
+            color: #333;
+        }
+        .info-grid .val {
+            border-bottom: 1px dotted #999;
+            flex: 1;
+            padding-bottom: 1px;
+        }
+
+        /* ─── Tables ─── */
+        table.print-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 16px;
+            font-size: 10pt;
+        }
+        table.print-table th,
+        table.print-table td {
+            border: 1px solid #888;
+            padding: 5px 8px;
+            text-align: left;
+        }
+        table.print-table th {
+            background: #e9e9e9;
+            font-weight: 600;
+            font-size: 9pt;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ─── Section Title ─── */
+        .section-title {
+            font-size: 11pt;
+            font-weight: 700;
+            margin: 14px 0 8px;
+            padding: 4px 8px;
+            background: #eee;
+            border-left: 3px solid #333;
+        }
+
+        /* ─── Signature Line ─── */
+        .sig-block {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .sig-block .sig-col {
+            text-align: center;
+            width: 40%;
+        }
+        .sig-col .sig-line {
+            border-top: 1px solid #333;
+            margin-top: 40px;
+            padding-top: 4px;
+            font-weight: 600;
+        }
+        .sig-col .sig-sub {
+            font-size: 9pt;
+            color: #555;
+        }
+
+        /* ─── Footer ─── */
+        .print-footer {
+            text-align: center;
+            font-size: 8pt;
+            color: #777;
+            border-top: 1px solid #ccc;
+            padding-top: 8px;
+            margin-top: 24px;
+        }
+
+        /* ─── Screen-only helpers ─── */
+        .no-print {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .no-print button {
+            padding: 10px 28px;
+            font-size: 12pt;
+            cursor: pointer;
+            background: #0284c7;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+        }
+
+        @media print {
+            .no-print { display: none !important; }
+            body { background: #fff; }
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print">
+        <button onclick="window.print();">🖨️ Print this Document</button>
+    </div>
+
+    <!-- Official Barangay Health Center Header -->
+    <div class="print-header">
+        <div class="gov-line">Republic of the Philippines · Province of Ilocos Sur · Municipality of San Esteban</div>
+        <div class="facility-name">Barangay Bacsay Health Center</div>
+        <div class="facility-sub">Brgy. Bacsay, San Esteban, Ilocos Sur · Contact: (077) 000-0000</div>
+    </div>
+
+    @yield('print-content')
+
+    <div class="print-footer">
+        This document was generated by the Barangay Bacsay Health Center Medical Record Management System.
+        Printed on {{ date('F d, Y h:i A') }}.
+    </div>
+</body>
+</html>
