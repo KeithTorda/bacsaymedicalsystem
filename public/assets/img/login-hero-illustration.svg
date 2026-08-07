@@ -1,79 +1,91 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="100%" height="100%">
   <defs>
     <linearGradient id="bgGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ffedd5" />
-      <stop offset="100%" stop-color="#fed7aa" />
+      <stop offset="0%" stop-color="#fff7ed" />
+      <stop offset="100%" stop-color="#ffedd5" />
     </linearGradient>
 
-    <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f97316" />
-      <stop offset="100%" stop-color="#ea580c" />
+    <linearGradient id="folderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0369a1" />
     </linearGradient>
 
-    <linearGradient id="folderGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff" />
-      <stop offset="100%" stop-color="#fff7ed" />
-    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#ea580c" flood-opacity="0.12" />
+    </filter>
 
-    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#ea580c" flood-opacity="0.15" />
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.06" />
     </filter>
   </defs>
 
-  <!-- Background Decorative Circles & Waves -->
-  <circle cx="300" cy="300" r="260" fill="url(#bgGlow)" opacity="0.5" />
-  <circle cx="300" cy="300" r="190" fill="#fff7ed" opacity="0.8" />
+  <!-- Background Soft Radial Rings -->
+  <circle cx="300" cy="300" r="260" fill="url(#bgGlow)" />
+  <circle cx="300" cy="300" r="190" fill="#ffffff" opacity="0.6" />
 
-  <!-- Floating Checkmark Badges -->
+  <!-- Central Prominent Logo & Brand Card -->
   <g filter="url(#softShadow)">
-    <circle cx="150" cy="140" r="24" fill="#ea580c" />
-    <path d="M 140 140 L 147 147 L 161 133" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+    <rect x="90" y="200" width="420" height="180" rx="24" fill="#ffffff" stroke="#fed7aa" stroke-width="3" />
 
-    <circle cx="450" cy="180" r="20" fill="#ea580c" />
-    <path d="M 442 180 L 447 185 L 458 174" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+    <!-- Icon: Medical Folder + Cross + ECG Line -->
+    <g transform="translate(125, 235)">
+      <!-- Folder Back Tab -->
+      <path d="M 45 20 L 65 20 C 70 20 74 24 78 30 L 85 38 L 25 38 Z" fill="#0369a1" opacity="0.85" />
+      
+      <!-- Outer Folder Stroke & Body -->
+      <path d="M 25 38 L 88 38 C 96 38 102 44 99 55 L 90 92 C 87 101 80 106 70 106 L 25 106 C 20 106 17 103 17 98 L 17 46 C 17 41 20 38 25 38 Z" 
+            fill="none" stroke="#0c4a6e" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
 
-    <circle cx="130" cy="390" r="22" fill="#ea580c" />
-    <path d="M 122 390 L 127 395 L 139 383" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+      <!-- Medical Cross -->
+      <path d="M 20 63 L 30 63 L 30 50 C 30 48 32 46 34 46 L 44 46 C 46 46 48 48 48 50 L 48 63 L 58 63 C 60 63 62 65 62 67 L 62 77 C 62 79 60 81 58 81 L 48 81 L 48 94 C 48 96 46 98 44 98 L 34 98 C 32 98 30 96 30 94 L 30 81 L 20 81 C 18 81 16 79 16 77 L 16 67 C 16 65 18 63 20 63 Z" 
+            fill="url(#folderGrad)"/>
+
+      <!-- ECG Line -->
+      <path d="M 16 72 L 48 72 L 53 64 L 58 82 L 64 45 L 70 95 L 75 75 L 80 82 L 85 72 L 95 72" 
+            fill="none" stroke="#ea580c" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <!-- Prominent Logo Text (Bacsay in Black, MedSys in Orange) -->
+    <text x="240" y="305" font-family="'Segoe UI', system-ui, -apple-system, sans-serif" font-size="46" font-weight="900" letter-spacing="-1">
+      <tspan fill="#0f172a">Bacsay</tspan><tspan fill="#ea580c">MedSys</tspan>
+    </text>
+
+    <!-- Subtitle Label -->
+    <text x="242" y="335" font-family="'Segoe UI', system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#64748b" letter-spacing="0.5">
+      BARANGAY BACSAY MEDICAL RECORD SYSTEM
+    </text>
   </g>
 
-  <!-- Main Medical Folder Clipboard Container -->
-  <g filter="url(#softShadow)">
-    <!-- Clipboard Frame -->
-    <rect x="180" y="160" width="240" height="300" rx="20" fill="url(#folderGrad)" stroke="#fdba74" stroke-width="4" />
-    <rect x="250" y="145" width="100" height="30" rx="8" fill="#ea580c" />
-    <circle cx="300" cy="160" r="6" fill="#ffffff" />
+  <!-- Floating Feature Label Badges -->
+  <!-- Top Left Badge: Patient Records -->
+  <g filter="url(#cardShadow)">
+    <rect x="70" y="115" width="200" height="54" rx="27" fill="#ffffff" stroke="#ffedd5" stroke-width="2"/>
+    <circle cx="97" cy="142" r="16" fill="#ea580c" />
+    <path d="M 91 142 L 95 146 L 104 137" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+    <text x="123" y="147" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#0f172a">Patient Records</text>
+  </g>
 
-    <!-- Medical Record Header Line -->
-    <rect x="210" y="210" width="180" height="12" rx="6" fill="#ea580c" />
-    
-    <!-- Checklist Rows with Orange Checkboxes -->
-    <rect x="210" y="245" width="22" height="22" rx="6" fill="#ffedd5" stroke="#f97316" stroke-width="2" />
-    <path d="M 215 256 L 219 260 L 227 251" fill="none" stroke="#ea580c" stroke-width="3" stroke-linecap="round" />
-    <rect x="245" y="250" width="145" height="10" rx="5" fill="#e2e8f0" />
+  <!-- Top Right Badge: Consultations -->
+  <g filter="url(#cardShadow)">
+    <rect x="335" y="115" width="200" height="54" rx="27" fill="#ffffff" stroke="#ffedd5" stroke-width="2"/>
+    <circle cx="362" cy="142" r="16" fill="#ea580c" />
+    <path d="M 356 142 L 360 146 L 369 137" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+    <text x="388" y="147" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#0f172a">Consultations</text>
+  </g>
 
-    <rect x="210" y="285" width="22" height="22" rx="6" fill="#ffedd5" stroke="#f97316" stroke-width="2" />
-    <path d="M 215 296 L 219 300 L 227 291" fill="none" stroke="#ea580c" stroke-width="3" stroke-linecap="round" />
-    <rect x="245" y="290" width="125" height="10" rx="5" fill="#e2e8f0" />
+  <!-- Bottom Left Badge: Digital Prescriptions -->
+  <g filter="url(#cardShadow)">
+    <rect x="70" y="420" width="215" height="54" rx="27" fill="#ffffff" stroke="#ffedd5" stroke-width="2"/>
+    <circle cx="97" cy="447" r="16" fill="#ea580c" />
+    <path d="M 91 447 L 95 451 L 104 442" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+    <text x="123" y="452" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#0f172a">Digital Rx Forms</text>
+  </g>
 
-    <rect x="210" y="325" width="22" height="22" rx="6" fill="#ffedd5" stroke="#f97316" stroke-width="2" />
-    <path d="M 215 336 L 219 340 L 227 331" fill="none" stroke="#ea580c" stroke-width="3" stroke-linecap="round" />
-    <rect x="245" y="330" width="135" height="10" rx="5" fill="#e2e8f0" />
-
-    <!-- ECG Heartbeat Line Banner -->
-    <path d="M 190 385 
-             L 240 385 
-             L 255 365 
-             L 270 410 
-             L 290 330 
-             L 310 430 
-             L 325 375 
-             L 340 395 
-             L 355 385 
-             L 410 385" 
-          fill="none" 
-          stroke="#ea580c" 
-          stroke-width="5" 
-          stroke-linecap="round" 
-          stroke-linejoin="round" />
+  <!-- Bottom Right Badge: Official Health Reports -->
+  <g filter="url(#cardShadow)">
+    <rect x="320" y="420" width="215" height="54" rx="27" fill="#ffffff" stroke="#ffedd5" stroke-width="2"/>
+    <circle cx="347" cy="447" r="16" fill="#ea580c" />
+    <path d="M 341 447 L 345 451 L 354 442" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+    <text x="373" y="452" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#0f172a">Health Reports</text>
   </g>
 </svg>
