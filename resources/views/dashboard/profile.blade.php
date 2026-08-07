@@ -18,7 +18,7 @@
                         <div class="profile-top">
                             <div class="profile-content">
                                 <div class="profile-contentimg">
-                                    <img src="{{ asset('assets/img/kbot_logo.jpg') }}" alt="KBOT User" id="blah" style="border-radius: 50%;">
+                                    <img src="{{ asset('assets/img/profiles/avatar-02.jpg') }}" alt="User Avatar" id="blah" style="border-radius: 50%;">
                                     <div class="profileupload">
                                         <input type="file" id="imgInp">
                                         <a href="javascript:void(0);">

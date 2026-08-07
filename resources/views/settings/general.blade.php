@@ -88,7 +88,7 @@
                     <div class="card mb-4 text-center p-3">
                         <div class="card-body">
                             <div class="mb-3">
-                                <img src="{{ asset('assets/img/kbot_logo.jpg') }}" alt="KBOT Logo" class="rounded-circle shadow-sm" style="width: 90px; height: 90px; object-fit: cover; border: 3px solid #38bdf8;">
+                                <img src="{{ asset('assets/img/profiles/avatar-02.jpg') }}" alt="Bacsay Logo" class="rounded-circle shadow-sm" style="width: 90px; height: 90px; object-fit: cover; border: 3px solid #38bdf8;">
                             </div>
                             <h5 class="fw-bold mb-1">KBOT System Logo</h5>
                             <p class="text-muted fs-7 mb-3">JPG or PNG format, max 2MB</p>

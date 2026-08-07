@@ -23,16 +23,35 @@
         /* Logo Aspect-Ratio & Proportions */
         .header .header-left .logo img,
         .header .header-left .logo-small img {
-            max-height: 38px !important;
+            max-height: 34px !important;
             width: auto !important;
             object-fit: contain !important;
-            border-radius: 50% !important;
         }
         .header-left .logo {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             font-weight: 700;
+            font-size: 15px;
+            color: #212b36;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 180px;
+        }
+        .brand-avatar-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+            box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3);
+        }
             font-size: 16px;
             color: #212b36;
         }
@@ -498,12 +517,13 @@
     <div class="main-wrapper">
         <div class="header">
             <!-- Desktop Header Left (Hidden on Mobile, Displayed >= 992px) -->
-            <div class="header-left active d-none d-lg-flex">
+            <div class="header-left active d-none d-lg-flex align-items-center">
                 <a href="{{ route('home') }}" class="logo text-decoration-none d-flex align-items-center">
-                    <span class="fw-bold fs-5 brand-logo-text text-primary"><i class="fas fa-clinic-medical me-1"></i> BACSAY HEALTH</span>
+                    <span class="brand-avatar-icon me-2"><i class="fas fa-heartpulse"></i></span>
+                    <span class="fw-bold fs-6 brand-logo-text text-dark">BACSAY <span class="text-primary">HEALTH</span></span>
                 </a>
-                <a href="{{ route('home') }}" class="logo-small text-decoration-none d-flex align-items-center">
-                    <span class="fw-bold fs-4 brand-logo-text text-primary">B</span>
+                <a href="{{ route('home') }}" class="logo-small text-decoration-none d-flex align-items-center justify-content-center">
+                    <span class="brand-avatar-icon"><i class="fas fa-heartpulse"></i></span>
                 </a>
                 <a id="toggle_btn" href="javascript:void(0);">
                 </a>
@@ -517,7 +537,9 @@
             <!-- Mobile Center: Sleek Small BACSAY HEALTH Badge -->
             <div class="mobile-header-center d-lg-none">
                 <a href="{{ route('home') }}" class="text-decoration-none">
-                    <span class="brand-logo-text-small"><i class="fas fa-clinic-medical me-1"></i> BACSAY HEALTH</span>
+                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1 rounded-pill fs-7 fw-bold">
+                        <i class="fas fa-heartpulse me-1"></i> BACSAY HEALTH
+                    </span>
                 </a>
             </div>
 
@@ -595,14 +617,14 @@
                 <li class="nav-item dropdown has-arrow main-drop">
                     <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
                         <span class="user-img">
-                            <img src="{{ asset('assets/img/kbot_logo.jpg') }}" alt="KBOT User" style="border-radius: 50%;">
+                            <img src="{{ asset('assets/img/profiles/avatar-02.jpg') }}" alt="KBOT User" style="border-radius: 50%;">
                             <span class="status online"></span>
                         </span>
                     </a>
                     <div class="dropdown-menu menu-drop-user">
                         <div class="profilename">
                             <div class="profileset">
-                                <span class="user-img"><img src="{{ asset('assets/img/kbot_logo.jpg') }}" alt="KBOT User" style="border-radius: 50%;">
+                                <span class="user-img"><img src="{{ asset('assets/img/profiles/avatar-02.jpg') }}" alt="KBOT User" style="border-radius: 50%;">
                                     <span class="status online"></span></span>
                                 <div class="profilesets">
                                     <h6>{{ Auth::user()->name ?? 'KBOT Admin' }}</h6>
@@ -646,7 +668,7 @@
                             <ul class="notification-list list-unstyled mb-0">
                                 <li class="notification-message p-2 border-bottom">
                                     <div class="d-flex align-items-center gap-2">
-                                        <img src="{{ asset('assets/img/kbot_logo.jpg') }}" alt="KBOT" class="rounded-circle" style="width: 30px; height: 30px;">
+                                        <img src="{{ asset('assets/img/profiles/avatar-02.jpg') }}" alt="KBOT" class="rounded-circle" style="width: 30px; height: 30px;">
                                         <div>
                                             <span class="fw-semibold fs-7 d-block">KBOT System</span>
                                             <span class="text-muted fs-8">Welcome to KBOT Mobile Dashboard!</span>
