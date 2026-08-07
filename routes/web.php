@@ -20,7 +20,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Auth::routes(['register' => false]);
+Auth::routes(['register' => false, 'logout' => false]);
 
 // Auth Controller Routes
 Route::group(['namespace' => 'App\Http\Controllers\Auth'], function () {
@@ -28,6 +28,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Auth'], function () {
         Route::get('/login', 'login')->name('login');
         Route::post('/login', 'authenticate');
         Route::get('/logout', 'logout')->name('logout');
+        Route::post('/logout', 'logout')->name('logout.post');
         Route::get('logout/page', 'logoutPage')->name('logout/page');
     });
 
@@ -37,12 +38,12 @@ Route::group(['namespace' => 'App\Http\Controllers\Auth'], function () {
 
     Route::controller(ForgotPasswordController::class)->group(function () {
         Route::get('forget-password', 'getEmail')->name('forget-password');
-        Route::post('forget-password', 'postEmail')->name('forget-password');    
+        Route::post('forget-password', 'postEmail')->name('forget-password.post');    
     });
 
     Route::controller(ResetPasswordController::class)->group(function () {
-        Route::get('reset-password/{token}', 'getPassword');
-        Route::post('reset-password', 'updatePassword');    
+        Route::get('reset-password/{token}', 'getPassword')->name('reset-password.token');
+        Route::post('reset-password', 'updatePassword')->name('reset-password.post');    
     });
 });
 
