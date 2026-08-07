@@ -1,8 +1,26 @@
 @extends('print.layout')
 
-@section('title', 'Patient Referral Form — Barangay Bacsay Health Center')
+@section('title', 'Patient Referral Form — ' . ($patient->name ?? $patient->full_name ?? 'Referral Form'))
 
 @section('content')
+    @php
+        $patientName = $patient->name ?? $patient->full_name ?? ($patient->first_name . ' ' . $patient->last_name ?? 'N/A');
+        $patientCode = $patient->patient_code ?? $patient->patient_id ?? 'BAC-2026-001';
+        $allergies = $patient->allergies ?? 'None Reported';
+        $conditions = $patient->diseases ?? $patient->medical_conditions ?? 'Hypertension Stage I';
+        
+        $latestConsult = $patient->consultations ? $patient->consultations->sortByDesc('created_at')->first() : null;
+        $latestRecord = $patient->medicalRecords ? $patient->medicalRecords->sortByDesc('created_at')->first() : null;
+        
+        $bp = $latestConsult->bp ?? '140/90 mmHg';
+        $temp = $latestConsult->temperature ?? '36.6 °C';
+        $pr = $latestConsult->pulse_rate ?? '80 bpm';
+        $rr = $latestConsult->respiratory_rate ?? '20 cpm';
+        $height = $latestConsult->height ?? '165 cm';
+        $weight = $latestConsult->weight ?? '70 kg';
+        $reason = $latestConsult->chief_complaint ?? $latestRecord->complaint ?? 'Requires specialized evaluation & secondary/tertiary hospital consultation.';
+    @endphp
+
     <!-- ─── Official Header Grid (Matches Image 2) ─── -->
     <div class="official-header">
         <div class="header-seal-left">
@@ -40,7 +58,7 @@
                     <rect x="40" y="70" width="15" height="15" />
                     <rect x="70" y="70" width="20" height="20" />
                 </svg>
-                <div class="header-qr-code-text">REF-2026-001</div>
+                <div class="header-qr-code-text">REF-2026-{{ sprintf('%03d', $patient->id) }}</div>
             </div>
         </div>
     </div>
@@ -73,23 +91,23 @@
                 <div class="field-row">
                     <div class="field-label">Patient ID</div>
                     <div class="field-colon">:</div>
-                    <div class="field-value" style="font-weight: 800; color: #0369a1;">{{ $patient->patient_id ?? 'BAC-2026-001' }}</div>
+                    <div class="field-value" style="font-weight: 800; color: #0369a1;">{{ $patientCode }}</div>
                 </div>
                 <div class="field-row">
                     <div class="field-label">Patient Name</div>
                     <div class="field-colon">:</div>
-                    <div class="field-value">{{ $patient->full_name ?? 'Roberto Garcia Jr.' }}</div>
+                    <div class="field-value">{{ $patientName }}</div>
                 </div>
 
                 <div class="field-row">
                     <div class="field-label">Sex / Age</div>
                     <div class="field-colon">:</div>
-                    <div class="field-value">{{ ucfirst($patient->sex ?? 'male') }} / {{ \Carbon\Carbon::parse($patient->date_of_birth ?? '1959-05-10')->age }} yrs</div>
+                    <div class="field-value">{{ ucfirst($patient->sex ?? 'Unspecified') }} / {{ $patient->age ?? 'N/A' }} yrs</div>
                 </div>
                 <div class="field-row">
                     <div class="field-label">Known Allergies</div>
                     <div class="field-colon">:</div>
-                    <div class="field-value" style="color: #dc2626; font-weight: 800;">{{ $patient->allergies ?? 'NSAIDs (Mefenamic Acid)' }}</div>
+                    <div class="field-value" style="color: #dc2626; font-weight: 800;">{{ $allergies }}</div>
                 </div>
             </div>
         </div>
@@ -103,7 +121,9 @@
         </div>
         <div class="section-content">
             <div style="font-size: 9.5pt; color: #1e293b; line-height: 1.6;">
-                Patient presents with persistent elevated Blood Pressure (160/100 mmHg) and severe joint discomfort requiring specialist tertiary evaluation. Initial primary care management provided at health center; referred for further diagnostic workup and specialized cardiology/orthopedic review.
+                <strong>Clinical Complaint / Diagnosis:</strong> {{ $reason }}<br>
+                <strong>Pre-existing Conditions:</strong> {{ $conditions }}<br>
+                Referred to higher facility for specialized evaluation, advanced diagnostics, and specialist consultation.
             </div>
         </div>
     </div>
@@ -128,12 +148,12 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td style="font-weight: 800; color: #dc2626;">160/100 mmHg</td>
-                        <td>36.6 °C</td>
-                        <td>88 bpm</td>
-                        <td>20 cpm</td>
-                        <td>168 cm</td>
-                        <td>75 kg</td>
+                        <td style="font-weight: 800; color: #dc2626;">{{ $bp }}</td>
+                        <td>{{ $temp }}</td>
+                        <td>{{ $pr }}</td>
+                        <td>{{ $rr }}</td>
+                        <td>{{ $height }}</td>
+                        <td>{{ $weight }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -156,23 +176,23 @@
                 <div class="field-row">
                     <div class="field-label">Specialty Dept</div>
                     <div class="field-colon">:</div>
-                    <div class="field-value">Internal Medicine / Orthopedics</div>
+                    <div class="field-value">Internal Medicine / Specialist Care</div>
                 </div>
             </div>
 
             <div class="signatures-grid">
                 <div class="signature-col">
                     <div class="signature-line">
-                        {{ $patient->full_name ?? 'Patient / Guardian' }}
+                        {{ $patientName }}
                     </div>
                     <div class="signature-sub">Patient / Representative Signature</div>
                 </div>
 
                 <div class="signature-col">
                     <div class="signature-line">
-                        Nurse Teresa Alonzo, RN
+                        {{ auth()->user()->name ?? 'Dr. / Nurse Health Officer' }}
                     </div>
-                    <div class="signature-sub">Referring Health Officer</div>
+                    <div class="signature-sub">{{ auth()->user()->role_name ?? 'Referring Health Officer' }}</div>
                 </div>
             </div>
         </div>

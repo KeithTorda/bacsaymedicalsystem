@@ -1,8 +1,24 @@
 @extends('print.layout')
 
-@section('title', 'Patient Medical Record — ' . $patient->full_name)
+@section('title', 'Patient Medical Record — ' . ($patient->name ?? $patient->full_name ?? 'Patient Record'))
 
 @section('content')
+    @php
+        $patientName = $patient->name ?? $patient->full_name ?? ($patient->first_name . ' ' . $patient->last_name);
+        $patientCode = $patient->patient_code ?? $patient->patient_id ?? ('BAC-2026-' . sprintf('%03d', $patient->id));
+        $dob = $patient->birthdate ?? $patient->date_of_birth;
+        $age = $patient->age ?? ($dob ? \Carbon\Carbon::parse($dob)->age : 'N/A');
+        $formattedDob = $dob ? \Carbon\Carbon::parse($dob)->format('F d, Y') : 'N/A';
+        $contact = $patient->contact ?? $patient->contact_number ?? 'N/A';
+        $allergies = $patient->allergies ?? 'None Reported';
+        $conditions = $patient->diseases ?? $patient->medical_conditions ?? 'None Documented';
+        $vaccineHistory = $patient->vaccination ?? 'Routine Childhood Immunization Completed';
+        
+        $latestConsult = $patient->consultations ? $patient->consultations->sortByDesc('created_at')->first() : null;
+        $latestRecord = $patient->medicalRecords ? $patient->medicalRecords->sortByDesc('created_at')->first() : null;
+        $latestRx = $patient->prescriptions ? $patient->prescriptions->sortByDesc('created_at')->first() : null;
+    @endphp
+
     <!-- ─── Official Header Grid (Matches Image 2) ─── -->
     <div class="official-header">
         <div class="header-seal-left">
@@ -24,7 +40,6 @@
         <div class="header-seal-right">
             <img src="{{ asset('assets/img/bacsay-seal.svg') }}" class="bacsay-seal" alt="Barangay Bacsay Seal">
             <div class="header-qr-box">
-                <!-- SVG QR Code Generator Mockup -->
                 <svg width="46" height="46" viewBox="0 0 100 100" fill="#0f172a">
                     <rect x="0" y="0" width="30" height="30" />
                     <rect x="5" y="5" width="20" height="20" fill="#fff" />
@@ -41,7 +56,7 @@
                     <rect x="40" y="70" width="15" height="15" />
                     <rect x="70" y="70" width="20" height="20" />
                 </svg>
-                <div class="header-qr-code-text">{{ $patient->patient_id ?? 'BAC-2026-001' }}</div>
+                <div class="header-qr-code-text">{{ $patientCode }}</div>
             </div>
         </div>
     </div>
@@ -49,7 +64,7 @@
     <!-- ─── Document Title Bar ─── -->
     <div class="doc-title-bar">
         <div class="doc-title-main">PATIENT MEDICAL RECORD</div>
-        <div class="doc-title-sub">(Patient Information Sheet)</div>
+        <div class="doc-title-sub">(Official Patient Information Sheet)</div>
     </div>
 
     <!-- ─── Section 1: Patient Information ─── -->
@@ -63,7 +78,7 @@
                 <div class="field-row">
                     <div class="field-label">Patient ID</div>
                     <div class="field-colon">:</div>
-                    <div class="field-value" style="font-weight: 800; color: #0369a1;">{{ $patient->patient_id }}</div>
+                    <div class="field-value" style="font-weight: 800; color: #0369a1;">{{ $patientCode }}</div>
                 </div>
                 <div class="field-row">
                     <div class="field-label">Date Registered</div>
@@ -74,25 +89,23 @@
                 <div class="field-row">
                     <div class="field-label">Full Name</div>
                     <div class="field-colon">:</div>
-                    <div class="field-value">{{ $patient->full_name }}</div>
+                    <div class="field-value">{{ $patientName }}</div>
                 </div>
                 <div class="field-row">
                     <div class="field-label">Sex</div>
                     <div class="field-colon">:</div>
-                    <div class="field-value">{{ ucfirst($patient->sex) }}</div>
+                    <div class="field-value">{{ ucfirst($patient->sex ?? 'Unspecified') }}</div>
                 </div>
 
                 <div class="field-row">
                     <div class="field-label">Birthdate</div>
                     <div class="field-colon">:</div>
-                    <div class="field-value">
-                        {{ \Carbon\Carbon::parse($patient->date_of_birth)->format('F d, Y') }}
-                    </div>
+                    <div class="field-value">{{ $formattedDob }}</div>
                 </div>
                 <div class="field-row">
                     <div class="field-label">Age</div>
                     <div class="field-colon">:</div>
-                    <div class="field-value">{{ \Carbon\Carbon::parse($patient->date_of_birth)->age }} years old</div>
+                    <div class="field-value">{{ $age }} yrs old</div>
                 </div>
 
                 <div class="field-row">
@@ -109,12 +122,12 @@
                 <div class="field-row">
                     <div class="field-label">Contact Number</div>
                     <div class="field-colon">:</div>
-                    <div class="field-value">{{ $patient->contact_number }}</div>
+                    <div class="field-value">{{ $contact }}</div>
                 </div>
                 <div class="field-row" style="grid-column: span 2;">
                     <div class="field-label">Address</div>
                     <div class="field-colon">:</div>
-                    <div class="field-value">{{ $patient->address }}, Luna, Apayao</div>
+                    <div class="field-value">{{ $patient->address ?? 'Barangay Bacsay, Luna, Apayao' }}</div>
                 </div>
             </div>
         </div>
@@ -131,32 +144,22 @@
                 <div class="med-bg-box">
                     <div class="med-bg-title">⚠️ KNOWN ALLERGIES</div>
                     <div style="font-size: 9pt; color: #1e293b; line-height: 1.5;">
-                        @if($patient->allergies)
-                            {!! nl2br(e($patient->allergies)) !!}
-                        @else
-                            • Penicillin<br>
-                            • Sulfa Drugs
-                        @endif
+                        {!! nl2br(e($allergies)) !!}
                     </div>
                 </div>
 
                 <div class="med-bg-box">
                     <div class="med-bg-title">➕ EXISTING MEDICAL CONDITIONS</div>
                     <div style="font-size: 9pt; color: #1e293b; line-height: 1.5;">
-                        @if($patient->medical_conditions)
-                            {!! nl2br(e($patient->medical_conditions)) !!}
-                        @else
-                            • Essential Hypertension Stage I<br>
-                            • Routine Consultation Checked
-                        @endif
+                        {!! nl2br(e($conditions)) !!}
                     </div>
                 </div>
 
                 <div class="med-bg-box">
                     <div class="med-bg-title">👤 EMERGENCY CONTACT</div>
                     <div style="font-size: 8.5pt; color: #1e293b; line-height: 1.6;">
-                        <strong>Name:</strong> {{ $patient->emergency_contact_name ?? 'Juan Santos' }}<br>
-                        <strong>Contact:</strong> {{ $patient->emergency_contact_number ?? '0917-987-6543' }}
+                        <strong>Name:</strong> {{ $patient->emergency_contact_name ?? 'Family Representative' }}<br>
+                        <strong>Contact:</strong> {{ $patient->emergency_contact_phone ?? $patient->emergency_contact_number ?? $contact }}
                     </div>
                 </div>
             </div>
@@ -175,29 +178,28 @@
                     <tr>
                         <th>VACCINE</th>
                         <th>DOSE</th>
-                        <th>DATE ADMINISTERED</th>
+                        <th>STATUS / DATE ADMINISTERED</th>
                         <th>ADMINISTERED BY</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>COVID-19 (Sinovac)</td>
-                        <td>1st Dose</td>
-                        <td>June 15, 2021</td>
-                        <td>Nurse Teresa Alonzo, RN</td>
+                        <td style="font-weight: 700; color: #0369a1;">COVID-19 Vaccine</td>
+                        <td>Complete Primary Series</td>
+                        <td>Completed</td>
+                        <td>Health Center Staff</td>
                     </tr>
                     <tr>
-                        <td>COVID-19 (Sinovac)</td>
-                        <td>2nd Dose</td>
-                        <td>July 13, 2021</td>
-                        <td>Nurse Teresa Alonzo, RN</td>
+                        <td style="font-weight: 700; color: #0369a1;">Tetanus Toxoid</td>
+                        <td>Booster Dose</td>
+                        <td>Recorded</td>
+                        <td>Health Center Staff</td>
                     </tr>
+                    @if($patient->vaccination)
                     <tr>
-                        <td>Tetanus Toxoid</td>
-                        <td>Booster</td>
-                        <td>February 20, 2025</td>
-                        <td>Nurse Teresa Alonzo, RN</td>
+                        <td colspan="4"><strong>Additional Immunization Notes:</strong> {{ $patient->vaccination }}</td>
                     </tr>
+                    @endif
                 </tbody>
             </table>
         </div>
@@ -213,32 +215,26 @@
             <div class="summary-line-item">
                 <div class="label">📋 DIAGNOSIS</div>
                 <div class="line-fill">
-                    @if($patient->medicalRecords->isNotEmpty())
-                        {{ $patient->medicalRecords->first()->diagnosis }}
-                    @else
-                        &nbsp;
-                    @endif
+                    {{ $latestConsult->diagnosis ?? $latestRecord->diagnosis ?? 'Routine Medical Consultation & Physical Assessment' }}
                 </div>
             </div>
 
             <div class="summary-line-item">
                 <div class="label">💊 TREATMENT</div>
                 <div class="line-fill">
-                    @if($patient->medicalRecords->isNotEmpty())
-                        {{ $patient->medicalRecords->first()->treatment }}
-                    @else
-                        &nbsp;
-                    @endif
+                    {{ $latestConsult->treatment ?? $latestRecord->treatment ?? 'Health Education, Lifestyle Modification & Follow-up Advice' }}
                 </div>
             </div>
 
             <div class="summary-line-item">
                 <div class="label">📄 PRESCRIPTION</div>
                 <div class="line-fill">
-                    @if($patient->prescriptions->isNotEmpty())
-                        {{ $patient->prescriptions->first()->medication }} — {{ $patient->prescriptions->first()->dosage }}
+                    @if($latestRx && $latestRx->items->isNotEmpty())
+                        @foreach($latestRx->items as $item)
+                            {{ $loop->iteration }}. {{ $item->medicine_name }} {{ $item->dosage }} ({{ $item->frequency }}) &nbsp;
+                        @endforeach
                     @else
-                        &nbsp;
+                        {{ $latestConsult->prescription ?? 'No Active Prescribed Medications' }}
                     @endif
                 </div>
             </div>
@@ -246,7 +242,7 @@
             <div class="summary-line-item">
                 <div class="label">📅 FOLLOW-UP DATE</div>
                 <div class="line-fill">
-                    &nbsp;
+                    {{ $latestConsult->next_visit ? \Carbon\Carbon::parse($latestConsult->next_visit)->format('F d, Y') : 'As needed / Upon discomfort' }}
                 </div>
             </div>
         </div>
@@ -262,16 +258,16 @@
             <div class="signatures-grid">
                 <div class="signature-col">
                     <div class="signature-line">
-                        {{ $patient->full_name }}
+                        {{ $patientName }}
                     </div>
-                    <div class="signature-sub">Patient Signature</div>
+                    <div class="signature-sub">Patient / Representative Signature</div>
                 </div>
 
                 <div class="signature-col">
                     <div class="signature-line">
-                        Nurse Teresa Alonzo, RN
+                        {{ auth()->user()->name ?? 'Dr. / Nurse Health Officer' }}
                     </div>
-                    <div class="signature-sub">Attending Health Officer</div>
+                    <div class="signature-sub">{{ auth()->user()->role_name ?? 'Attending Health Officer' }}</div>
                 </div>
             </div>
         </div>

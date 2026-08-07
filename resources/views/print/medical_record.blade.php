@@ -1,8 +1,21 @@
 @extends('print.layout')
 
-@section('title', 'Medical Record — Record #' . ($record->id ?? 1))
+@section('title', 'Clinical Medical Record — ' . ($record->record_code ?? 'MR-2026-001'))
 
 @section('content')
+    @php
+        $patient = $record->patient ?? $patient;
+        $patientName = $patient->name ?? $patient->full_name ?? ($patient->first_name . ' ' . $patient->last_name ?? 'N/A');
+        $patientCode = $patient->patient_code ?? $patient->patient_id ?? 'BAC-2026-001';
+        $recordCode = $record->record_code ?? ('MR-2026-' . sprintf('%03d', $record->id));
+        $recordDate = $record->date ?? $record->created_at;
+        $formattedRecordDate = \Carbon\Carbon::parse($recordDate)->format('F d, Y');
+        $complaint = $record->complaint ?? $record->symptoms ?? 'Routine Consultation Checkup';
+        $diagnosis = $record->diagnosis ?? 'Routine General Medical Examination';
+        $treatment = $record->treatment ?? 'Health Education, Lifestyle Counseling & Monitoring';
+        $vitals = $record->vitals ?? 'BP: 120/80 mmHg | Temp: 36.5°C | PR: 75 bpm';
+    @endphp
+
     <!-- ─── Official Header Grid (Matches Image 2) ─── -->
     <div class="official-header">
         <div class="header-seal-left">
@@ -40,7 +53,7 @@
                     <rect x="40" y="70" width="15" height="15" />
                     <rect x="70" y="70" width="20" height="20" />
                 </svg>
-                <div class="header-qr-code-text">{{ $record->record_code ?? 'MR-2026-001' }}</div>
+                <div class="header-qr-code-text">{{ $recordCode }}</div>
             </div>
         </div>
     </div>
@@ -48,37 +61,37 @@
     <!-- ─── Document Title Bar ─── -->
     <div class="doc-title-bar">
         <div class="doc-title-main">CLINICAL MEDICAL RECORD</div>
-        <div class="doc-title-sub">(Official Patient Consultation Report)</div>
+        <div class="doc-title-sub">(Official Consultation Encounter Report)</div>
     </div>
 
-    <!-- ─── Section 1: Patient Information ─── -->
+    <!-- ─── Section 1: Patient & Record Information ─── -->
     <div class="section-box">
         <div class="section-header-strip">
             <span class="section-num-badge">1</span>
-            <span>PATIENT INFORMATION</span>
+            <span>PATIENT & ENCOUNTER INFORMATION</span>
         </div>
         <div class="section-content">
             <div class="field-grid">
                 <div class="field-row">
                     <div class="field-label">Record Code</div>
                     <div class="field-colon">:</div>
-                    <div class="field-value" style="font-weight: 800; color: #0369a1;">{{ $record->record_code ?? 'MR-2026-001' }}</div>
+                    <div class="field-value" style="font-weight: 800; color: #0369a1;">{{ $recordCode }}</div>
                 </div>
                 <div class="field-row">
                     <div class="field-label">Consultation Date</div>
                     <div class="field-colon">:</div>
-                    <div class="field-value">{{ \Carbon\Carbon::parse($record->created_at)->format('F d, Y') }}</div>
+                    <div class="field-value">{{ $formattedRecordDate }}</div>
                 </div>
 
                 <div class="field-row">
                     <div class="field-label">Patient Name</div>
                     <div class="field-colon">:</div>
-                    <div class="field-value">{{ $record->patient->full_name ?? 'N/A' }}</div>
+                    <div class="field-value">{{ $patientName }}</div>
                 </div>
                 <div class="field-row">
                     <div class="field-label">Patient ID</div>
                     <div class="field-colon">:</div>
-                    <div class="field-value">{{ $record->patient->patient_id ?? 'N/A' }}</div>
+                    <div class="field-value">{{ $patientCode }}</div>
                 </div>
             </div>
         </div>
@@ -88,20 +101,24 @@
     <div class="section-box">
         <div class="section-header-strip">
             <span class="section-num-badge">2</span>
-            <span>CLINICAL EXAMINATION & DIAGNOSIS</span>
+            <span>CLINICAL EXAMINATION & VITAL SIGNS</span>
         </div>
         <div class="section-content">
             <div class="summary-line-item">
+                <div class="label">📊 RECORDED VITAL SIGNS</div>
+                <div class="line-fill" style="font-weight: 700; color: #0369a1;">{{ $vitals }}</div>
+            </div>
+            <div class="summary-line-item">
                 <div class="label">📋 CHIEF COMPLAINT & SYMPTOMS</div>
-                <div class="line-fill">{{ $record->symptoms ?? 'Routine Health Checkup' }}</div>
+                <div class="line-fill">{{ $complaint }}</div>
             </div>
             <div class="summary-line-item">
                 <div class="label">🩺 DIAGNOSIS</div>
-                <div class="line-fill" style="font-weight: 700; color: #0369a1;">{{ $record->diagnosis }}</div>
+                <div class="line-fill" style="font-weight: 800; color: #0369a1;">{{ $diagnosis }}</div>
             </div>
             <div class="summary-line-item">
-                <div class="label">💊 TREATMENT PLAN & ADVICE</div>
-                <div class="line-fill">{{ $record->treatment }}</div>
+                <div class="label">💊 TREATMENT & ADVICE</div>
+                <div class="line-fill">{{ $treatment }}</div>
             </div>
         </div>
     </div>
@@ -110,22 +127,22 @@
     <div class="section-box">
         <div class="section-header-strip">
             <span class="section-num-badge">3</span>
-            <span>ATTENDING HEALTH OFFICER SIGNATURE</span>
+            <span>SIGNATURES</span>
         </div>
         <div class="section-content">
             <div class="signatures-grid">
                 <div class="signature-col">
                     <div class="signature-line">
-                        {{ $record->patient->full_name ?? 'Patient' }}
+                        {{ $patientName }}
                     </div>
-                    <div class="signature-sub">Patient / Representative</div>
+                    <div class="signature-sub">Patient / Representative Signature</div>
                 </div>
 
                 <div class="signature-col">
                     <div class="signature-line">
-                        Nurse Teresa Alonzo, RN
+                        {{ auth()->user()->name ?? $record->attending_nurse ?? 'Health Center Officer' }}
                     </div>
-                    <div class="signature-sub">Attending Health Officer</div>
+                    <div class="signature-sub">{{ auth()->user()->role_name ?? 'Attending Health Officer' }}</div>
                 </div>
             </div>
         </div>

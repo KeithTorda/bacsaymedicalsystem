@@ -1,8 +1,19 @@
 @extends('print.layout')
 
-@section('title', 'Prescription (Rx) — Barangay Bacsay Health Center')
+@section('title', 'Prescription (Rx) — ' . ($patient->name ?? $patient->full_name ?? 'Prescription'))
 
 @section('content')
+    @php
+        $patient = $prescription->patient ?? $patient;
+        $patientName = $patient->name ?? $patient->full_name ?? ($patient->first_name . ' ' . $patient->last_name ?? 'N/A');
+        $patientCode = $patient->patient_code ?? $patient->patient_id ?? 'BAC-2026-001';
+        $rxCode = $prescription->prescription_code ?? ('RX-2026-' . sprintf('%03d', $prescription->id ?? 1));
+        $rxDate = $prescription->date ?? $prescription->created_at ?? now();
+        $formattedRxDate = \Carbon\Carbon::parse($rxDate)->format('F d, Y');
+        $allergies = $patient->allergies ?? 'None Reported';
+        $items = $prescription->items ?? collect([]);
+    @endphp
+
     <!-- ─── Official Header Grid (Matches Image 2) ─── -->
     <div class="official-header">
         <div class="header-seal-left">
@@ -40,7 +51,7 @@
                     <rect x="40" y="70" width="15" height="15" />
                     <rect x="70" y="70" width="20" height="20" />
                 </svg>
-                <div class="header-qr-code-text">{{ $prescription->prescription_code ?? 'RX-2026-001' }}</div>
+                <div class="header-qr-code-text">{{ $rxCode }}</div>
             </div>
         </div>
     </div>
@@ -62,30 +73,30 @@
                 <div class="field-row">
                     <div class="field-label">Patient ID</div>
                     <div class="field-colon">:</div>
-                    <div class="field-value" style="font-weight: 800; color: #0369a1;">{{ $patient->patient_id ?? 'BAC-2026-001' }}</div>
+                    <div class="field-value" style="font-weight: 800; color: #0369a1;">{{ $patientCode }}</div>
                 </div>
                 <div class="field-row">
                     <div class="field-label">Date Issued</div>
                     <div class="field-colon">:</div>
-                    <div class="field-value">{{ now()->format('F d, Y') }}</div>
+                    <div class="field-value">{{ $formattedRxDate }}</div>
                 </div>
 
                 <div class="field-row">
                     <div class="field-label">Full Name</div>
                     <div class="field-colon">:</div>
-                    <div class="field-value">{{ $patient->full_name ?? 'Maria Clara Santos' }}</div>
+                    <div class="field-value">{{ $patientName }}</div>
                 </div>
                 <div class="field-row">
                     <div class="field-label">Sex / Age</div>
                     <div class="field-colon">:</div>
-                    <div class="field-value">{{ ucfirst($patient->sex ?? 'female') }} / {{ \Carbon\Carbon::parse($patient->date_of_birth ?? '1992-03-15')->age }} yrs</div>
+                    <div class="field-value">{{ ucfirst($patient->sex ?? 'Unspecified') }} / {{ $patient->age ?? 'N/A' }} yrs</div>
                 </div>
 
                 <div class="field-row" style="grid-column: span 2;">
                     <div class="field-label">Known Allergies</div>
                     <div class="field-colon">:</div>
                     <div class="field-value" style="color: #dc2626; font-weight: 800;">
-                        {{ $patient->allergies ?? 'Penicillin, Sulfa Drugs' }}
+                        {{ $allergies }}
                     </div>
                 </div>
             </div>
@@ -112,6 +123,16 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @forelse($items as $key => $item)
+                    <tr>
+                        <td>{{ $key + 1 }}</td>
+                        <td style="font-weight: 700; color: #0369a1;">{{ $item->medicine_name }}</td>
+                        <td>{{ $item->dosage }}</td>
+                        <td>{{ $item->frequency }}</td>
+                        <td>{{ $item->duration }}</td>
+                        <td>{{ $item->instructions ?? 'Take as directed' }}</td>
+                    </tr>
+                    @empty
                     <tr>
                         <td>1</td>
                         <td style="font-weight: 700; color: #0369a1;">Amlodipine</td>
@@ -128,6 +149,7 @@
                         <td>5 Days</td>
                         <td>For pain / fever</td>
                     </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
@@ -141,9 +163,9 @@
         </div>
         <div class="section-content">
             <div style="font-size: 9pt; color: #1e293b; line-height: 1.6;">
-                • Do <strong>NOT</strong> take Penicillin or Sulfa-based medications due to documented allergy.<br>
-                • Maintain low sodium diet, avoid oily foods, and drink plenty of water.<br>
-                • Return for follow-up BP re-evaluation after 30 days.
+                • Do <strong>NOT</strong> take any medication listed under documented allergies ({{ $allergies }}).<br>
+                • Follow prescribed dosage strictly. Complete full course of prescribed antibiotics if applicable.<br>
+                • Return for follow-up evaluation upon finishing prescribed medications or as advised by health officer.
             </div>
         </div>
     </div>
@@ -158,16 +180,16 @@
             <div class="signatures-grid">
                 <div class="signature-col">
                     <div class="signature-line">
-                        {{ $patient->full_name ?? 'Patient' }}
+                        {{ $patientName }}
                     </div>
-                    <div class="signature-sub">Patient / Representative</div>
+                    <div class="signature-sub">Patient / Representative Signature</div>
                 </div>
 
                 <div class="signature-col">
                     <div class="signature-line">
-                        Nurse Teresa Alonzo, RN
+                        {{ auth()->user()->name ?? $prescription->attending_nurse ?? 'Health Center Officer' }}
                     </div>
-                    <div class="signature-sub">Attending Health Officer</div>
+                    <div class="signature-sub">{{ auth()->user()->role_name ?? 'Prescribing Health Officer' }}</div>
                 </div>
             </div>
         </div>

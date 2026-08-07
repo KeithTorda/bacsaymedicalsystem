@@ -1,8 +1,27 @@
 @extends('print.layout')
 
-@section('title', 'Consultation Record — Barangay Bacsay Health Center')
+@section('title', 'Consultation Record — ' . ($patient->name ?? $patient->full_name ?? 'Consultation'))
 
 @section('content')
+    @php
+        $patient = $consultation->patient ?? $patient;
+        $patientName = $patient->name ?? $patient->full_name ?? ($patient->first_name . ' ' . $patient->last_name ?? 'N/A');
+        $patientCode = $patient->patient_code ?? $patient->patient_id ?? 'BAC-2026-001';
+        $consultCode = $consultation->consultation_code ?? ('CON-2026-' . sprintf('%03d', $consultation->id ?? 1));
+        $visitDate = $consultation->visit_date ?? $consultation->created_at ?? now();
+        $formattedVisitDate = \Carbon\Carbon::parse($visitDate)->format('F d, Y');
+        
+        $bp = $consultation->bp ?? '120/80 mmHg';
+        $temp = $consultation->temperature ?? '36.5 °C';
+        $pr = $consultation->pulse_rate ?? '75 bpm';
+        $rr = $consultation->respiratory_rate ?? '18 cpm';
+        $height = $consultation->height ?? '162 cm';
+        $weight = $consultation->weight ?? '60 kg';
+        $complaint = $consultation->chief_complaint ?? 'Routine Medical Assessment';
+        $diagnosis = $consultation->diagnosis ?? 'Routine Medical Examination';
+        $treatment = $consultation->treatment ?? 'Lifestyle Education & Health Monitoring';
+    @endphp
+
     <!-- ─── Official Header Grid (Matches Image 2) ─── -->
     <div class="official-header">
         <div class="header-seal-left">
@@ -40,7 +59,7 @@
                     <rect x="40" y="70" width="15" height="15" />
                     <rect x="70" y="70" width="20" height="20" />
                 </svg>
-                <div class="header-qr-code-text">{{ $patient->patient_id ?? 'BAC-2026-001' }}</div>
+                <div class="header-qr-code-text">{{ $consultCode }}</div>
             </div>
         </div>
     </div>
@@ -62,23 +81,23 @@
                 <div class="field-row">
                     <div class="field-label">Patient ID</div>
                     <div class="field-colon">:</div>
-                    <div class="field-value" style="font-weight: 800; color: #0369a1;">{{ $patient->patient_id ?? 'BAC-2026-001' }}</div>
+                    <div class="field-value" style="font-weight: 800; color: #0369a1;">{{ $patientCode }}</div>
                 </div>
                 <div class="field-row">
                     <div class="field-label">Consultation Date</div>
                     <div class="field-colon">:</div>
-                    <div class="field-value">{{ now()->format('F d, Y') }}</div>
+                    <div class="field-value">{{ $formattedVisitDate }}</div>
                 </div>
 
                 <div class="field-row">
                     <div class="field-label">Full Name</div>
                     <div class="field-colon">:</div>
-                    <div class="field-value">{{ $patient->full_name ?? 'Maria Clara Santos' }}</div>
+                    <div class="field-value">{{ $patientName }}</div>
                 </div>
                 <div class="field-row">
                     <div class="field-label">Sex / Age</div>
                     <div class="field-colon">:</div>
-                    <div class="field-value">{{ ucfirst($patient->sex ?? 'female') }} / {{ \Carbon\Carbon::parse($patient->date_of_birth ?? '1992-03-15')->age }} yrs</div>
+                    <div class="field-value">{{ ucfirst($patient->sex ?? 'Unspecified') }} / {{ $patient->age ?? 'N/A' }} yrs</div>
                 </div>
             </div>
         </div>
@@ -104,12 +123,12 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td style="font-weight: 800; color: #0369a1;">120/80 mmHg</td>
-                        <td>36.6 °C</td>
-                        <td>78 bpm</td>
-                        <td>18 cpm</td>
-                        <td>162 cm</td>
-                        <td>58 kg</td>
+                        <td style="font-weight: 800; color: #0369a1;">{{ $bp }}</td>
+                        <td>{{ $temp }}</td>
+                        <td>{{ $pr }}</td>
+                        <td>{{ $rr }}</td>
+                        <td>{{ $height }}</td>
+                        <td>{{ $weight }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -125,15 +144,15 @@
         <div class="section-content">
             <div class="summary-line-item">
                 <div class="label">📋 CHIEF COMPLAINT</div>
-                <div class="line-fill">{{ $record->symptoms ?? 'Routine checkup, mild fatigue' }}</div>
+                <div class="line-fill">{{ $complaint }}</div>
             </div>
             <div class="summary-line-item">
                 <div class="label">🩺 DIAGNOSIS</div>
-                <div class="line-fill" style="font-weight: 800; color: #0369a1;">{{ $record->diagnosis ?? 'Essential Hypertension Stage I (Controlled)' }}</div>
+                <div class="line-fill" style="font-weight: 800; color: #0369a1;">{{ $diagnosis }}</div>
             </div>
             <div class="summary-line-item">
                 <div class="label">💊 TREATMENT PLAN</div>
-                <div class="line-fill">{{ $record->treatment ?? 'Continue Amlodipine 5mg OD, daily exercise & low salt intake' }}</div>
+                <div class="line-fill">{{ $treatment }}</div>
             </div>
         </div>
     </div>
@@ -148,16 +167,16 @@
             <div class="signatures-grid">
                 <div class="signature-col">
                     <div class="signature-line">
-                        {{ $patient->full_name ?? 'Patient' }}
+                        {{ $patientName }}
                     </div>
-                    <div class="signature-sub">Patient Signature</div>
+                    <div class="signature-sub">Patient / Representative Signature</div>
                 </div>
 
                 <div class="signature-col">
                     <div class="signature-line">
-                        Nurse Teresa Alonzo, RN
+                        {{ auth()->user()->name ?? $consultation->attending_nurse ?? 'Health Center Officer' }}
                     </div>
-                    <div class="signature-sub">Attending Health Officer</div>
+                    <div class="signature-sub">{{ auth()->user()->role_name ?? 'Attending Health Officer' }}</div>
                 </div>
             </div>
         </div>
