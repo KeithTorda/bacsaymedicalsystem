@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
     <style>
-        /* ─── Warm Beige & Orange Theme System ─── */
+        /* ─── Warm Beige & Orange Centered Card Theme ─── */
         :root {
             --bg-page: #faf6f0;
             --bg-card: #ffffff;
@@ -47,49 +47,17 @@
 
         .account-container {
             width: 100%;
-            max-width: 1020px;
+            max-width: 440px;
             margin: 20px;
             background: var(--bg-card);
-            border-radius: 24px;
+            border-radius: 20px;
             box-shadow: 0 20px 40px -15px rgba(234, 88, 12, 0.12), 0 0 2px rgba(0, 0, 0, 0.05);
             overflow: hidden;
             border: 1px solid rgba(254, 215, 170, 0.6);
+            padding: 40px 36px;
         }
 
-        .account-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            min-height: 620px;
-        }
-
-        /* Left Column: Form Area (~50% width) */
-        .auth-form-column {
-            flex: 1;
-            min-width: 320px;
-            padding: 44px 48px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        /* Right Column: Hero Panel (~50% width) */
-        .auth-hero-column {
-            flex: 1;
-            min-width: 340px;
-            background: linear-gradient(145deg, #fff7ed 0%, #ffedd5 60%, #fed7aa 100%);
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            position: relative;
-            margin: 12px;
-            border-radius: 20px;
-            border: 1px solid rgba(251, 146, 60, 0.3);
-            text-align: center;
-        }
-
-        /* ─── Floating Inset Label Inputs (Matches Reference Image) ─── */
+        /* ─── Floating Inset Label Inputs ─── */
         .input-floating-group {
             position: relative;
             margin-bottom: 22px;
@@ -193,15 +161,6 @@
         }
         .text-orange-link:hover {
             text-decoration: underline;
-        }
-
-        @media (max-width: 991px) {
-            .auth-hero-column {
-                display: none;
-            }
-            .auth-form-column {
-                padding: 32px 24px;
-            }
         }
     </style>
 </head>
