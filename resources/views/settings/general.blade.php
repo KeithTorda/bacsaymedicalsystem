@@ -31,11 +31,11 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label fw-medium">Application Name</label>
-                                    <input type="text" name="app_name" class="form-control" value="Barangay Bacsay Health Center System" required>
+                                    <input type="text" name="app_name" class="form-control" value="BacsayMedSys" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label fw-medium">Tagline / Description</label>
-                                    <input type="text" name="app_tagline" class="form-control" value="Patient & Medical Record Management System">
+                                    <input type="text" name="app_tagline" class="form-control" value="Bacsay Medical Record Management System">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label fw-medium">Support Contact Email</label>

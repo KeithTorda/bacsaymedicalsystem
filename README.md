@@ -1,4 +1,4 @@
-# 🏥 Barangay Bacsay Health Center — Patient & Medical Record System
+# 🏥 BacsayMedSys (Bacsay Medical Record Management System)
 
 ![System Status](https://img.shields.io/badge/Status-Operational-brightgreen)
 ![Laravel](https://img.shields.io/badge/Laravel-v12.x-orange)

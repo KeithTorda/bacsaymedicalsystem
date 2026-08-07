@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <meta name="description" content="KBOT Clean Dashboard">
-    <meta name="keywords" content="admin, dashboard, kbot, bootstrap, laravel">
-    <meta name="author" content="KBOT">
+    <meta name="description" content="BacsayMedSys — Barangay Bacsay Medical Record Management System">
+    <meta name="keywords" content="bacsaymedsys, medical records, barangay bacsay, health center, patient management">
+    <meta name="author" content="BacsayMedSys">
     <meta name="robots" content="noindex, nofollow">
     <title>{{ ucwords(str_replace('.', ' - ', Route::currentRouteName())) }}</title>
 
@@ -520,7 +520,7 @@
             <div class="header-left active d-none d-lg-flex align-items-center">
                 <a href="{{ route('home') }}" class="logo text-decoration-none d-flex align-items-center">
                     <span class="brand-avatar-icon me-2"><i class="fas fa-heartpulse"></i></span>
-                    <span class="fw-bold fs-6 brand-logo-text text-dark">BACSAY <span class="text-primary">HEALTH</span></span>
+                    <span class="fw-bold fs-6 brand-logo-text text-dark">Bacsay<span class="text-primary">MedSys</span></span>
                 </a>
                 <a href="{{ route('home') }}" class="logo-small text-decoration-none d-flex align-items-center justify-content-center">
                     <span class="brand-avatar-icon"><i class="fas fa-heartpulse"></i></span>
@@ -534,11 +534,11 @@
                 <i class="fas fa-bars fs-4"></i>
             </button>
 
-            <!-- Mobile Center: Sleek Small BACSAY HEALTH Badge -->
+            <!-- Mobile Center: Sleek Small BacsayMedSys Badge -->
             <div class="mobile-header-center d-lg-none">
                 <a href="{{ route('home') }}" class="text-decoration-none">
                     <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1 rounded-pill fs-7 fw-bold">
-                        <i class="fas fa-heartpulse me-1"></i> BACSAY HEALTH
+                        <i class="fas fa-heartpulse me-1"></i> BacsayMedSys
                     </span>
                 </a>
             </div>
