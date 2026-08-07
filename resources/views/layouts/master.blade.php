@@ -116,9 +116,6 @@
             flex-shrink: 0;
             box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3);
         }
-            font-size: 16px;
-            color: #212b36;
-        }
 
         /* Desktop Mini-Sidebar System (Matches Dreams Template Exactly) */
         @media (min-width: 992px) {
