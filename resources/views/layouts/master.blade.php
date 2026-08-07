@@ -889,11 +889,17 @@
             function hidePageLoader() {
                 if (loaderElem) {
                     loaderElem.style.opacity = '0';
-                    loaderElem.style.visibility = 'hidden';
+                    setTimeout(function() {
+                        loaderElem.style.visibility = 'hidden';
+                    }, 300);
                 }
             }
-            hidePageLoader();
-            window.addEventListener('load', hidePageLoader);
+
+            // Display loader for at least 500ms on page load so it is clearly visible
+            setTimeout(hidePageLoader, 500);
+            window.addEventListener('load', function() {
+                setTimeout(hidePageLoader, 400);
+            });
 
             // Show Loader on Page Link Click Navigation
             document.addEventListener('click', function(e) {
