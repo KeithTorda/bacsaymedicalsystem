@@ -1,64 +1,49 @@
 @extends('layouts.app')
 @section('content')
-    <div class="login-wrapper">
-        <div class="login-img">
-            <img src="{{ asset('assets/img/login.jpg') }}" alt="img">
+    <div class="auth-card">
+        <div class="auth-brand-header">
+            <img src="{{ asset('assets/img/bacsaymedsys-icon.svg') }}" alt="BacsayMedSys Logo" class="auth-brand-logo">
+            <h2 class="auth-brand-title">Bacsay<span style="color: #38bdf8;">MedSys</span></h2>
+            <p class="auth-brand-subtitle">Barangay Bacsay Medical Record System</p>
         </div>
-        <div class="login-content">
-            <div class="login-userset">
-                <div class="login-userheading">
-                    <h3>Sign In</h3>
-                    <h4>Please login to your account</h4>
-                </div>
-                <form action="{{ route('login') }}" method="POST">
-                    @csrf
-                    <div class="form-login">
-                        <label>Email</label>
-                        <div class="form-addons">
-                            <input type="text" name="email" placeholder="Enter your email address" required>
-                            <img src="{{ asset('assets/img/icons/mail.svg') }}" alt="img">
-                        </div>
-                    </div>
-                    <div class="form-login">
-                        <label>Password</label>
-                        <div class="pass-group">
-                            <input type="password" class="pass-input" name="password" placeholder="Enter your password" required>
-                            <span class="fas toggle-password fa-eye-slash"></span>
-                        </div>
-                    </div>
-                    <div class="form-login">
-                        <div class="alreadyuser">
-                            <h4><a href="forgetpassword.html" class="hover-a">Forgot Password?</a></h4>
-                        </div>
-                    </div>
-                    <div class="form-login">
-                        <button type="submit" class="btn btn-login">Sign In</button>
-                    </div>
-                </form>
-                <div class="signinform text-center">
-                    <h4>Don’t have an account? <a href="{{ route('register') }}" class="hover-a">Sign Up</a></h4>
-                </div>
-                <div class="form-setlogin">
-                    <h4>Or sign up with</h4>
-                </div>
-                <div class="form-sociallink">
-                    <ul>
-                        <li>
-                            <a href="javascript:void(0);">
-                                <img src="{{ asset('assets/img/icons/google.png') }}" class="me-2" alt="google">
-                                Sign Up using Google
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">
-                                <img src="{{ asset('assets/img/icons/facebook.png') }}" class="me-2" alt="google">
-                                Sign Up using Facebook
-                            </a>
-                        </li>
-                    </ul>
+
+        <form action="{{ route('login') }}" method="POST">
+            @csrf
+            <div class="mb-3">
+                <label class="form-label">Email Address</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-secondary text-slate-300" style="border-color: rgba(255,255,255,0.15) !important;">
+                        <i class="fas fa-envelope text-info"></i>
+                    </span>
+                    <input type="email" name="email" class="form-control" placeholder="Enter your email" required autofocus>
                 </div>
             </div>
+
+            <div class="mb-3">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <label class="form-label mb-0">Password</label>
+                    <a href="javascript:void(0);" class="small">Forgot Password?</a>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-secondary text-slate-300" style="border-color: rgba(255,255,255,0.15) !important;">
+                        <i class="fas fa-lock text-info"></i>
+                    </span>
+                    <input type="password" name="password" id="login_password" class="form-control" placeholder="Enter your password" required>
+                </div>
+            </div>
+
+            <div class="mb-4 form-check">
+                <input type="checkbox" class="form-check-input" id="remember" name="remember">
+                <label class="form-check-label small text-slate-300" for="remember" style="color: #cbd5e1;">Remember this device</label>
+            </div>
+
+            <button type="submit" class="btn btn-login">
+                <i class="fas fa-sign-in-alt me-2"></i> Sign In to System
+            </button>
+        </form>
+
+        <div class="auth-footer-text">
+            Don’t have an account? <a href="{{ route('register') }}">Register New Account</a>
         </div>
     </div>
 @endsection
-

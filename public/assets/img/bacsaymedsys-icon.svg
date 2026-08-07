@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="folderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0369a1" />
+    </linearGradient>
+    <linearGradient id="crossGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0369a1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Folder Back Tab -->
+  <path d="M 260 120 L 340 120 C 355 120 365 130 375 145 L 390 165 L 170 165 Z" fill="#0369a1" opacity="0.85" />
+
+  <!-- Outer Folder Stroke & Body -->
+  <path d="M 170 165 
+           L 380 165 
+           C 405 165 425 185 415 220 
+           L 385 340 
+           C 375 370 350 385 320 385 
+           L 170 385 
+           C 155 385 145 375 145 360 
+           L 145 190 
+           C 145 175 155 165 170 165 Z" 
+        fill="none" 
+        stroke="#0c4a6e" 
+        stroke-width="18" 
+        stroke-linejoin="round" 
+        stroke-linecap="round"/>
+
+  <!-- Medical Cross on Left -->
+  <path d="M 148 245
+           L 180 245
+           L 180 200
+           C 180 195 185 190 190 190
+           L 220 190
+           C 225 190 230 195 230 200
+           L 230 245
+           L 262 245
+           C 267 245 272 250 272 255
+           L 272 285
+           C 272 290 267 295 262 295
+           L 230 295
+           L 230 340
+           C 230 345 225 350 220 350
+           L 190 350
+           C 185 350 180 345 180 340
+           L 180 295
+           L 148 295
+           C 143 295 138 290 138 285
+           L 138 255
+           C 138 250 143 245 148 245 Z" 
+        fill="url(#crossGrad)"/>
+
+  <!-- Heartbeat ECG Line overlaying cross and folder -->
+  <path d="M 138 270 
+           L 230 270 
+           L 245 245 
+           L 260 300 
+           L 280 180 
+           L 300 360 
+           L 315 285 
+           L 330 310 
+           L 345 270 
+           L 395 270" 
+        fill="none" 
+        stroke="#0284c7" 
+        stroke-width="14" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
+</svg>

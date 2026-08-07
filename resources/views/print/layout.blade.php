@@ -3,186 +3,365 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Print — Barangay Bacsay Health Center')</title>
+    <title>@yield('title', 'Patient Medical Record — Barangay Bacsay Health Center')</title>
     <style>
-        /* ─── A4 Print Reset ─── */
+        /* ─── A4 Official Print Reset ─── */
         @page {
-            size: A4;
-            margin: 12mm 15mm;
+            size: A4 portrait;
+            margin: 10mm 12mm;
         }
-        *,
-        *::before,
-        *::after {
+        *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            font-size: 11pt;
-            color: #1a1a1a;
-            background: #fff;
-            line-height: 1.5;
-        }
-
-        /* ─── Official Header Block ─── */
-        .print-header {
-            text-align: center;
-            border-bottom: 2px solid #1a1a1a;
-            padding-bottom: 10px;
-            margin-bottom: 18px;
-        }
-        .print-header .gov-line {
-            font-size: 9pt;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: #555;
-        }
-        .print-header .facility-name {
-            font-size: 16pt;
-            font-weight: 700;
-            margin: 4px 0 2px;
-        }
-        .print-header .facility-sub {
+            font-family: Arial, Helvetica, sans-serif;
             font-size: 10pt;
-            color: #444;
+            color: #0f172a;
+            background: #ffffff;
+            line-height: 1.4;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
         }
 
-        /* ─── Document Title ─── */
-        .doc-title {
-            text-align: center;
-            font-size: 13pt;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 16px;
-            border: 1px solid #aaa;
-            padding: 6px 0;
-            background: #f5f5f5;
+        .print-container {
+            width: 100%;
+            max-width: 210mm;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 8px;
+            border: 2px solid #0369a1;
         }
 
-        /* ─── Info Grid ─── */
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6px 24px;
-            margin-bottom: 16px;
-        }
-        .info-grid .item {
+        /* ─── Official Header Grid (Matches Image 2) ─── */
+        .official-header {
             display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #0284c7;
+            padding-bottom: 10px;
+            margin-bottom: 12px;
+        }
+        .header-seal-left {
+            width: 72px;
+            height: 72px;
+            flex-shrink: 0;
+        }
+        .header-seal-left img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .header-center-details {
+            text-align: center;
+            flex: 1;
+            padding: 0 12px;
+        }
+        .header-gov-sub {
+            font-size: 8pt;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: #334155;
+            font-weight: 500;
+        }
+        .header-prov {
+            font-size: 9pt;
+            font-weight: 700;
+            color: #0f172a;
+        }
+        .header-facility {
+            font-size: 15pt;
+            font-weight: 900;
+            color: #0369a1;
+            letter-spacing: 0.5px;
+            margin: 2px 0;
+            text-transform: uppercase;
+        }
+        .header-address {
+            font-size: 8.5pt;
+            color: #475569;
+        }
+        .header-brand-line {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 4px;
+            font-size: 9pt;
+            font-weight: 700;
+            color: #0284c7;
+        }
+        .header-brand-line img {
+            width: 16px;
+            height: 16px;
+        }
+
+        .header-seal-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        .header-seal-right .bacsay-seal {
+            width: 64px;
+            height: 64px;
+            object-fit: contain;
+        }
+        .header-qr-box {
+            text-align: center;
+            border: 1px solid #cbd5e1;
+            padding: 4px;
+            border-radius: 4px;
+            background: #f8fafc;
+        }
+        .header-qr-box img {
+            width: 48px;
+            height: 48px;
+            display: block;
+        }
+        .header-qr-code-text {
+            font-size: 7.5pt;
+            font-weight: 700;
+            color: #0f172a;
+            margin-top: 2px;
+        }
+
+        /* ─── Document Main Title Bar ─── */
+        .doc-title-bar {
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .doc-title-main {
+            font-size: 13pt;
+            font-weight: 900;
+            color: #0369a1;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        .doc-title-main::before, .doc-title-main::after {
+            content: "";
+            flex: 1;
+            height: 1.5px;
+            background: linear-gradient(90deg, transparent, #0284c7, transparent);
+        }
+        .doc-title-sub {
+            font-size: 9pt;
+            color: #475569;
+            font-style: italic;
+        }
+
+        /* ─── Numbered Blue Section Headers ─── */
+        .section-box {
+            margin-bottom: 12px;
+            border: 1px solid #0284c7;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .section-header-strip {
+            background: #0284c7;
+            color: #ffffff;
+            padding: 6px 12px;
+            font-size: 9.5pt;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
             gap: 8px;
         }
-        .info-grid .lbl {
-            font-weight: 600;
-            min-width: 130px;
-            color: #333;
+        .section-num-badge {
+            background: #0369a1;
+            color: #ffffff;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 9pt;
+            font-weight: 900;
         }
-        .info-grid .val {
-            border-bottom: 1px dotted #999;
+
+        .section-content {
+            padding: 10px 14px;
+            background: #ffffff;
+        }
+
+        /* ─── Field Grid System ─── */
+        .field-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px 20px;
+            font-size: 9.5pt;
+        }
+        .field-row {
+            display: flex;
+            align-items: baseline;
+        }
+        .field-label {
+            font-weight: 700;
+            width: 140px;
+            color: #1e293b;
+            flex-shrink: 0;
+        }
+        .field-colon {
+            margin-right: 8px;
+            font-weight: 700;
+            color: #64748b;
+        }
+        .field-value {
+            color: #0f172a;
+            font-weight: 600;
             flex: 1;
-            padding-bottom: 1px;
+            border-bottom: 1px dotted #cbd5e1;
+            padding-bottom: 2px;
         }
 
         /* ─── Tables ─── */
-        table.print-table {
+        table.official-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 16px;
-            font-size: 10pt;
+            font-size: 9pt;
         }
-        table.print-table th,
-        table.print-table td {
-            border: 1px solid #888;
-            padding: 5px 8px;
+        table.official-table th, table.official-table td {
+            border: 1px solid #cbd5e1;
+            padding: 6px 10px;
             text-align: left;
         }
-        table.print-table th {
-            background: #e9e9e9;
-            font-weight: 600;
-            font-size: 9pt;
+        table.official-table th {
+            background: #e0f2fe;
+            color: #0369a1;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-size: 8.5pt;
         }
 
-        /* ─── Section Title ─── */
-        .section-title {
-            font-size: 11pt;
-            font-weight: 700;
-            margin: 14px 0 8px;
-            padding: 4px 8px;
-            background: #eee;
-            border-left: 3px solid #333;
+        /* ─── Medical Background 3-Column Box ─── */
+        .med-bg-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1.4fr 1.4fr;
+            gap: 12px;
+        }
+        .med-bg-box {
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            padding: 8px;
+            background: #f8fafc;
+        }
+        .med-bg-title {
+            font-size: 8.5pt;
+            font-weight: 800;
+            color: #0369a1;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            text-transform: uppercase;
         }
 
-        /* ─── Signature Line ─── */
-        .sig-block {
+        /* ─── Consultation Summary Rows ─── */
+        .summary-line-item {
+            margin-bottom: 8px;
+        }
+        .summary-line-item .label {
+            font-weight: 800;
+            font-size: 9pt;
+            color: #0369a1;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .summary-line-item .line-fill {
+            border-bottom: 1px solid #cbd5e1;
+            min-height: 22px;
+            padding: 2px 4px;
+            font-size: 9.5pt;
+            color: #0f172a;
+        }
+
+        /* ─── Signature Block ─── */
+        .signatures-grid {
             display: flex;
             justify-content: space-between;
-            margin-top: 40px;
+            padding: 20px 40px 10px;
         }
-        .sig-block .sig-col {
+        .signature-col {
             text-align: center;
-            width: 40%;
+            width: 220px;
         }
-        .sig-col .sig-line {
-            border-top: 1px solid #333;
-            margin-top: 40px;
+        .signature-line {
+            border-top: 1.5px solid #0f172a;
+            margin-top: 35px;
             padding-top: 4px;
-            font-weight: 600;
+            font-weight: 800;
+            font-size: 9.5pt;
+            color: #0f172a;
         }
-        .sig-col .sig-sub {
-            font-size: 9pt;
-            color: #555;
+        .signature-sub {
+            font-size: 8.5pt;
+            color: #475569;
         }
 
         /* ─── Footer ─── */
-        .print-footer {
-            text-align: center;
-            font-size: 8pt;
-            color: #777;
-            border-top: 1px solid #ccc;
+        .official-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid #0284c7;
             padding-top: 8px;
-            margin-top: 24px;
+            margin-top: 12px;
+            font-size: 8pt;
+            color: #475569;
+        }
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 700;
+            color: #0369a1;
         }
 
-        /* ─── Screen-only helpers ─── */
+        /* Screen Print Helper Bar */
         .no-print {
-            margin-bottom: 20px;
-            text-align: center;
+            background: #0f172a;
+            color: #ffffff;
+            padding: 12px 20px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
-        .no-print button {
-            padding: 10px 28px;
-            font-size: 12pt;
-            cursor: pointer;
-            background: #0284c7;
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-        }
-
         @media print {
             .no-print { display: none !important; }
-            body { background: #fff; }
+            .print-container { border: none !important; padding: 0 !important; }
         }
     </style>
 </head>
 <body>
+
     <div class="no-print">
-        <button onclick="window.print();">🖨️ Print this Document</button>
+        <div class="d-flex align-items-center gap-2">
+            <img src="{{ asset('assets/img/bacsaymedsys-icon.svg') }}" style="width: 28px; height: 28px;">
+            <span style="font-weight: 700; font-size: 15px;">BacsayMedSys — Official Patient Medical Record Print</span>
+        </div>
+        <div>
+            <button onclick="window.print()" style="background: #0284c7; color: #fff; border: none; padding: 8px 18px; font-weight: 700; border-radius: 6px; cursor: pointer;">
+                🖨️ Print Document
+            </button>
+            <button onclick="window.close()" style="background: #334155; color: #fff; border: none; padding: 8px 14px; font-weight: 600; border-radius: 6px; cursor: pointer; margin-left: 8px;">
+                ✖ Close
+            </button>
+        </div>
     </div>
 
-    <!-- Official Barangay Health Center Header -->
-    <div class="print-header">
-        <div class="gov-line">Republic of the Philippines · Province of Ilocos Sur · Municipality of San Esteban</div>
-        <div class="facility-name">Barangay Bacsay Health Center</div>
-        <div class="facility-sub">Brgy. Bacsay, San Esteban, Ilocos Sur · Contact: (077) 000-0000</div>
+    <div class="print-container">
+        @yield('content')
     </div>
 
-    @yield('print-content')
-
-    <div class="print-footer">
-        This document was generated by the Barangay Bacsay Health Center Medical Record Management System.
-        Printed on {{ date('F d, Y h:i A') }}.
-    </div>
 </body>
 </html>

@@ -921,11 +921,11 @@
             <!-- Desktop Header Left (Hidden on Mobile, Displayed >= 992px) -->
             <div class="header-left active d-none d-lg-flex align-items-center">
                 <a href="{{ route('home') }}" class="logo text-decoration-none d-flex align-items-center">
-                    <span class="brand-avatar-icon me-2"><i class="fas fa-heartpulse"></i></span>
+                    <img src="{{ asset('assets/img/bacsaymedsys-icon.svg') }}" alt="BacsayMedSys" class="me-2" style="width: 32px; height: 32px; object-fit: contain;">
                     <span class="fw-bold fs-6 brand-logo-text text-dark">Bacsay<span class="text-primary">MedSys</span></span>
                 </a>
                 <a href="{{ route('home') }}" class="logo-small text-decoration-none d-flex align-items-center justify-content-center">
-                    <span class="brand-avatar-icon"><i class="fas fa-heartpulse"></i></span>
+                    <img src="{{ asset('assets/img/bacsaymedsys-icon.svg') }}" alt="BacsayMedSys" style="width: 28px; height: 28px; object-fit: contain;">
                 </a>
                 <a id="toggle_btn" href="javascript:void(0);">
                 </a>
