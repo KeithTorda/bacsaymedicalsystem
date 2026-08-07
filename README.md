@@ -1,12 +1,20 @@
-# 🏥 BacsayMedSys (Barangay Bacsay Medical Record Management System) — Version 1.1 Official Release
+# 🏥 BacsayMedSys (Barangay Bacsay Medical Record Management System) — Version 1.1 Official Release (VPS Live)
 
-![Release Version](https://img.shields.io/badge/Release-v1.1%20Official-orange)
+![Release Version](https://img.shields.io/badge/Release-v1.1%20VPS%20Live-orange)
 ![System Status](https://img.shields.io/badge/Status-Operational-brightgreen)
 ![Framework](https://img.shields.io/badge/Laravel-v11.x%20%2F%2012.x-red)
-![PHP Version](https://img.shields.io/badge/PHP-v8.2+-blue)
-![Database](https://img.shields.io/badge/Database-MySQL%20%2F%20MariaDB-teal)
+![PHP Version](https://img.shields.io/badge/PHP-v8.3%20FPM-blue)
+![Database](https://img.shields.io/badge/Database-SQLite%20%2F%20MySQL-teal)
 
 A comprehensive, dynamic, role-secured, and high-performance medical record management system designed specifically for **Barangay Bacsay Health Center, Luna, Apayao** to streamline patient registration, clinical encounters, vital signs monitoring, digital prescription issuance, appointments, reports, and official Philippine DOH-aligned printable forms.
+
+---
+
+## 🚀 Live VPS Production Server
+- **Live URL**: [http://167.99.69.239:8085](http://167.99.69.239:8085)
+- **Deployment Host**: Ubuntu Linux VPS (`167.99.69.239`)
+- **Nginx Web Server**: Configured on Port `8085` using PHP 8.3 FPM
+- **Status**: 100% Operational & Tested (HTTP 200 OK)
 
 ---
 
@@ -48,26 +56,28 @@ A comprehensive, dynamic, role-secured, and high-performance medical record mana
   - Distinct alerts tailored for Admin (*Security Audit, Daily Summaries*) vs Staff (*Appointments, Prescriptions, Patient Updates*).
 
 - **💻 Development Team Credits**:
-  - Accessible via footer and profile menu, featuring Project Start Date (`08/05/2026`), Tech Stack Badges, and team roles for **MARK CHRISTIAN GAON**, **ARMIE VELASCO**, and **JOCEL ROSE TORDA**.
+  - Interactive Capstone Team Modal featuring project start date (`08/05/2026`), tech stack, photos, and team roles (**MARK CHRISTIAN GAON**, **ARMIE VELASCO**, **JOCEL ROSE TORDA**).
 
 ---
 
-## 💻 Capstone Development Team
-
-- **MARK CHRISTIAN GAON** — *Lead Programmer & Full-Stack Systems Developer*
-- **ARMIE VELASCO** — *Project Lead & System UI/UX Designer*
-- **JOCEL ROSE TORDA** — *Quality Assurance & Technical Documentation Specialist*
-
-**Development Started**: August 05, 2026 (`08/05/2026`)
+## 🛠️ Recent Production Fixes & Updates
+1. **Helper Autoload Fix**: Moved `app/Helper/helpers.php` to main Composer `autoload` section and added `set_active()` fallback in `AppServiceProvider.php` to resolve production `500 Server Error`.
+2. **Route Caching Fix**: Fixed duplicate route names in `web.php` for `logout`, `forget-password`, and `reset-password` to support `php artisan route:cache`.
+3. **Dark Mode Modal Overrides**: Added CSS rules for `.modal-content`, `.modal-header`, and high-contrast `(X)` close button for night/dark theme.
 
 ---
 
-## 🛠️ Technology Stack
+## 🔑 Default Credentials (Seeded)
 
-- **Backend**: PHP 8.2+, Laravel 11/12 Framework
-- **Frontend**: HTML5, Vanilla CSS3, JavaScript ES6+, Bootstrap 4, ApexCharts, DataTables, FontAwesome 6
-- **Database**: SQLite / MySQL / MariaDB
+- **Admin Account**: `admin@gmail.com` | `admin123`
+- **Staff Account**: `staff@bacsay.gov.ph` | `admin123`
 
 ---
 
-© 2026 **BacsayMedSys** Capstone Project. Barangay Bacsay Health Center. All Rights Reserved.
+## 👨‍💻 Capstone Project Team
+
+- **MARK CHRISTIAN GAON** — Lead Programmer & Full-Stack Systems Developer
+- **ARMIE VELASCO** — Project Lead & System UI/UX Designer
+- **JOCEL ROSE TORDA** — Quality Assurance & Technical Documentation Specialist
+
+*Project Started: August 05, 2026*
