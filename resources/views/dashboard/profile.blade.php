@@ -87,6 +87,4 @@
         </div>
     </div>
     <!-- End Page-content -->
-@section('script')
-@endsection
 @endsection
