@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
-@section('content')
-<div class="content">
+<div class="page-wrapper">
+    <div class="content">
     <!-- Page Header -->
     <div class="page-header">
         <div class="page-title">
