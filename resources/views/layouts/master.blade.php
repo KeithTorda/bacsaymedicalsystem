@@ -47,9 +47,9 @@
             width: 100vw;
             height: 100vh;
             z-index: 999999;
-            background: rgba(241, 245, 249, 0.65);
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
+            background: rgba(241, 245, 249, 0.92);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -57,7 +57,7 @@
         }
         html[data-theme="dark"] #global-loader,
         body[data-theme="dark"] #global-loader {
-            background: rgba(15, 23, 42, 0.65) !important;
+            background: rgba(0, 0, 0, 0.92) !important;
         }
         .loader-glass-card {
             display: flex;
@@ -895,8 +895,18 @@
 </head>
 
 <body>
-    <!-- Minimalist Global Page Preloader (Glassmorphism Blur Overlay) -->
-    <div id="global-loader" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:999999;background:rgba(15,23,42,0.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;">
+    <!-- Sync Dark Theme to <body> Immediately (Prevents White Flash / FOUC) -->
+    <script>
+        (function() {
+            var t = document.documentElement.getAttribute('data-theme');
+            if (t === 'dark') {
+                document.body.setAttribute('data-theme', 'dark');
+                document.body.classList.add('dark-mode');
+            }
+        })();
+    </script>
+    <!-- Minimalist Global Page Preloader -->
+    <div id="global-loader">
         <div class="loader-glass-card">
             <div class="minimal-ring-spinner"></div>
             <p class="loader-label-text">Loading...</p>
@@ -1155,11 +1165,13 @@
 
             function applyTheme(theme) {
                 if (theme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'dark');
                     document.body.setAttribute('data-theme', 'dark');
                     document.body.classList.add('dark-mode');
                     if (themeIcon) themeIcon.className = 'fas fa-sun';
                     if (mobileThemeIcon) mobileThemeIcon.className = 'fas fa-sun';
                 } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
                     document.body.setAttribute('data-theme', 'light');
                     document.body.classList.remove('dark-mode');
                     if (themeIcon) themeIcon.className = 'fas fa-moon';
