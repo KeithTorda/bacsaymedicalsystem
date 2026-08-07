@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffedd5" />
+      <stop offset="100%" stop-color="#fed7aa" />
+    </linearGradient>
+
+    <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f97316" />
+      <stop offset="100%" stop-color="#ea580c" />
+    </linearGradient>
+
+    <linearGradient id="folderGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#fff7ed" />
+    </linearGradient>
+
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#ea580c" flood-opacity="0.15" />
+    </filter>
+  </defs>
+
+  <!-- Background Decorative Circles & Waves -->
+  <circle cx="300" cy="300" r="260" fill="url(#bgGlow)" opacity="0.5" />
+  <circle cx="300" cy="300" r="190" fill="#fff7ed" opacity="0.8" />
+
+  <!-- Floating Checkmark Badges -->
+  <g filter="url(#softShadow)">
+    <circle cx="150" cy="140" r="24" fill="#ea580c" />
+    <path d="M 140 140 L 147 147 L 161 133" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+
+    <circle cx="450" cy="180" r="20" fill="#ea580c" />
+    <path d="M 442 180 L 447 185 L 458 174" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+
+    <circle cx="130" cy="390" r="22" fill="#ea580c" />
+    <path d="M 122 390 L 127 395 L 139 383" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+
+  <!-- Main Medical Folder Clipboard Container -->
+  <g filter="url(#softShadow)">
+    <!-- Clipboard Frame -->
+    <rect x="180" y="160" width="240" height="300" rx="20" fill="url(#folderGrad)" stroke="#fdba74" stroke-width="4" />
+    <rect x="250" y="145" width="100" height="30" rx="8" fill="#ea580c" />
+    <circle cx="300" cy="160" r="6" fill="#ffffff" />
+
+    <!-- Medical Record Header Line -->
+    <rect x="210" y="210" width="180" height="12" rx="6" fill="#ea580c" />
+    
+    <!-- Checklist Rows with Orange Checkboxes -->
+    <rect x="210" y="245" width="22" height="22" rx="6" fill="#ffedd5" stroke="#f97316" stroke-width="2" />
+    <path d="M 215 256 L 219 260 L 227 251" fill="none" stroke="#ea580c" stroke-width="3" stroke-linecap="round" />
+    <rect x="245" y="250" width="145" height="10" rx="5" fill="#e2e8f0" />
+
+    <rect x="210" y="285" width="22" height="22" rx="6" fill="#ffedd5" stroke="#f97316" stroke-width="2" />
+    <path d="M 215 296 L 219 300 L 227 291" fill="none" stroke="#ea580c" stroke-width="3" stroke-linecap="round" />
+    <rect x="245" y="290" width="125" height="10" rx="5" fill="#e2e8f0" />
+
+    <rect x="210" y="325" width="22" height="22" rx="6" fill="#ffedd5" stroke="#f97316" stroke-width="2" />
+    <path d="M 215 336 L 219 340 L 227 331" fill="none" stroke="#ea580c" stroke-width="3" stroke-linecap="round" />
+    <rect x="245" y="330" width="135" height="10" rx="5" fill="#e2e8f0" />
+
+    <!-- ECG Heartbeat Line Banner -->
+    <path d="M 190 385 
+             L 240 385 
+             L 255 365 
+             L 270 410 
+             L 290 330 
+             L 310 430 
+             L 325 375 
+             L 340 395 
+             L 355 385 
+             L 410 385" 
+          fill="none" 
+          stroke="#ea580c" 
+          stroke-width="5" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" />
+  </g>
+</svg>

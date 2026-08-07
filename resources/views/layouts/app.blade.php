@@ -16,13 +16,28 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
     <style>
-        /* Modern Centered Auth Layout with Ambient Live Particle Background */
+        /* ─── Warm Beige & Orange Theme System ─── */
+        :root {
+            --bg-page: #faf6f0;
+            --bg-card: #ffffff;
+            --primary-orange: #ea580c;
+            --primary-orange-hover: #c2410c;
+            --primary-orange-light: #fff7ed;
+            --primary-orange-border: #fed7aa;
+            --text-heading: #0f172a;
+            --text-body: #475569;
+            --text-muted: #94a3b8;
+            --border-color: #cbd5e1;
+        }
+
         body.account-page {
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            background: #090d16;
-            overflow-x: hidden;
+            background-color: var(--bg-page);
+            background-image: 
+                radial-gradient(at 10% 10%, rgba(254, 215, 170, 0.4) 0px, transparent 50%),
+                radial-gradient(at 90% 90%, rgba(253, 186, 116, 0.3) 0px, transparent 50%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -30,205 +45,175 @@
             position: relative;
         }
 
-        #particles-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .account-content {
-            position: relative;
-            z-index: 10;
+        .account-container {
             width: 100%;
-            max-width: 440px;
-            padding: 24px;
+            max-width: 1020px;
+            margin: 20px;
+            background: var(--bg-card);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px -15px rgba(234, 88, 12, 0.12), 0 0 2px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            border: 1px solid rgba(254, 215, 170, 0.6);
         }
 
-        .auth-card {
-            background: rgba(15, 23, 42, 0.82);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 18px;
-            padding: 36px 32px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 30px rgba(2, 132, 199, 0.15);
-            color: #ffffff;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .account-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            min-height: 620px;
         }
 
-        .auth-brand-header {
+        /* Left Column: Form Area (~50% width) */
+        .auth-form-column {
+            flex: 1;
+            min-width: 320px;
+            padding: 44px 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Right Column: Hero Panel (~50% width) */
+        .auth-hero-column {
+            flex: 1;
+            min-width: 340px;
+            background: linear-gradient(145deg, #fff7ed 0%, #ffedd5 60%, #fed7aa 100%);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            margin: 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(251, 146, 60, 0.3);
             text-align: center;
-            margin-bottom: 28px;
-        }
-        .auth-brand-logo {
-            width: 56px;
-            height: 56px;
-            object-fit: contain;
-            margin-bottom: 12px;
-            filter: drop-shadow(0 4px 10px rgba(2, 132, 199, 0.4));
-        }
-        .auth-brand-title {
-            font-size: 24px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            color: #ffffff;
-            margin: 0 0 4px;
-        }
-        .auth-brand-subtitle {
-            font-size: 13px;
-            color: #94a3b8;
-            margin: 0;
         }
 
-        .auth-card .form-label {
-            color: #e2e8f0;
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 6px;
+        /* ─── Floating Inset Label Inputs (Matches Reference Image) ─── */
+        .input-floating-group {
+            position: relative;
+            margin-bottom: 22px;
         }
-        .auth-card .form-control {
-            background: rgba(30, 41, 59, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: #ffffff !important;
-            border-radius: 10px;
-            padding: 11px 16px;
-            font-size: 14px;
-        }
-        .auth-card .form-control:focus {
-            background: rgba(30, 41, 59, 0.9);
-            border-color: #38bdf8;
-            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
-        }
-        .auth-card .btn-login {
-            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-            border: none;
-            color: #ffffff;
+
+        .input-floating-group label {
+            position: absolute;
+            top: -10px;
+            left: 16px;
+            background: #ffffff;
+            padding: 0 6px;
+            font-size: 12px;
             font-weight: 700;
-            padding: 12px;
-            border-radius: 10px;
+            color: var(--primary-orange);
+            letter-spacing: 0.3px;
+            z-index: 2;
+            border-radius: 4px;
+        }
+
+        .input-floating-group .form-control {
+            height: 52px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px 18px;
+            font-size: 14px;
+            color: var(--text-heading);
+            background: #ffffff;
+            transition: all 0.2s ease;
+        }
+
+        .input-floating-group .form-control:focus {
+            border-color: var(--primary-orange);
+            box-shadow: 0 0 0 4px rgba(234, 88, 12, 0.12);
+            outline: none;
+        }
+
+        /* Buttons & Accent Elements */
+        .btn-pill-orange {
+            background: var(--primary-orange);
+            color: #ffffff !important;
+            font-weight: 700;
             font-size: 15px;
+            height: 50px;
+            border-radius: 25px;
+            border: none;
             width: 100%;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+            box-shadow: 0 6px 18px rgba(234, 88, 12, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .auth-card .btn-login:hover {
-            background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+        .btn-pill-orange:hover {
+            background: var(--primary-orange-hover);
             transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(56, 189, 248, 0.4);
+            box-shadow: 0 8px 22px rgba(234, 88, 12, 0.4);
         }
 
-        .auth-card a {
-            color: #38bdf8;
-            text-decoration: none;
+        .btn-pill-google {
+            background: #ffffff;
+            color: var(--text-heading) !important;
             font-weight: 600;
+            font-size: 14px;
+            height: 50px;
+            border-radius: 25px;
+            border: 1.5px solid var(--border-color);
+            width: 100%;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
-        .auth-card a:hover {
-            text-decoration: underline;
-            color: #7dd3fc;
+        .btn-pill-google:hover {
+            border-color: var(--primary-orange);
+            background: var(--primary-orange-light);
         }
-        .auth-footer-text {
+
+        .divider-line {
+            display: flex;
+            align-items: center;
             text-align: center;
-            font-size: 13px;
-            color: #94a3b8;
-            margin-top: 20px;
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 600;
+            margin: 20px 0;
+        }
+        .divider-line::before, .divider-line::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .divider-line span {
+            padding: 0 12px;
+        }
+
+        .text-orange-link {
+            color: var(--primary-orange) !important;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .text-orange-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 991px) {
+            .auth-hero-column {
+                display: none;
+            }
+            .auth-form-column {
+                padding: 32px 24px;
+            }
         }
     </style>
 </head>
 
 <body class="account-page">
-    <!-- Live Canvas Particle Background -->
-    <canvas id="particles-canvas"></canvas>
-
-    <div class="account-content">
+    <div class="account-container">
         @yield('content')
     </div>
 
     <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('assets/js/feather.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
-
-    <!-- Interactive Live Particle Canvas Animation Script -->
-    <script>
-        (function() {
-            const canvas = document.getElementById('particles-canvas');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            let width, height;
-            let particles = [];
-
-            function resize() {
-                width = canvas.width = window.innerWidth;
-                height = canvas.height = window.innerHeight;
-            }
-            window.addEventListener('resize', resize);
-            resize();
-
-            const particleCount = Math.min(Math.floor(window.innerWidth / 15), 65);
-            for (let i = 0; i < particleCount; i++) {
-                particles.push({
-                    x: Math.random() * width,
-                    y: Math.random() * height,
-                    radius: Math.random() * 2 + 1,
-                    vx: (Math.random() - 0.5) * 0.4,
-                    vy: (Math.random() - 0.5) * 0.4,
-                    alpha: Math.random() * 0.5 + 0.2
-                });
-            }
-
-            function animate() {
-                ctx.clearRect(0, 0, width, height);
-
-                // Subtle Radial Medical Blue Background Glow
-                const grad = ctx.createRadialGradient(width / 2, height / 2, 50, width / 2, height / 2, Math.max(width, height) * 0.75);
-                grad.addColorStop(0, 'rgba(3, 105, 161, 0.22)');
-                grad.addColorStop(1, 'rgba(9, 13, 22, 0.95)');
-                ctx.fillStyle = grad;
-                ctx.fillRect(0, 0, width, height);
-
-                // Render Particles & Connecting Lines
-                for (let i = 0; i < particles.length; i++) {
-                    let p = particles[i];
-                    p.x += p.vx;
-                    p.y += p.vy;
-
-                    if (p.x < 0) p.x = width;
-                    if (p.x > width) p.x = 0;
-                    if (p.y < 0) p.y = height;
-                    if (p.y > height) p.y = 0;
-
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(56, 189, 248, ${p.alpha})`;
-                    ctx.shadowBlur = 8;
-                    ctx.shadowColor = '#38bdf8';
-                    ctx.fill();
-                    ctx.shadowBlur = 0;
-
-                    for (let j = i + 1; j < particles.length; j++) {
-                        let p2 = particles[j];
-                        let dx = p.x - p2.x;
-                        let dy = p.y - p2.y;
-                        let dist = Math.sqrt(dx * dx + dy * dy);
-
-                        if (dist < 110) {
-                            ctx.beginPath();
-                            ctx.moveTo(p.x, p.y);
-                            ctx.lineTo(p2.x, p2.y);
-                            ctx.strokeStyle = `rgba(56, 189, 248, ${0.15 * (1 - dist / 110)})`;
-                            ctx.lineWidth = 0.8;
-                            ctx.stroke();
-                        }
-                    }
-                }
-                requestAnimationFrame(animate);
-            }
-            animate();
-        })();
-    </script>
     @yield('script')
 </body>
 </html>
