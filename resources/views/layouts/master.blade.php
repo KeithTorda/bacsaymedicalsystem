@@ -39,7 +39,7 @@
             color: #ffffff !important;
         }
 
-        /* Minimalist Global Page Preloader (Matching Visual Reference Image) */
+        /* Minimalist Global Page Preloader (Glassmorphism Blur Overlay) */
         #global-loader {
             position: fixed;
             top: 0;
@@ -47,7 +47,9 @@
             width: 100vw;
             height: 100vh;
             z-index: 999999;
-            background-color: #090d16;
+            background: rgba(241, 245, 249, 0.65);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -55,34 +57,55 @@
         }
         html[data-theme="dark"] #global-loader,
         body[data-theme="dark"] #global-loader {
-            background-color: #000000 !important;
+            background: rgba(15, 23, 42, 0.65) !important;
         }
-        .loader-inner-container {
+        .loader-glass-card {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            gap: 16px;
+            gap: 12px;
+            padding: 20px 28px;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            border-radius: 14px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        html[data-theme="dark"] .loader-glass-card,
+        body[data-theme="dark"] .loader-glass-card {
+            background: rgba(15, 23, 42, 0.85) !important;
+            border-color: rgba(255, 255, 255, 0.1) !important;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4) !important;
         }
         .minimal-ring-spinner {
-            width: 46px;
-            height: 46px;
-            border: 3px solid rgba(255, 255, 255, 0.15);
-            border-top: 3px solid #ffffff;
+            width: 36px;
+            height: 36px;
+            border: 3px solid rgba(2, 132, 199, 0.2);
+            border-top: 3px solid #0284c7;
             border-radius: 50%;
             animation: ringSpin 0.75s linear infinite;
+        }
+        html[data-theme="dark"] .minimal-ring-spinner,
+        body[data-theme="dark"] .minimal-ring-spinner {
+            border-color: rgba(56, 189, 248, 0.2) !important;
+            border-top-color: #38bdf8 !important;
         }
         @keyframes ringSpin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
         .loader-label-text {
-            color: #f8fafc;
-            font-size: 14px;
-            font-weight: 400;
-            letter-spacing: 0.8px;
+            color: #334155;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             margin: 0;
+        }
+        html[data-theme="dark"] .loader-label-text,
+        body[data-theme="dark"] .loader-label-text {
+            color: #f1f5f9 !important;
         }
         /* Logo Aspect-Ratio & Proportions */
         .header .header-left .logo img,
@@ -572,11 +595,11 @@
 </head>
 
 <body>
-    <!-- Minimalist Global Page Preloader -->
-    <div id="global-loader" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:999999;background:#090d16;display:flex;align-items:center;justify-content:center;">
-        <div style="display:flex;flex-direction:column;align-items:center;gap:16px;">
-            <div style="width:46px;height:46px;border:3px solid rgba(255,255,255,0.15);border-top:3px solid #fff;border-radius:50%;animation:ringSpin 0.75s linear infinite;"></div>
-            <p style="color:#f8fafc;font-size:14px;font-weight:400;letter-spacing:0.8px;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;margin:0;">Loading</p>
+    <!-- Minimalist Global Page Preloader (Glassmorphism Blur Overlay) -->
+    <div id="global-loader" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:999999;background:rgba(15,23,42,0.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;">
+        <div class="loader-glass-card">
+            <div class="minimal-ring-spinner"></div>
+            <p class="loader-label-text">Loading...</p>
         </div>
     </div>
 
