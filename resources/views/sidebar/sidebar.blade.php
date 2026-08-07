@@ -94,7 +94,8 @@
                     </ul>
                 </li>
 
-                <!-- Users -->
+                @if(auth()->check() && strtolower(auth()->user()->role_name ?? '') === 'admin')
+                <!-- Users (Admin Only) -->
                 <li class="{{ set_active(['users*']) }}">
                     <a href="{{ route('users.index') }}">
                         <i class="fas fa-user-shield fs-5 me-2"></i>
@@ -102,13 +103,14 @@
                     </a>
                 </li>
 
-                <!-- Settings -->
+                <!-- Settings (Admin Only) -->
                 <li class="{{ set_active(['settings*']) }}">
                     <a href="{{ route('settings') }}">
                         <i class="fas fa-cog fs-5 me-2"></i>
                         <span>Settings</span>
                     </a>
                 </li>
+                @endif
 
                 <!-- Logout -->
                 <li>

@@ -9,6 +9,20 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     /**
+     * Enforce Auth & Role-Based Access Control (Admin Only)
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware(function ($request, $next) {
+            if (auth()->check() && strtolower(auth()->user()->role_name ?? '') !== 'admin') {
+                return redirect()->route('home')->with('error', 'Unauthorized Access! Only System Administrators can access System Users Management.');
+            }
+            return $next($request);
+        });
+    }
+
+    /**
      * Display a listing of system users.
      */
     public function index(Request $request)

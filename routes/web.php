@@ -90,9 +90,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/print/prescription/{id?}', [PrintController::class, 'prescription'])->name('print.prescription');
     Route::get('/print/referral/{id?}', [PrintController::class, 'referral'])->name('print.referral');
 
-    // Settings & Users Module
-    Route::get('/settings', function() { return view('settings.general'); })->name('settings');
+    // Settings & Users Module (Admin Only)
+    Route::get('/settings', function() {
+        if (auth()->check() && strtolower(auth()->user()->role_name ?? '') !== 'admin') {
+            return redirect()->route('home')->with('error', 'Unauthorized Access! Only System Administrators can access System Settings.');
+        }
+        return view('settings.general');
+    })->name('settings');
+
     Route::post('/settings', function(\Illuminate\Http\Request $request) {
+        if (auth()->check() && strtolower(auth()->user()->role_name ?? '') !== 'admin') {
+            return redirect()->route('home')->with('error', 'Unauthorized Access! Only System Administrators can modify System Settings.');
+        }
         return redirect()->back()->with('success', 'System Settings Updated Successfully!');
     })->name('settings.update');
 
