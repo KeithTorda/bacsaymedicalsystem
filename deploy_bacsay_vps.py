@@ -45,14 +45,16 @@ try:
     run_command(ssh, "php -v")
     run_command(ssh, "nginx -v")
 
-    print("\n--- 2. Cloning / Updating Repository from GitHub ---")
-    out, _ = run_command(ssh, f"[ -d {remote_dir} ] && echo 'EXISTS' || echo 'NOT_EXISTS'")
+    print("\n--- 2. Setting Safe Directory & Fetching Latest Code ---")
+    run_command(ssh, f"git config --global --add safe.directory {remote_dir}")
+    
+    out, _ = run_command(ssh, f"[ -d {remote_dir}/.git ] && echo 'EXISTS' || echo 'NOT_EXISTS'")
     if out.strip() == 'EXISTS':
-        print(f"Updating existing directory {remote_dir}...")
-        run_command(ssh, f"cd {remote_dir} && git fetch origin && git reset --hard origin/main")
+        print(f"Updating existing repository in {remote_dir}...")
+        run_command(ssh, f"cd {remote_dir} && git fetch origin main && git reset --hard origin/main")
     else:
         print(f"Cloning {repo_url} into {remote_dir}...")
-        run_command(ssh, f"mkdir -p {remote_dir} && git clone {repo_url} {remote_dir}")
+        run_command(ssh, f"rm -rf {remote_dir} && git clone {repo_url} {remote_dir}")
 
     print("\n--- 3. Setting Up Directory Permissions ---")
     run_command(ssh, f"mkdir -p {remote_dir}/storage {remote_dir}/bootstrap/cache {remote_dir}/database")
@@ -104,6 +106,9 @@ EOF
     run_command(ssh, f"cd {remote_dir} && php artisan storage:link --force || true")
 
     print("\n--- 7. Caching Production Configuration & Views ---")
+    run_command(ssh, f"cd {remote_dir} && php artisan config:clear")
+    run_command(ssh, f"cd {remote_dir} && php artisan route:clear")
+    run_command(ssh, f"cd {remote_dir} && php artisan view:clear")
     run_command(ssh, f"cd {remote_dir} && php artisan config:cache")
     run_command(ssh, f"cd {remote_dir} && php artisan route:cache")
     run_command(ssh, f"cd {remote_dir} && php artisan view:cache")

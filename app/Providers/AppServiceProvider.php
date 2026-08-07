@@ -7,6 +7,16 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Notification;
 
+// Fail-safe helper definition for sidebar active links
+if (!function_exists('set_active')) {
+    function set_active($route) {
+        if (is_array($route)) {
+            return in_array(request()->path(), $route) ? 'active' : '';
+        }
+        return request()->path() == $route ? 'active' : '';
+    }
+}
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
