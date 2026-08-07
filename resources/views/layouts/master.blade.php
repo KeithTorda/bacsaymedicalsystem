@@ -394,25 +394,78 @@
             background-color: rgba(16, 185, 129, 0.12) !important;
             color: #047857 !important;
             font-weight: 600 !important;
-            border: 1px solid rgba(16, 185, 129, 0.2) !important;
+            border: 1px solid rgba(16, 185, 129, 0.25) !important;
         }
         .badge-soft-warning, .bg-light-warning, .badges.bg-lightyellow {
             background-color: rgba(245, 158, 11, 0.12) !important;
             color: #b45309 !important;
             font-weight: 600 !important;
-            border: 1px solid rgba(245, 158, 11, 0.2) !important;
+            border: 1px solid rgba(245, 158, 11, 0.25) !important;
         }
         .badge-soft-danger, .bg-light-danger, .badges.bg-lightred {
             background-color: rgba(239, 68, 68, 0.12) !important;
             color: #b91c1c !important;
             font-weight: 600 !important;
-            border: 1px solid rgba(239, 68, 68, 0.2) !important;
+            border: 1px solid rgba(239, 68, 68, 0.25) !important;
         }
         .badge-soft-info, .bg-light-info, .badges.bg-lightblue {
             background-color: rgba(14, 165, 233, 0.12) !important;
             color: #0369a1 !important;
             font-weight: 600 !important;
-            border: 1px solid rgba(14, 165, 233, 0.2) !important;
+            border: 1px solid rgba(14, 165, 233, 0.25) !important;
+        }
+
+        /* Outline & Subtle Table ID Badges (Light Mode) */
+        .badge.bg-outline-info, .bg-outline-info {
+            background-color: rgba(2, 132, 199, 0.1) !important;
+            color: #0284c7 !important;
+            border: 1px solid rgba(2, 132, 199, 0.35) !important;
+            font-weight: 700 !important;
+            padding: 5px 10px !important;
+        }
+        .badge.bg-outline-primary, .bg-outline-primary {
+            background-color: rgba(79, 70, 229, 0.1) !important;
+            color: #4338ca !important;
+            border: 1px solid rgba(79, 70, 229, 0.35) !important;
+            font-weight: 700 !important;
+            padding: 5px 10px !important;
+        }
+        .badge.bg-outline-secondary, .bg-outline-secondary {
+            background-color: rgba(71, 85, 105, 0.1) !important;
+            color: #334155 !important;
+            border: 1px solid rgba(71, 85, 105, 0.35) !important;
+            font-weight: 700 !important;
+            padding: 5px 10px !important;
+        }
+        .bg-primary-subtle {
+            background-color: rgba(79, 70, 229, 0.12) !important;
+            color: #4338ca !important;
+            font-weight: 700 !important;
+            padding: 4px 8px !important;
+        }
+        .bg-success-subtle {
+            background-color: rgba(16, 185, 129, 0.12) !important;
+            color: #047857 !important;
+            font-weight: 700 !important;
+            padding: 4px 8px !important;
+        }
+        .bg-warning-subtle {
+            background-color: rgba(245, 158, 11, 0.12) !important;
+            color: #b45309 !important;
+            font-weight: 700 !important;
+            padding: 4px 8px !important;
+        }
+        .bg-danger-subtle {
+            background-color: rgba(239, 68, 68, 0.12) !important;
+            color: #b91c1c !important;
+            font-weight: 700 !important;
+            padding: 4px 8px !important;
+        }
+        .badge.bg-light, .bg-light {
+            background-color: #f1f5f9 !important;
+            color: #1e293b !important;
+            border: 1px solid #cbd5e1 !important;
+            font-weight: 600 !important;
         }
 
         /* ═══════════════════════════════════════════════════
@@ -507,6 +560,52 @@
         body[data-theme="dark"] .badge-soft-info, body[data-theme="dark"] .bg-light-info, body[data-theme="dark"] .badges.bg-lightblue {
             background-color: rgba(14, 165, 233, 0.2) !important;
             color: #38bdf8 !important;
+        }
+
+        /* Dark Mode Outline & Subtle Badges */
+        body[data-theme="dark"] .badge.bg-outline-info, body[data-theme="dark"] .bg-outline-info {
+            background-color: rgba(56, 189, 248, 0.15) !important;
+            color: #38bdf8 !important;
+            border: 1px solid rgba(56, 189, 248, 0.35) !important;
+            font-weight: 700 !important;
+        }
+        body[data-theme="dark"] .badge.bg-outline-primary, body[data-theme="dark"] .bg-outline-primary {
+            background-color: rgba(129, 140, 248, 0.15) !important;
+            color: #818cf8 !important;
+            border: 1px solid rgba(129, 140, 248, 0.35) !important;
+            font-weight: 700 !important;
+        }
+        body[data-theme="dark"] .badge.bg-outline-secondary, body[data-theme="dark"] .bg-outline-secondary {
+            background-color: rgba(148, 163, 184, 0.15) !important;
+            color: #e2e8f0 !important;
+            border: 1px solid rgba(148, 163, 184, 0.35) !important;
+            font-weight: 700 !important;
+        }
+        body[data-theme="dark"] .bg-primary-subtle {
+            background-color: rgba(129, 140, 248, 0.2) !important;
+            color: #a5b4fc !important;
+            font-weight: 700 !important;
+        }
+        body[data-theme="dark"] .bg-success-subtle {
+            background-color: rgba(16, 185, 129, 0.2) !important;
+            color: #34d399 !important;
+            font-weight: 700 !important;
+        }
+        body[data-theme="dark"] .bg-warning-subtle {
+            background-color: rgba(245, 158, 11, 0.2) !important;
+            color: #fbbf24 !important;
+            font-weight: 700 !important;
+        }
+        body[data-theme="dark"] .bg-danger-subtle {
+            background-color: rgba(239, 68, 68, 0.2) !important;
+            color: #f87171 !important;
+            font-weight: 700 !important;
+        }
+        body[data-theme="dark"] .badge.bg-light, body[data-theme="dark"] .bg-light {
+            background-color: #18181b !important;
+            color: #f1f5f9 !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            font-weight: 600 !important;
         }
 
         /* Pitch Black Notifications Dropdown */
@@ -1069,17 +1168,33 @@
             // Custom Mobile Drawer Controller
             const customMobileToggle = document.getElementById('custom_mobile_toggle');
             const customMobileOverlay = document.getElementById('custom_mobile_overlay');
+            const customMobileCloseBtn = document.getElementById('custom_mobile_close_btn');
 
             function openCustomDrawer() {
                 document.body.classList.add('custom-drawer-open');
+                document.body.classList.add('slide-nav');
             }
 
             function closeCustomDrawer() {
                 document.body.classList.remove('custom-drawer-open');
+                document.body.classList.remove('slide-nav');
+                document.body.classList.remove('menu-opened');
+                var wrapper = document.querySelector('.main-wrapper');
+                if (wrapper) wrapper.classList.remove('slide-nav');
+                var overlay = document.querySelector('.sidebar-overlay');
+                if (overlay) overlay.classList.remove('opened');
             }
 
             if (customMobileToggle) customMobileToggle.addEventListener('click', openCustomDrawer);
             if (customMobileOverlay) customMobileOverlay.addEventListener('click', closeCustomDrawer);
+            if (customMobileCloseBtn) customMobileCloseBtn.addEventListener('click', closeCustomDrawer);
+
+            // Delegate click listener for X close button or its child icon
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('#custom_mobile_close_btn')) {
+                    closeCustomDrawer();
+                }
+            });
 
             // Global Page Loader Controller & Navigation Transitions
             var loaderElem = document.getElementById('global-loader');
