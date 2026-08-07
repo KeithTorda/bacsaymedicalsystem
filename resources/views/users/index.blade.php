@@ -117,13 +117,10 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="form-label">Role Designation</label>
-                                                    <select name="role_name" class="form-select" required>
+                                                     <select name="role_name" class="form-select" required>
                                                         <option value="Admin" {{ ($usr->role_name ?? '') == 'Admin' ? 'selected' : '' }}>Admin</option>
-                                                        <option value="Doctor" {{ ($usr->role_name ?? '') == 'Doctor' ? 'selected' : '' }}>Doctor</option>
-                                                        <option value="Nurse" {{ ($usr->role_name ?? '') == 'Nurse' ? 'selected' : '' }}>Nurse</option>
-                                                        <option value="Health Worker" {{ ($usr->role_name ?? '') == 'Health Worker' ? 'selected' : '' }}>Health Worker</option>
                                                         <option value="Staff" {{ ($usr->role_name ?? '') == 'Staff' ? 'selected' : '' }}>Staff</option>
-                                                    </select>
+                                                     </select>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="form-label">Phone Number</label>
@@ -181,9 +178,6 @@
                         <label class="form-label">Role Designation <span class="text-danger">*</span></label>
                         <select name="role_name" class="form-select" required>
                             <option value="Staff">Staff</option>
-                            <option value="Health Worker">Health Worker</option>
-                            <option value="Nurse">Nurse</option>
-                            <option value="Doctor">Doctor</option>
                             <option value="Admin">Admin</option>
                         </select>
                     </div>
