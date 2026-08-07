@@ -52,6 +52,7 @@ Route::middleware('auth')->group(function () {
     Route::controller(HomeController::class)->group(function () {
         Route::get('/home', 'index')->name('home');
         Route::get('/profile', 'profile')->name('profile');
+        Route::post('/profile', 'updateProfile')->name('profile.update');
     });
 
     // Patients Module

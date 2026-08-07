@@ -7,9 +7,11 @@ use App\Models\Consultation;
 use App\Models\Prescription;
 use App\Models\Appointment;
 use App\Models\MedicalRecord;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
-use DB;
 
 class HomeController extends Controller
 {
@@ -60,5 +62,37 @@ class HomeController extends Controller
     public function profile()
     {
         return view('dashboard.profile');
+    }
+
+    /**
+     * Update logged in user profile.
+     */
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            'first_name' => 'required|string|max:100',
+            'last_name'  => 'required|string|max:100',
+            'email'      => 'required|email|max:255|unique:users,email,' . $user->id,
+            'phone'      => 'nullable|string|max:20',
+            'password'   => 'nullable|string|min:6|confirmed',
+        ]);
+
+        $fullName = trim($request->first_name . ' ' . $request->last_name);
+
+        $user->name = $fullName;
+        $user->email = $request->email;
+        if ($request->filled('phone')) {
+            $user->phone_number = $request->phone;
+        }
+
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->save();
+
+        return redirect()->back()->with('success', 'Your profile details have been updated successfully!');
     }
 }

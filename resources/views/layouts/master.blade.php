@@ -568,6 +568,74 @@
         }
         body[data-theme="dark"] .form-control:focus,
         body[data-theme="dark"] .form-select:focus {
+            background-color: #1e293b !important;
+            border-color: #38bdf8 !important;
+            color: #ffffff !important;
+        }
+
+        /* ═══════════════════════════════════════════════════
+           COMPREHENSIVE DARK MODE MODAL & CLOSE BUTTON OVERRIDES
+           ═══════════════════════════════════════════════════ */
+        body[data-theme="dark"] .modal-content {
+            background-color: #121214 !important;
+            color: #ffffff !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8) !important;
+        }
+
+        body[data-theme="dark"] .modal-header {
+            background-color: #18181b !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+            color: #ffffff !important;
+        }
+
+        body[data-theme="dark"] .modal-header .modal-title,
+        body[data-theme="dark"] .modal-header h1,
+        body[data-theme="dark"] .modal-header h2,
+        body[data-theme="dark"] .modal-header h3,
+        body[data-theme="dark"] .modal-header h4,
+        body[data-theme="dark"] .modal-header h5 {
+            color: #ffffff !important;
+        }
+
+        /* Modal Close Button (X) - Always High Contrast White */
+        body[data-theme="dark"] .modal-header .btn-close,
+        body[data-theme="dark"] .modal-header .close,
+        body[data-theme="dark"] .modal-header button.close,
+        .modal-header .btn-close,
+        .modal-header .close,
+        .modal-header button.close {
+            color: #ffffff !important;
+            opacity: 0.95 !important;
+            filter: brightness(0) invert(1) !important;
+            font-size: 1.4rem !important;
+        }
+
+        body[data-theme="dark"] .modal-body {
+            background-color: #121214 !important;
+            color: #ffffff !important;
+        }
+
+        body[data-theme="dark"] .modal-body label,
+        body[data-theme="dark"] .modal-body .form-label,
+        body[data-theme="dark"] .modal-body .col-form-label {
+            color: #f8fafc !important;
+            font-weight: 600 !important;
+        }
+
+        body[data-theme="dark"] .modal-body .form-control,
+        body[data-theme="dark"] .modal-body .form-select,
+        body[data-theme="dark"] .modal-body textarea,
+        body[data-theme="dark"] .modal-body input {
+            background-color: #18181b !important;
+            border: 1px solid rgba(255, 255, 255, 0.22) !important;
+            color: #ffffff !important;
+        }
+
+        body[data-theme="dark"] .modal-footer {
+            background-color: #18181b !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+        }
             border-color: #38bdf8 !important;
             box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2) !important;
         }

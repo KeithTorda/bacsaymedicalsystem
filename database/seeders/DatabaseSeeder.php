@@ -333,26 +333,45 @@ class DatabaseSeeder extends Seeder
             'status' => 'Scheduled',
         ]);
 
-        // 6. Seed Notifications
+        // 6. Seed Role-Specific Notifications
+        // Admin Notifications (System & Security Audit)
         Notification::create([
             'user_id' => $admin->id,
-            'title' => 'New Patient Registered',
-            'message' => 'Maria Clara Santos was registered at Purok 1.',
+            'target_role' => 'Admin',
+            'title' => 'System Audit Alert',
+            'message' => 'New staff account created: Staff User (ID0002).',
             'type' => 'info',
             'is_read' => false,
         ]);
         Notification::create([
             'user_id' => $admin->id,
-            'title' => 'Consultation Completed',
-            'message' => 'Consultation CNS-101 recorded for Maria Clara Santos.',
+            'target_role' => 'Admin',
+            'title' => 'Daily Health Summary',
+            'message' => '5 new patient registrations completed today in Barangay Bacsay.',
             'type' => 'success',
             'is_read' => false,
         ]);
+
+        // Staff Notifications (Clinical & Operations)
         Notification::create([
-            'user_id' => $admin->id,
-            'title' => 'Prescription Issued',
-            'message' => 'Prescription RX-2026-001 issued by Nurse Teresa Alonzo.',
+            'target_role' => 'Staff',
+            'title' => 'New Patient Appointment',
+            'message' => 'Maria Clara Santos scheduled for Blood Pressure Check-up.',
             'type' => 'primary',
+            'is_read' => false,
+        ]);
+        Notification::create([
+            'target_role' => 'Staff',
+            'title' => 'Prescription Rx Issued',
+            'message' => 'Prescription RX-2026-001 issued for Juan Dela Cruz.',
+            'type' => 'info',
+            'is_read' => false,
+        ]);
+        Notification::create([
+            'target_role' => 'Staff',
+            'title' => 'Vaccination Reminder',
+            'message' => 'Tetanus Toxoid booster scheduled for Roberto Reyes.',
+            'type' => 'warning',
             'is_read' => false,
         ]);
     }
