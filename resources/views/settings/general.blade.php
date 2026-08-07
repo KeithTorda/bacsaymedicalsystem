@@ -31,15 +31,15 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label fw-medium">Application Name</label>
-                                    <input type="text" name="app_name" class="form-control" value="KBOT Inventory System" required>
+                                    <input type="text" name="app_name" class="form-control" value="Barangay Bacsay Health Center System" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label fw-medium">Tagline / Description</label>
-                                    <input type="text" name="app_tagline" class="form-control" value="Enterprise SaaS POS & Inventory Management">
+                                    <input type="text" name="app_tagline" class="form-control" value="Patient & Medical Record Management System">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label fw-medium">Support Contact Email</label>
-                                    <input type="email" name="contact_email" class="form-control" value="admin@kbot.ph" required>
+                                    <input type="email" name="contact_email" class="form-control" value="healthcenter@bacsay.gov.ph" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label fw-medium">Contact Phone Number</label>

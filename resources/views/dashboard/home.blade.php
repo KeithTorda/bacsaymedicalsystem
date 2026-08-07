@@ -203,10 +203,11 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         if (document.querySelector("#patient_registration_chart")) {
+            var monthlyData = @json($monthlyRegistrations);
             var optionsReg = {
                 series: [{
                     name: 'Registered Patients',
-                    data: [15, 28, 42, 55, 68, 80, 95, 110, 125, 140, 150, 185]
+                    data: monthlyData
                 }],
                 chart: {
                     type: 'area',
@@ -230,10 +231,11 @@
         }
 
         if (document.querySelector("#daily_consultation_chart")) {
+            var dailyData = @json($dailyConsultations);
             var optionsDaily = {
                 series: [{
                     name: 'Consultations',
-                    data: [4, 8, 6, 12, 9, 5, 3]
+                    data: dailyData
                 }],
                 chart: {
                     type: 'bar',

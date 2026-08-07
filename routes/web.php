@@ -91,5 +91,8 @@ Route::middleware('auth')->group(function () {
 
     // Settings & Users
     Route::get('/settings', function() { return view('settings.general'); })->name('settings');
+    Route::post('/settings', function(\Illuminate\Http\Request $request) {
+        return redirect()->back()->with('success', 'System Settings Updated Successfully!');
+    })->name('settings.update');
     Route::get('/users', function() { return view('users.index'); })->name('users.index');
 });

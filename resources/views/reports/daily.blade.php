@@ -126,10 +126,12 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         if (document.querySelector("#common_diseases_chart")) {
+            var diseaseLabels = @json($diseaseLabels);
+            var diseaseData = @json($diseaseData);
             var optionsDiseases = {
-                series: [42, 28, 18, 12, 10],
+                series: diseaseData,
                 chart: { type: 'donut', height: 280 },
-                labels: ['Hypertension', 'Upper Respiratory Infection', 'Type 2 Diabetes', 'Asthma', 'Arthritis'],
+                labels: diseaseLabels,
                 colors: ['#ef4444', '#f59e0b', '#3b82f6', '#10b981', '#8b5cf6'],
                 legend: { position: 'bottom' }
             };
@@ -138,10 +140,11 @@
         }
 
         if (document.querySelector("#age_group_chart")) {
+            var ageData = @json($ageDemographics);
             var optionsAge = {
                 series: [{
                     name: 'Patients',
-                    data: [145, 230, 310, 280, 190, 93]
+                    data: ageData
                 }],
                 chart: { type: 'bar', height: 280, toolbar: { show: false } },
                 colors: ['#0284c7'],
