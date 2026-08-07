@@ -295,17 +295,142 @@
             stroke: rgba(255, 255, 255, 0.15) !important;
         }
 
-        /* Pitch Black Table & High Contrast */
+        /* ═══════════════════════════════════════════════════
+           HIGH-CONTRAST GLOBAL TABLE HEADERS & TYPOGRAPHY
+           ═══════════════════════════════════════════════════ */
+        .table thead th,
+        table.dataTable thead th,
+        table.dataTable thead td,
+        .table-responsive .table thead th,
+        .table thead tr th {
+            background-color: #f8fafc !important;
+            color: #0f172a !important;
+            font-size: 12px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
+            border-bottom: 2px solid #e2e8f0 !important;
+            border-top: none !important;
+            padding: 12px 16px !important;
+            box-shadow: none !important;
+        }
+        .table tbody tr td,
+        table.dataTable tbody tr td {
+            color: #334155 !important;
+            border-bottom: 1px solid #f1f5f9 !important;
+            font-size: 13px !important;
+            vertical-align: middle !important;
+        }
+        .table tbody tr:hover {
+            background-color: #f8fafc !important;
+        }
+
+        /* High-Contrast Form Labels & Helper Text (Light Mode) */
+        label,
+        .form-label,
+        .form-group label,
+        .col-form-label,
+        .card-header h4,
+        .card-header h5,
+        .card-title {
+            color: #0f172a !important;
+            font-weight: 600 !important;
+        }
+        label.form-label,
+        .form-group label {
+            font-size: 13px !important;
+            margin-bottom: 6px !important;
+            color: #1e293b !important;
+        }
+        .text-muted,
+        small,
+        .form-text,
+        .page-title h6,
+        .sub-title {
+            color: #475569 !important;
+            font-size: 12px !important;
+        }
+        .form-control,
+        .form-select,
+        .select2-container--default .select2-selection--single {
+            color: #0f172a !important;
+            background-color: #ffffff !important;
+            border: 1px solid #cbd5e1 !important;
+            font-size: 13px !important;
+        }
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #0284c7 !important;
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15) !important;
+        }
+
+        /* DataTables Controls & Pagination (Light Mode) */
+        .dataTables_wrapper .dataTables_filter input,
+        .dataTables_wrapper .dataTables_length select {
+            border: 1px solid #cbd5e1 !important;
+            border-radius: 6px !important;
+            padding: 6px 12px !important;
+            font-size: 13px !important;
+            color: #0f172a !important;
+            background-color: #ffffff !important;
+        }
+        .dataTables_wrapper .dataTables_info {
+            color: #475569 !important;
+            font-weight: 500 !important;
+            font-size: 12px !important;
+        }
+        table.dataTable thead .sorting:before,
+        table.dataTable thead .sorting_asc:before,
+        table.dataTable thead .sorting_desc:before,
+        table.dataTable thead .sorting:after,
+        table.dataTable thead .sorting_asc:after,
+        table.dataTable thead .sorting_desc:after {
+            color: #0284c7 !important;
+            opacity: 0.8 !important;
+        }
+
+        /* High Contrast Badges & Status Chips (Light Mode) */
+        .badge-soft-success, .bg-light-success, .badges.bg-lightgreen {
+            background-color: rgba(16, 185, 129, 0.12) !important;
+            color: #047857 !important;
+            font-weight: 600 !important;
+            border: 1px solid rgba(16, 185, 129, 0.2) !important;
+        }
+        .badge-soft-warning, .bg-light-warning, .badges.bg-lightyellow {
+            background-color: rgba(245, 158, 11, 0.12) !important;
+            color: #b45309 !important;
+            font-weight: 600 !important;
+            border: 1px solid rgba(245, 158, 11, 0.2) !important;
+        }
+        .badge-soft-danger, .bg-light-danger, .badges.bg-lightred {
+            background-color: rgba(239, 68, 68, 0.12) !important;
+            color: #b91c1c !important;
+            font-weight: 600 !important;
+            border: 1px solid rgba(239, 68, 68, 0.2) !important;
+        }
+        .badge-soft-info, .bg-light-info, .badges.bg-lightblue {
+            background-color: rgba(14, 165, 233, 0.12) !important;
+            color: #0369a1 !important;
+            font-weight: 600 !important;
+            border: 1px solid rgba(14, 165, 233, 0.2) !important;
+        }
+
+        /* ═══════════════════════════════════════════════════
+           DARK MODE TABLE & FORM CONTRAST OVERRIDES
+           ═══════════════════════════════════════════════════ */
         body[data-theme="dark"] .table {
             color: #ffffff !important;
         }
-        body[data-theme="dark"] .table thead th {
+        body[data-theme="dark"] .table thead th,
+        body[data-theme="dark"] table.dataTable thead th,
+        body[data-theme="dark"] table.dataTable thead td,
+        body[data-theme="dark"] .table-responsive .table thead th {
             background-color: #09090b !important;
-            color: #cbd5e1 !important;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
-            font-weight: 600;
+            color: #f8fafc !important;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.15) !important;
         }
-        body[data-theme="dark"] .table tbody tr td {
+        body[data-theme="dark"] .table tbody tr td,
+        body[data-theme="dark"] table.dataTable tbody tr td {
             color: #f1f5f9 !important;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
         }
@@ -315,21 +440,73 @@
         body[data-theme="dark"] .table tbody tr:hover {
             background-color: rgba(255, 255, 255, 0.05) !important;
         }
-
-        /* Pitch Black Form Controls & Input Fields */
-        body[data-theme="dark"] .form-group label {
-            color: #cbd5e1 !important;
-            font-weight: 500;
+        body[data-theme="dark"] label,
+        body[data-theme="dark"] .form-label,
+        body[data-theme="dark"] .form-group label,
+        body[data-theme="dark"] .col-form-label,
+        body[data-theme="dark"] th,
+        body[data-theme="dark"] .card-header h4,
+        body[data-theme="dark"] .card-header h5,
+        body[data-theme="dark"] .card-title {
+            color: #f8fafc !important;
+        }
+        body[data-theme="dark"] .text-muted,
+        body[data-theme="dark"] small,
+        body[data-theme="dark"] .form-text,
+        body[data-theme="dark"] .page-title h6,
+        body[data-theme="dark"] .sub-title {
+            color: #94a3b8 !important;
         }
         body[data-theme="dark"] .form-group input,
-        body[data-theme="dark"] .form-control {
+        body[data-theme="dark"] .form-control,
+        body[data-theme="dark"] .form-select,
+        body[data-theme="dark"] .select2-container--default .select2-selection--single {
             background-color: #18181b !important;
-            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            border: 1px solid rgba(255, 255, 255, 0.18) !important;
             color: #ffffff !important;
         }
         body[data-theme="dark"] .form-group input::placeholder,
         body[data-theme="dark"] .form-control::placeholder {
             color: #64748b !important;
+        }
+        body[data-theme="dark"] .form-control:focus,
+        body[data-theme="dark"] .form-select:focus {
+            border-color: #38bdf8 !important;
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2) !important;
+        }
+        body[data-theme="dark"] .dataTables_wrapper .dataTables_filter input,
+        body[data-theme="dark"] .dataTables_wrapper .dataTables_length select {
+            background-color: #18181b !important;
+            border: 1px solid rgba(255, 255, 255, 0.18) !important;
+            color: #ffffff !important;
+        }
+        body[data-theme="dark"] .dataTables_wrapper .dataTables_info {
+            color: #94a3b8 !important;
+        }
+        body[data-theme="dark"] table.dataTable thead .sorting:before,
+        body[data-theme="dark"] table.dataTable thead .sorting_asc:before,
+        body[data-theme="dark"] table.dataTable thead .sorting_desc:before,
+        body[data-theme="dark"] table.dataTable thead .sorting:after,
+        body[data-theme="dark"] table.dataTable thead .sorting_asc:after,
+        body[data-theme="dark"] table.dataTable thead .sorting_desc:after {
+            color: #38bdf8 !important;
+            opacity: 0.9 !important;
+        }
+        body[data-theme="dark"] .badge-soft-success, body[data-theme="dark"] .bg-light-success, body[data-theme="dark"] .badges.bg-lightgreen {
+            background-color: rgba(16, 185, 129, 0.2) !important;
+            color: #34d399 !important;
+        }
+        body[data-theme="dark"] .badge-soft-warning, body[data-theme="dark"] .bg-light-warning, body[data-theme="dark"] .badges.bg-lightyellow {
+            background-color: rgba(245, 158, 11, 0.2) !important;
+            color: #fbbf24 !important;
+        }
+        body[data-theme="dark"] .badge-soft-danger, body[data-theme="dark"] .bg-light-danger, body[data-theme="dark"] .badges.bg-lightred {
+            background-color: rgba(239, 68, 68, 0.2) !important;
+            color: #f87171 !important;
+        }
+        body[data-theme="dark"] .badge-soft-info, body[data-theme="dark"] .bg-light-info, body[data-theme="dark"] .badges.bg-lightblue {
+            background-color: rgba(14, 165, 233, 0.2) !important;
+            color: #38bdf8 !important;
         }
 
         /* Pitch Black Notifications Dropdown */
