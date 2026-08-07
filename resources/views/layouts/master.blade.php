@@ -783,27 +783,7 @@
                 justify-content: center;
                 cursor: pointer;
             }
-            .mobile-header-center {
-                position: absolute !important;
-                left: 50% !important;
-                transform: translateX(-50%) !important;
-            }
-            .brand-logo-text-small {
-                font-size: 13px !important;
-                font-weight: 700 !important;
-                letter-spacing: 1.5px !important;
-                color: #38bdf8 !important;
-                background: rgba(56, 189, 248, 0.12);
-                padding: 3px 10px;
-                border-radius: 6px;
-                border: 1px solid rgba(56, 189, 248, 0.25);
-                text-transform: uppercase;
-            }
-            body:not([data-theme="dark"]) .brand-logo-text-small {
-                color: #0284c7 !important;
-                background: rgba(2, 132, 199, 0.08);
-                border: 1px solid rgba(2, 132, 199, 0.2);
-            }
+
             
             /* Custom Mobile Sidebar Drawer (Snug 230px Width & Locked Top Header) */
             .sidebar {
@@ -902,14 +882,6 @@
                 <i class="fas fa-bars fs-4"></i>
             </button>
 
-            <!-- Mobile Center: Sleek Small BacsayMedSys Badge -->
-            <div class="mobile-header-center d-lg-none">
-                <a href="{{ route('home') }}" class="text-decoration-none">
-                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1 rounded-pill fs-7 fw-bold">
-                        <i class="fas fa-heartpulse me-1"></i> BacsayMedSys
-                    </span>
-                </a>
-            </div>
 
             <!-- Desktop User Menu (Hidden on Mobile, Displayed >= 992px) -->
             <ul class="nav user-menu d-none d-lg-flex">
