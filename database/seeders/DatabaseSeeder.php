@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,21 +21,21 @@ class DatabaseSeeder extends Seeder
                 'email' => 'admin@gmail.com',
                 'status' => 'Active',
                 'role_name' => 'Admin',
-                'password' => \Hash::make('password123'),
+                'password' => Hash::make('admin123'),
             ]
         );
 
         User::updateOrCreate(
-            ['email' => 'test@example.com'],
+            ['email' => 'staff@bacsay.gov.ph'],
             [
-                'name' => 'Test User',
+                'name' => 'Staff User',
                 'user_id' => 'ID0002',
-                'email' => 'test@example.com',
+                'email' => 'staff@bacsay.gov.ph',
                 'status' => 'Active',
-                'role_name' => 'User',
-                'password' => \Hash::make('password123'),
+                'role_name' => 'Staff',
+                'password' => Hash::make('admin123'),
             ]
         );
     }
 }
-}
+

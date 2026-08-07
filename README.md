@@ -108,11 +108,11 @@ A comprehensive, dynamic, and secure web application designed specifically for *
 ## 🔐 Default Admin Credentials (Seeder)
 
 - **Admin Account**:
-  - Email: `admin@bacsay.gov.ph`
-  - Password: `password123`
+  - Email: `admin@gmail.com`
+  - Password: `admin123`
 - **Staff Account**:
   - Email: `staff@bacsay.gov.ph`
-  - Password: `password123`
+  - Password: `admin123`
 
 ---
 

@@ -23,9 +23,7 @@ class User extends Authenticatable
      */
     protected $table = 'users'; // Specify the table name if it's not pluralized
 
-    protected $fillable = [
-        'last_login', // Ensure this is included
-    ];
+    protected $guarded = [];
 
 
     /**
