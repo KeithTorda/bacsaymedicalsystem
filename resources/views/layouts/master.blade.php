@@ -572,11 +572,11 @@
 </head>
 
 <body>
-    <!-- Minimalist Global Page Preloader (Matching Visual Reference Image) -->
-    <div id="global-loader">
-        <div class="loader-inner-container">
-            <div class="minimal-ring-spinner"></div>
-            <p class="loader-label-text">Loading</p>
+    <!-- Minimalist Global Page Preloader -->
+    <div id="global-loader" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:999999;background:#090d16;display:flex;align-items:center;justify-content:center;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+            <div style="width:46px;height:46px;border:3px solid rgba(255,255,255,0.15);border-top:3px solid #fff;border-radius:50%;animation:ringSpin 0.75s linear infinite;"></div>
+            <p style="color:#f8fafc;font-size:14px;font-weight:400;letter-spacing:0.8px;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;margin:0;">Loading</p>
         </div>
     </div>
 
