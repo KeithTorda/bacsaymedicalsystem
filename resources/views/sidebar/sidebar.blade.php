@@ -85,11 +85,12 @@
                         <span class="menu-arrow"></span>
                     </a>
                     <ul>
-                        <li><a href="{{ route('print.patient', ['id' => 1]) }}" target="_blank">Patient Information</a></li>
-                        <li><a href="{{ route('print.medical-record', ['id' => 1]) }}" target="_blank">Medical Record</a></li>
-                        <li><a href="{{ route('print.consultation', ['id' => 1]) }}" target="_blank">Consultation Record</a></li>
-                        <li><a href="{{ route('print.prescription', ['id' => 1]) }}" target="_blank">Prescription Form</a></li>
-                        <li><a href="{{ route('print.referral', ['id' => 1]) }}" target="_blank">Referral Form</a></li>
+                        <li><a href="{{ route('print.index') }}" class="{{ set_active(['print']) }}">Print Center Hub</a></li>
+                        <li><a href="{{ route('print.patient') }}" target="_blank">Patient Information Sheet</a></li>
+                        <li><a href="{{ route('print.medical-record') }}" target="_blank">Clinical Medical Record</a></li>
+                        <li><a href="{{ route('print.consultation') }}" target="_blank">Consultation Form</a></li>
+                        <li><a href="{{ route('print.prescription') }}" target="_blank">Prescription Form (Rx)</a></li>
+                        <li><a href="{{ route('print.referral') }}" target="_blank">Referral Form</a></li>
                     </ul>
                 </li>
 

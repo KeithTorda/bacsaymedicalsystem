@@ -9,6 +9,7 @@ use App\Http\Controllers\PrescriptionController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\PrintController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -83,16 +84,19 @@ Route::middleware('auth')->group(function () {
     Route::get('/reports/patients', [ReportController::class, 'patients'])->name('reports.patients');
 
     // Print Module
-    Route::get('/print/patient/{id}', [PrintController::class, 'patient'])->name('print.patient');
-    Route::get('/print/medical-record/{id}', [PrintController::class, 'medicalRecord'])->name('print.medical-record');
-    Route::get('/print/consultation/{id}', [PrintController::class, 'consultation'])->name('print.consultation');
-    Route::get('/print/prescription/{id}', [PrintController::class, 'prescription'])->name('print.prescription');
-    Route::get('/print/referral/{id}', [PrintController::class, 'referral'])->name('print.referral');
+    Route::get('/print', [PrintController::class, 'index'])->name('print.index');
+    Route::get('/print/patient/{id?}', [PrintController::class, 'patient'])->name('print.patient');
+    Route::get('/print/medical-record/{id?}', [PrintController::class, 'medicalRecord'])->name('print.medical-record');
+    Route::get('/print/consultation/{id?}', [PrintController::class, 'consultation'])->name('print.consultation');
+    Route::get('/print/prescription/{id?}', [PrintController::class, 'prescription'])->name('print.prescription');
+    Route::get('/print/referral/{id?}', [PrintController::class, 'referral'])->name('print.referral');
 
-    // Settings & Users
+    // Settings & Users Module
     Route::get('/settings', function() { return view('settings.general'); })->name('settings');
     Route::post('/settings', function(\Illuminate\Http\Request $request) {
         return redirect()->back()->with('success', 'System Settings Updated Successfully!');
     })->name('settings.update');
-    Route::get('/users', function() { return view('users.index'); })->name('users.index');
+
+    Route::resource('users', UserController::class);
+    Route::post('/users/{id}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggle-status');
 });
