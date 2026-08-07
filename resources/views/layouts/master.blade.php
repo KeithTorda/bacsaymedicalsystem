@@ -882,50 +882,60 @@
             if (customMobileOverlay) customMobileOverlay.addEventListener('click', closeCustomDrawer);
 
             // Global Page Loader Controller & Navigation Transitions
-            const loaderElem = document.getElementById('global-loader');
+            var loaderElem = document.getElementById('global-loader');
+
+            function showPageLoader() {
+                if (loaderElem) {
+                    // Override jQuery's fadeOut (which sets display:none inline)
+                    loaderElem.style.display = 'flex';
+                    loaderElem.style.opacity = '1';
+                }
+            }
+
             function hidePageLoader() {
                 if (loaderElem) {
                     loaderElem.style.opacity = '0';
                     setTimeout(function() {
-                        loaderElem.style.visibility = 'hidden';
+                        loaderElem.style.display = 'none';
                     }, 300);
                 }
             }
 
-            // Display loader for at least 500ms on page load so it is clearly visible
-            setTimeout(hidePageLoader, 500);
+            // Stop the original script.js jQuery fadeOut from interfering
+            // by hiding our way after a controlled delay
+            if (loaderElem) {
+                // Keep loader visible, override any jQuery fadeOut
+                loaderElem.style.display = 'flex';
+                loaderElem.style.opacity = '1';
+            }
+            setTimeout(hidePageLoader, 600);
             window.addEventListener('load', function() {
-                setTimeout(hidePageLoader, 400);
+                setTimeout(hidePageLoader, 500);
             });
 
             // Show Loader on Page Link Click Navigation
             document.addEventListener('click', function(e) {
-                const targetLink = e.target.closest('a');
+                var targetLink = e.target.closest('a');
                 if (targetLink && targetLink.href) {
-                    const href = targetLink.getAttribute('href');
-                    const targetAttr = targetLink.getAttribute('target');
+                    var href = targetLink.getAttribute('href');
+                    var targetAttr = targetLink.getAttribute('target');
                     if (
                         href &&
                         !href.startsWith('#') &&
                         !href.startsWith('javascript:') &&
                         targetAttr !== '_blank' &&
                         !targetLink.hasAttribute('data-bs-toggle') &&
-                        !targetLink.hasAttribute('data-bs-dismiss')
+                        !targetLink.hasAttribute('data-bs-dismiss') &&
+                        !targetLink.classList.contains('dropdown-item')
                     ) {
-                        if (loaderElem) {
-                            loaderElem.style.visibility = 'visible';
-                            loaderElem.style.opacity = '1';
-                        }
+                        showPageLoader();
                     }
                 }
             });
 
             // Show Loader on Form Submit
-            document.addEventListener('submit', function(e) {
-                if (loaderElem) {
-                    loaderElem.style.visibility = 'visible';
-                    loaderElem.style.opacity = '1';
-                }
+            document.addEventListener('submit', function() {
+                showPageLoader();
             });
         });
     </script>
