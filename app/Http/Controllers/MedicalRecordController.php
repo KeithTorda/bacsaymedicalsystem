@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MedicalRecord;
+use App\Models\Patient;
 use Illuminate\Http\Request;
 
 class MedicalRecordController extends Controller
@@ -11,61 +13,38 @@ class MedicalRecordController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $records = [
-            [
-                'id' => 'MR-2026-001',
-                'patient_id' => 'BAC-2026-001',
-                'patient_name' => 'Maria Clara Santos',
-                'date' => '2026-02-06',
-                'complaint' => 'Persistent headache and dizziness',
-                'diagnosis' => 'Essential Hypertension',
-                'vitals' => '130/85 mmHg, 36.8°C, 78 bpm',
-                'attending_nurse' => 'Nurse Teresa Alonzo, RN'
-            ],
-            [
-                'id' => 'MR-2026-002',
-                'patient_id' => 'BAC-2026-002',
-                'patient_name' => 'Juan Dela Cruz',
-                'date' => '2026-02-06',
-                'complaint' => 'Fasting blood sugar monitoring & leg pain',
-                'diagnosis' => 'Type 2 Diabetes Mellitus',
-                'vitals' => '125/80 mmHg, 36.6°C, 74 bpm',
-                'attending_nurse' => 'Nurse Teresa Alonzo, RN'
-            ],
-            [
-                'id' => 'MR-2026-003',
-                'patient_id' => 'BAC-2026-003',
-                'patient_name' => 'Ana Marie Ramos',
-                'date' => '2026-02-05',
-                'complaint' => 'Shortness of breath and wheezing',
-                'diagnosis' => 'Acute Asthma Exacerbation',
-                'vitals' => '118/78 mmHg, 37.0°C, 88 bpm',
-                'attending_nurse' => 'Nurse Teresa Alonzo, RN'
-            ],
-            [
-                'id' => 'MR-2026-004',
-                'patient_id' => 'BAC-2026-004',
-                'patient_name' => 'Roberto Garcia Jr.',
-                'date' => '2026-02-04',
-                'complaint' => 'Joint pain in knees and right wrist',
-                'diagnosis' => 'Osteoarthritis',
-                'vitals' => '138/88 mmHg, 36.7°C, 70 bpm',
-                'attending_nurse' => 'Nurse Teresa Alonzo, RN'
-            ]
-        ];
+        $query = MedicalRecord::with('patient');
 
-        return view('medical_records.index', compact('records'));
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('record_code', 'like', "%{$search}%")
+                  ->orWhere('complaint', 'like', "%{$search}%")
+                  ->orWhere('diagnosis', 'like', "%{$search}%")
+                  ->orWhereHas('patient', function($pq) use ($search) {
+                      $pq->where('name', 'like', "%{$search}%")
+                        ->orWhere('patient_code', 'like', "%{$search}%");
+                  });
+            });
+        }
+
+        $records = $query->latest()->get();
+        $patients = Patient::orderBy('name')->get();
+
+        return view('medical_records.index', compact('records', 'patients'));
     }
 
-    public function history()
+    public function history(Request $request)
     {
-        return view('medical_records.history');
+        $records = MedicalRecord::with('patient')->latest()->get();
+        return view('medical_records.history', compact('records'));
     }
 
-    public function vitals()
+    public function vitals(Request $request)
     {
-        return view('medical_records.vitals');
+        $records = MedicalRecord::with('patient')->latest()->get();
+        return view('medical_records.vitals', compact('records'));
     }
 }

@@ -543,38 +543,50 @@
                 </li>
 
                 <!-- Notification Bell -->
+                @php
+                    $unreadNotifications = \App\Models\Notification::latest()->take(5)->get();
+                    $totalUnreadCount = \App\Models\Notification::where('is_read', false)->count();
+                @endphp
                 <li class="nav-item dropdown">
                     <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                         <img src="{{ asset('assets/img/icons/notification-bing.svg') }}" alt="img">
-                        <span class="badge rounded-pill">4</span>
+                        @if($totalUnreadCount > 0)
+                            <span class="badge rounded-pill bg-danger">{{ $totalUnreadCount }}</span>
+                        @endif
                     </a>
                     <div class="dropdown-menu notifications">
                         <div class="topnav-dropdown-header">
                             <span class="notification-title">Notifications</span>
-                            <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+                            <a href="{{ route('notifications.clear') }}" class="clear-noti"> Clear All </a>
                         </div>
                         <div class="noti-content">
                             <ul class="notification-list">
+                                @forelse($unreadNotifications as $noti)
                                 <li class="notification-message">
-                                    <a href="javascript:void(0);">
+                                    <a href="{{ route('notifications.read', $noti->id) }}">
                                         <div class="media d-flex">
-                                            <span class="avatar flex-shrink-0">
-                                                <img alt="" src="{{ asset('assets/img/kbot_logo.jpg') }}">
+                                            <span class="avatar flex-shrink-0 bg-light-primary rounded-circle p-2 text-center me-2">
+                                                <i class="fas fa-bell text-primary fs-5"></i>
                                             </span>
                                             <div class="media-body flex-grow-1">
                                                 <p class="noti-details">
-                                                    <span class="noti-title">KBOT System</span> 
-                                                    Welcome to the clean KBOT Dashboard!
+                                                    <span class="noti-title">{{ $noti->title }}</span> 
+                                                    {{ $noti->message }}
                                                 </p>
-                                                <p class="noti-time"><span class="notification-time">Just now</span></p>
+                                                <p class="noti-time"><span class="notification-time">{{ $noti->created_at ? $noti->created_at->diffForHumans() : 'Just now' }}</span></p>
                                             </div>
                                         </div>
                                     </a>
                                 </li>
+                                @empty
+                                <li class="notification-message p-3 text-center text-muted fs-12">
+                                    No new notifications
+                                </li>
+                                @endforelse
                             </ul>
                         </div>
                         <div class="topnav-dropdown-footer">
-                            <a href="javascript:void(0);">View all Notifications</a>
+                            <a href="{{ route('notifications.read', 'all') }}">Mark All as Read</a>
                         </div>
                     </div>
                 </li>

@@ -6,8 +6,10 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\MedicalRecordController;
 use App\Http\Controllers\PrescriptionController;
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\PrintController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -65,8 +67,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/medical-records/vitals', [MedicalRecordController::class, 'vitals'])->name('medical-records.vitals');
 
     // Appointments & Prescriptions
-    Route::get('/appointments', function() { return view('appointments.index'); })->name('appointments.index');
+    Route::get('/appointments', [AppointmentController::class, 'index'])->name('appointments.index');
+    Route::post('/appointments', [AppointmentController::class, 'store'])->name('appointments.store');
+    Route::post('/appointments/{id}/status', [AppointmentController::class, 'updateStatus'])->name('appointments.updateStatus');
     Route::resource('prescriptions', PrescriptionController::class);
+
+    // Notifications Module
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::get('/notifications/read/{id}', [NotificationController::class, 'markAsRead'])->name('notifications.read');
+    Route::get('/notifications/clear', [NotificationController::class, 'clearAll'])->name('notifications.clear');
 
     // Reports Module
     Route::get('/reports/daily', [ReportController::class, 'daily'])->name('reports.daily');

@@ -10,7 +10,7 @@
                         <span><i class="fas fa-users" style="font-size: 22px; color: #f96e6f;"></i></span>
                     </div>
                     <div class="dash-widgetcontent">
-                        <h5><span class="counters" data-count="1248">1,248</span></h5>
+                        <h5><span class="counters" data-count="{{ $totalPatients }}">{{ $totalPatients }}</span></h5>
                         <h6>Total Registered Patients</h6>
                     </div>
                 </div>
@@ -21,19 +21,19 @@
                         <span><i class="fas fa-calendar-day" style="font-size: 22px; color: #28c76f;"></i></span>
                     </div>
                     <div class="dash-widgetcontent">
-                        <h5><span class="counters" data-count="18">18</span></h5>
-                        <h6>Patients Today</h6>
+                        <h5><span class="counters" data-count="{{ $todayConsultations }}">{{ $todayConsultations }}</span></h5>
+                        <h6>Today's Consultations</h6>
                     </div>
                 </div>
             </div>
             <div class="col-lg-3 col-sm-6 col-12">
                 <div class="dash-widget dash2">
                     <div class="dash-widgetimg">
-                        <span><i class="fas fa-stethoscope" style="font-size: 22px; color: #00cfe8;"></i></span>
+                        <span><i class="fas fa-pills" style="font-size: 22px; color: #00cfe8;"></i></span>
                     </div>
                     <div class="dash-widgetcontent">
-                        <h5><span class="counters" data-count="14">14</span></h5>
-                        <h6>Today's Consultations</h6>
+                        <h5><span class="counters" data-count="{{ $totalPrescriptions }}">{{ $totalPrescriptions }}</span></h5>
+                        <h6>Total Prescriptions Issued</h6>
                     </div>
                 </div>
             </div>
@@ -43,16 +43,16 @@
                         <span><i class="fas fa-user-clock" style="font-size: 22px; color: #ea5455;"></i></span>
                     </div>
                     <div class="dash-widgetcontent">
-                        <h5><span class="counters" data-count="6">6</span></h5>
-                        <h6>Pending Follow-ups</h6>
+                        <h5><span class="counters" data-count="{{ $upcomingAppointments }}">{{ $upcomingAppointments }}</span></h5>
+                        <h6>Upcoming Appointments</h6>
                     </div>
                 </div>
             </div>
             <div class="col-lg-3 col-sm-6 col-12 d-flex">
                 <div class="dash-count">
                     <div class="dash-counts">
-                        <h4>3,420</h4>
-                        <h5>Total Medical Records</h5>
+                        <h4>{{ $totalPatients }}</h4>
+                        <h5>Active Patients</h5>
                     </div>
                     <div class="dash-imgs">
                         <i data-feather="file-text"></i>
@@ -62,7 +62,7 @@
             <div class="col-lg-3 col-sm-6 col-12 d-flex">
                 <div class="dash-count das1">
                     <div class="dash-counts">
-                        <h4>12</h4>
+                        <h4>{{ $totalPrescriptions }}</h4>
                         <h5>Prescriptions Today</h5>
                     </div>
                     <div class="dash-imgs">
@@ -73,8 +73,8 @@
             <div class="col-lg-3 col-sm-6 col-12 d-flex">
                 <div class="dash-count das2">
                     <div class="dash-counts">
-                        <h4>48</h4>
-                        <h5>Referrals This Month</h5>
+                        <h4>{{ $todayConsultations }}</h4>
+                        <h5>Consultations Recorded</h5>
                     </div>
                     <div class="dash-imgs">
                         <i data-feather="send"></i>
@@ -84,8 +84,8 @@
             <div class="col-lg-3 col-sm-6 col-12 d-flex">
                 <div class="dash-count das3">
                     <div class="dash-counts">
-                        <h4>92</h4>
-                        <h5>Appointments This Week</h5>
+                        <h4>{{ $upcomingAppointments }}</h4>
+                        <h5>Appointments Scheduled</h5>
                     </div>
                     <div class="dash-imgs">
                         <i data-feather="calendar"></i>
@@ -164,7 +164,7 @@
                     <table class="table datatable">
                         <thead>
                             <tr>
-                                <th>Sno</th>
+                                <th>#</th>
                                 <th>Patient ID</th>
                                 <th>Full Name</th>
                                 <th>Age / Sex</th>
@@ -174,78 +174,23 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($recentPatients as $key => $patient)
                             <tr>
-                                <td>1</td>
-                                <td><a href="javascript:void(0);">BAC-2026-001</a></td>
+                                <td>{{ $key + 1 }}</td>
+                                <td><span class="badge bg-outline-primary">{{ $patient->patient_code }}</span></td>
                                 <td class="productimgname">
-                                    <a href="{{ route('patients.show', ['patient' => 'BAC-2026-001']) }}">Maria Clara Santos</a>
+                                    <a href="{{ route('patients.show', $patient->id) }}" class="fw-semibold text-dark">{{ $patient->name }}</a>
                                 </td>
-                                <td>34 / Female</td>
-                                <td>09171234567</td>
-                                <td>Purok 1, Brgy. Bacsay</td>
+                                <td>{{ $patient->age }} / {{ $patient->sex }}</td>
+                                <td>{{ $patient->contact }}</td>
+                                <td>{{ $patient->address }}</td>
                                 <td>
-                                    <a href="{{ route('patients.show', ['patient' => 'BAC-2026-001']) }}" class="me-3">
+                                    <a href="{{ route('patients.show', $patient->id) }}" class="me-3" title="View Profile">
                                         <img src="{{ asset('assets/img/icons/eye.svg') }}" alt="View">
-                                    </a>
-                                    <a href="{{ route('patients.edit', ['patient' => 'BAC-2026-001']) }}" class="me-3">
-                                        <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="Edit">
                                     </a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><a href="javascript:void(0);">BAC-2026-002</a></td>
-                                <td class="productimgname">
-                                    <a href="{{ route('patients.show', ['patient' => 'BAC-2026-002']) }}">Juan Dela Cruz</a>
-                                </td>
-                                <td>40 / Male</td>
-                                <td>09289876543</td>
-                                <td>Purok 3, Brgy. Bacsay</td>
-                                <td>
-                                    <a href="{{ route('patients.show', ['patient' => 'BAC-2026-002']) }}" class="me-3">
-                                        <img src="{{ asset('assets/img/icons/eye.svg') }}" alt="View">
-                                    </a>
-                                    <a href="{{ route('patients.edit', ['patient' => 'BAC-2026-002']) }}" class="me-3">
-                                        <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="Edit">
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td><a href="javascript:void(0);">BAC-2026-003</a></td>
-                                <td class="productimgname">
-                                    <a href="{{ route('patients.show', ['patient' => 'BAC-2026-003']) }}">Ana Marie Ramos</a>
-                                </td>
-                                <td>25 / Female</td>
-                                <td>09195554321</td>
-                                <td>Purok 2, Brgy. Bacsay</td>
-                                <td>
-                                    <a href="{{ route('patients.show', ['patient' => 'BAC-2026-003']) }}" class="me-3">
-                                        <img src="{{ asset('assets/img/icons/eye.svg') }}" alt="View">
-                                    </a>
-                                    <a href="{{ route('patients.edit', ['patient' => 'BAC-2026-003']) }}" class="me-3">
-                                        <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="Edit">
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td><a href="javascript:void(0);">BAC-2026-004</a></td>
-                                <td class="productimgname">
-                                    <a href="{{ route('patients.show', ['patient' => 'BAC-2026-004']) }}">Roberto Garcia Jr.</a>
-                                </td>
-                                <td>67 / Male</td>
-                                <td>09391112233</td>
-                                <td>Purok 4, Brgy. Bacsay</td>
-                                <td>
-                                    <a href="{{ route('patients.show', ['patient' => 'BAC-2026-004']) }}" class="me-3">
-                                        <img src="{{ asset('assets/img/icons/eye.svg') }}" alt="View">
-                                    </a>
-                                    <a href="{{ route('patients.edit', ['patient' => 'BAC-2026-004']) }}" class="me-3">
-                                        <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="Edit">
-                                    </a>
-                                </td>
-                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -257,12 +202,11 @@
 @section('script')
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Monthly Patient Registrations ApexChart (same style as sales_charts)
         if (document.querySelector("#patient_registration_chart")) {
             var optionsReg = {
                 series: [{
                     name: 'Registered Patients',
-                    data: [65, 82, 95, 110, 125, 140, 155, 130, 145, 160, 150, 185]
+                    data: [15, 28, 42, 55, 68, 80, 95, 110, 125, 140, 150, 185]
                 }],
                 chart: {
                     type: 'area',
@@ -285,12 +229,11 @@
             chartReg.render();
         }
 
-        // Daily Consultations ApexChart (same style as template bar charts)
         if (document.querySelector("#daily_consultation_chart")) {
             var optionsDaily = {
                 series: [{
                     name: 'Consultations',
-                    data: [12, 18, 15, 22, 19, 14, 8]
+                    data: [4, 8, 6, 12, 9, 5, 3]
                 }],
                 chart: {
                     type: 'bar',

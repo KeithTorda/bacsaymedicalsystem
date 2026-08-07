@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use Illuminate\Http\Request;
-use App\Models\SystemNotification;
 
 class NotificationController extends Controller
 {
@@ -12,15 +12,31 @@ class NotificationController extends Controller
         $this->middleware('auth');
     }
 
-    public function markAllAsRead()
+    public function index()
     {
-        SystemNotification::whereNull('read_at')->update(['read_at' => now()]);
-        return redirect()->back()->with('success', 'All notifications marked as read.');
+        $notifications = Notification::latest()->take(10)->get();
+        $unreadCount = Notification::where('is_read', false)->count();
+
+        return response()->json([
+            'notifications' => $notifications,
+            'unread_count'  => $unreadCount
+        ]);
+    }
+
+    public function markAsRead($id)
+    {
+        if ($id === 'all') {
+            Notification::query()->update(['is_read' => true]);
+        } else {
+            Notification::where('id', $id)->update(['is_read' => true]);
+        }
+
+        return redirect()->back()->with('success', 'Notifications updated.');
     }
 
     public function clearAll()
     {
-        SystemNotification::truncate();
+        Notification::truncate();
         return redirect()->back()->with('success', 'All notifications cleared.');
     }
 }
