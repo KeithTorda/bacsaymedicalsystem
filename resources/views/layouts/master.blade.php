@@ -10,6 +10,17 @@
     <meta name="robots" content="noindex, nofollow">
     <title>{{ ucwords(str_replace('.', ' - ', Route::currentRouteName())) }}</title>
 
+    <!-- Immediate Zero-Flash Dark Mode Script (Executes before DOM render to prevent white flash) -->
+    <script>
+        (function() {
+            var savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.documentElement.classList.add('dark-mode');
+            }
+        })();
+    </script>
+
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/favicon.png') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-datetimepicker.min.css') }}">
@@ -20,6 +31,59 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <style>
+        /* Immediate Dark Background to Prevent White Flash (FOUC) */
+        html[data-theme="dark"],
+        html[data-theme="dark"] body,
+        body[data-theme="dark"] {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+        }
+
+        /* Minimalist Global Page Preloader (Matching Visual Reference Image) */
+        #global-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 999999;
+            background-color: #090d16;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+        }
+        html[data-theme="dark"] #global-loader,
+        body[data-theme="dark"] #global-loader {
+            background-color: #000000 !important;
+        }
+        .loader-inner-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+        .minimal-ring-spinner {
+            width: 46px;
+            height: 46px;
+            border: 3px solid rgba(255, 255, 255, 0.15);
+            border-top: 3px solid #ffffff;
+            border-radius: 50%;
+            animation: ringSpin 0.75s linear infinite;
+        }
+        @keyframes ringSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .loader-label-text {
+            color: #f8fafc;
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0.8px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+        }
         /* Logo Aspect-Ratio & Proportions */
         .header .header-left .logo img,
         .header .header-left .logo-small img {
@@ -511,6 +575,14 @@
 </head>
 
 <body>
+    <!-- Minimalist Global Page Preloader (Matching Visual Reference Image) -->
+    <div id="global-loader">
+        <div class="loader-inner-container">
+            <div class="minimal-ring-spinner"></div>
+            <p class="loader-label-text">Loading</p>
+        </div>
+    </div>
+
     <!-- Custom Mobile Backdrop Overlay -->
     <div id="custom_mobile_overlay" class="d-lg-none"></div>
 
@@ -812,8 +884,45 @@
             if (customMobileToggle) customMobileToggle.addEventListener('click', openCustomDrawer);
             if (customMobileOverlay) customMobileOverlay.addEventListener('click', closeCustomDrawer);
 
-            $(document).on('click', '#custom_mobile_close_btn', function() {
-                closeCustomDrawer();
+            // Global Page Loader Controller & Navigation Transitions
+            const loaderElem = document.getElementById('global-loader');
+            function hidePageLoader() {
+                if (loaderElem) {
+                    loaderElem.style.opacity = '0';
+                    loaderElem.style.visibility = 'hidden';
+                }
+            }
+            hidePageLoader();
+            window.addEventListener('load', hidePageLoader);
+
+            // Show Loader on Page Link Click Navigation
+            document.addEventListener('click', function(e) {
+                const targetLink = e.target.closest('a');
+                if (targetLink && targetLink.href) {
+                    const href = targetLink.getAttribute('href');
+                    const targetAttr = targetLink.getAttribute('target');
+                    if (
+                        href &&
+                        !href.startsWith('#') &&
+                        !href.startsWith('javascript:') &&
+                        targetAttr !== '_blank' &&
+                        !targetLink.hasAttribute('data-bs-toggle') &&
+                        !targetLink.hasAttribute('data-bs-dismiss')
+                    ) {
+                        if (loaderElem) {
+                            loaderElem.style.visibility = 'visible';
+                            loaderElem.style.opacity = '1';
+                        }
+                    }
+                }
+            });
+
+            // Show Loader on Form Submit
+            document.addEventListener('submit', function(e) {
+                if (loaderElem) {
+                    loaderElem.style.visibility = 'visible';
+                    loaderElem.style.opacity = '1';
+                }
             });
         });
     </script>
