@@ -57,30 +57,19 @@
     </div>
 
     <!-- Right Column: Hero Panel with System Logo Illustration (~50% width) -->
-    <div class="auth-hero-column">
-        <!-- Floating Top Checkmark Badges -->
-        <div class="d-flex justify-content-between w-100 px-2">
-            <span class="badge rounded-circle bg-white text-orange shadow-sm d-inline-flex align-items-center justify-content-center" style="width: 32px; height: 32px; color: #ea580c;">
-                <i class="fas fa-check"></i>
-            </span>
-            <span class="badge rounded-circle bg-white text-orange shadow-sm d-inline-flex align-items-center justify-content-center" style="width: 32px; height: 32px; color: #ea580c;">
-                <i class="fas fa-check"></i>
-            </span>
-        </div>
-
+    <div class="auth-hero-column justify-content-center">
         <!-- Center System Logo & Medical Illustration -->
-        <div class="my-auto py-3">
-            <img src="{{ asset('assets/img/login-hero-illustration.svg') }}" alt="BacsayMedSys System Illustration" style="max-width: 320px; width: 100%; height: auto;">
+        <div class="my-auto py-2">
+            <img src="{{ asset('assets/img/login-hero-illustration.svg') }}" alt="BacsayMedSys System Illustration" style="max-width: 380px; width: 100%; height: auto;">
         </div>
 
-        <!-- Bottom System Description & Carousel Dots -->
-        <div>
-            <h5 class="fw-bold text-dark mb-1">Bacsay<span style="color: #ea580c;">MedSys</span></h5>
-            <p class="fst-italic small text-secondary mb-3" style="max-width: 300px; font-size: 13px; line-height: 1.5;">
+        <!-- Bottom System Description & Carousel Dots (No Duplicate Title) -->
+        <div class="mt-auto pt-2">
+            <p class="fst-italic small text-secondary mb-3" style="max-width: 320px; font-size: 13.5px; line-height: 1.5;">
                 Authorized Staff Registration & Health Record System Management...
             </p>
             <div class="d-flex justify-content-center align-items-center gap-2">
-                <span style="width: 20px; height: 6px; background: #ea580c; border-radius: 4px;"></span>
+                <span style="width: 22px; height: 6px; background: #ea580c; border-radius: 4px;"></span>
                 <span style="width: 6px; height: 6px; background: #fdba74; border-radius: 50%;"></span>
                 <span style="width: 6px; height: 6px; background: #fdba74; border-radius: 50%;"></span>
             </div>
