@@ -20,7 +20,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 // Auth Controller Routes
 Route::group(['namespace' => 'App\Http\Controllers\Auth'], function () {
@@ -31,9 +31,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Auth'], function () {
         Route::get('logout/page', 'logoutPage')->name('logout/page');
     });
 
-    Route::controller(RegisterController::class)->group(function () {
-        Route::get('/register', 'register')->name('register');
-        Route::post('/register', 'storeUser')->name('register');    
+    Route::get('/register', function() {
+        return redirect()->route('login');
     });
 
     Route::controller(ForgotPasswordController::class)->group(function () {

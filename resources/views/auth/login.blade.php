@@ -45,14 +45,8 @@
 </div>
 
 <!-- Google Social Login Button -->
-<button type="button" class="btn btn-pill-google mb-4">
+<button type="button" class="btn btn-pill-google">
     <img src="{{ asset('assets/img/icons/google.png') }}" alt="Google" style="width: 18px; height: 18px;">
     Log in with Google
 </button>
-
-<!-- Footer Signup Link -->
-<div class="text-center">
-    <span class="text-muted small">Don't have an account?</span>
-    <a href="{{ route('register') }}" class="text-orange-link small ms-1">Sign Up</a>
-</div>
 @endsection

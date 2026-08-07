@@ -1032,6 +1032,8 @@
                             </a>
                             <a class="dropdown-item" href="{{ route('settings') }}">
                                 <i class="me-2" data-feather="settings"></i>Settings</a>
+                            <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#devCreditsModal">
+                                <i class="me-2 fas fa-code text-warning"></i> Dev Credits</a>
                             <hr class="m-0">
                             <a class="dropdown-item logout pb-0" href="{{ route('logout') }}">
                                 <img src="{{ asset('assets/img/icons/log-out.svg') }}" class="me-2" alt="img">Logout
@@ -1282,6 +1284,101 @@
             });
         });
     </script>
+
+    <!-- ─── In-App Development Team Credits Modal ─── -->
+    <div class="modal fade" id="devCreditsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content credits-modal-content" style="border-radius: 20px; border: none; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);">
+                <div class="credits-modal-header d-flex justify-content-between align-items-center" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #ffffff; padding: 24px 28px;">
+                    <div>
+                        <h4 class="modal-title fw-bold text-white mb-1">
+                            <i class="fas fa-code-branch text-warning me-2"></i> BacsayMedSys Development Team
+                        </h4>
+                        <p class="text-slate-300 small mb-0" style="color: #cbd5e1;">
+                            Barangay Bacsay Health Center Medical Record System — Capstone Project
+                        </p>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body p-4" style="background: #faf6f0;">
+                    <!-- Project Info Banner -->
+                    <div class="d-flex flex-wrap justify-content-between align-items-center bg-white p-3 rounded-3 border border-warning mb-4 shadow-sm">
+                        <div class="d-flex align-items-center gap-2 mb-2 mb-md-0">
+                            <span class="badge bg-warning-subtle text-warning-emphasis p-2 rounded-circle fs-5" style="color: #ea580c !important;">
+                                <i class="fas fa-calendar-alt"></i>
+                            </span>
+                            <div>
+                                <div class="fw-bold text-dark" style="font-size: 13px;">Development Started</div>
+                                <div class="text-muted small">August 05, 2026 (08/05/2026)</div>
+                            </div>
+                        </div>
+
+                        <!-- Tech Stack Badges -->
+                        <div class="d-flex flex-wrap gap-1 align-items-center">
+                            <span class="badge bg-dark text-white">PHP 8.2</span>
+                            <span class="badge bg-danger">Laravel 11</span>
+                            <span class="badge bg-primary">MySQL</span>
+                            <span class="badge bg-info text-white">JavaScript</span>
+                            <span class="badge bg-secondary">Bootstrap 4</span>
+                        </div>
+                    </div>
+
+                    <!-- 3 Team Members Grid -->
+                    <div class="row g-3">
+                        <!-- Member 1: MARK CHRISTIAN GAON (Programmer / Lead Developer) -->
+                        <div class="col-md-4">
+                            <div class="dev-member-card p-3 text-center bg-white rounded-3 border border-slate-200">
+                                <img src="{{ asset('assets/img/team/mark_gaon.png') }}" alt="MARK CHRISTIAN GAON" class="dev-avatar rounded-circle mb-2" style="width: 90px; height: 90px; object-fit: cover; border: 3px solid #ea580c;">
+                                <h6 class="fw-bold text-dark mb-1" style="font-size: 13.5px;">MARK CHRISTIAN GAON</h6>
+                                <span class="badge bg-danger-subtle text-danger border border-danger fw-bold mb-2" style="font-size: 10.5px;">
+                                    Lead Programmer
+                                </span>
+                                <p class="text-secondary small mb-0" style="font-size: 11px; line-height: 1.4;">
+                                    Core System Logic, Laravel Backend Architecture, Database Schema & API Integration
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Member 2: ARMIE VELASCO (Project Lead & UI/UX Designer) -->
+                        <div class="col-md-4">
+                            <div class="dev-member-card p-3 text-center bg-white rounded-3 border border-slate-200">
+                                <img src="{{ asset('assets/img/team/armie_velasco.jpg') }}" alt="ARMIE VELASCO" class="dev-avatar rounded-circle mb-2" style="width: 90px; height: 90px; object-fit: cover; border: 3px solid #ea580c;">
+                                <h6 class="fw-bold text-dark mb-1" style="font-size: 13.5px;">ARMIE VELASCO</h6>
+                                <span class="badge bg-primary-subtle text-primary border border-primary fw-bold mb-2" style="font-size: 10.5px;">
+                                    Project Lead & UI/UX Designer
+                                </span>
+                                <p class="text-secondary small mb-0" style="font-size: 11px; line-height: 1.4;">
+                                    System Interface Design, User Flow Optimization & Capstone Project Management
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Member 3: JOCEL ROSE TORDA (QA & Technical Documentation) -->
+                        <div class="col-md-4">
+                            <div class="dev-member-card p-3 text-center bg-white rounded-3 border border-slate-200">
+                                <img src="{{ asset('assets/img/team/jocel_torda.png') }}" alt="JOCEL ROSE TORDA" class="dev-avatar rounded-circle mb-2" style="width: 90px; height: 90px; object-fit: cover; border: 3px solid #ea580c;">
+                                <h6 class="fw-bold text-dark mb-1" style="font-size: 13.5px;">JOCEL ROSE TORDA</h6>
+                                <span class="badge bg-success-subtle text-success border border-success fw-bold mb-2" style="font-size: 10.5px;">
+                                    QA & Technical Documentation
+                                </span>
+                                <p class="text-secondary small mb-0" style="font-size: 11px; line-height: 1.4;">
+                                    System Quality Assurance, Functional Testing & Capstone Technical Documentation
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer bg-white border-top justify-content-between">
+                    <span class="small text-muted">
+                        © 2026 <strong>BacsayMedSys</strong> Capstone Project. All Rights Reserved.
+                    </span>
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     @yield('script')
     
 </body>
