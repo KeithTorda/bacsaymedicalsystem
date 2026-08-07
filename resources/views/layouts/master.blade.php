@@ -224,6 +224,9 @@
             border-right: 1px solid rgba(255, 255, 255, 0.12) !important;
             color: #ffffff !important;
         }
+        body[data-theme="dark"] .header .header-left .logo .brand-logo-text {
+            color: #ffffff !important;
+        }
         body[data-theme="dark"] .sidebar {
             background-color: #09090b !important;
             border-right: 1px solid rgba(255, 255, 255, 0.12) !important;
@@ -231,8 +234,29 @@
         body[data-theme="dark"] .sidebar .slimScrollDiv {
             background-color: #09090b !important;
         }
+        
+        /* High-Contrast Readable Sidebar Icons & Text (Dark Mode) */
+        body[data-theme="dark"] .sidebar-menu ul li a {
+            color: #f8fafc !important;
+        }
+        body[data-theme="dark"] .sidebar-menu ul li a i,
+        body[data-theme="dark"] .sidebar-menu ul li a .fas,
+        body[data-theme="dark"] .sidebar-menu ul li a .far,
+        body[data-theme="dark"] .sidebar-menu ul li a .fa,
+        body[data-theme="dark"] .sidebar-menu ul li a svg {
+            color: #ffffff !important;
+            opacity: 0.95 !important;
+        }
+        body[data-theme="dark"] .sidebar-menu ul li a img {
+            filter: brightness(0) invert(1) !important;
+            opacity: 0.95 !important;
+        }
         body[data-theme="dark"] .sidebar-menu ul li a span,
         body[data-theme="dark"] .sidebar-menu ul li.menu-title span {
+            color: #f8fafc !important;
+            font-weight: 500 !important;
+        }
+        body[data-theme="dark"] .sidebar-menu ul li a .menu-arrow {
             color: #cbd5e1 !important;
         }
         body[data-theme="dark"] .sidebar-menu ul li.submenu ul {
@@ -241,15 +265,35 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
         body[data-theme="dark"] .sidebar-menu ul li.submenu ul li a {
-            color: #cbd5e1 !important;
+            color: #e2e8f0 !important;
         }
         body[data-theme="dark"] .sidebar-menu ul li.submenu ul li a:hover {
             color: #38bdf8 !important;
         }
         body[data-theme="dark"] .sidebar .sidebar-menu > ul > li.active > a {
-            background-color: #18181b !important;
+            background-color: #1e293b !important;
             color: #38bdf8 !important;
             border-left: 3px solid #38bdf8;
+        }
+
+        /* High-Contrast Action & Tool Icons (Dark Mode) */
+        body[data-theme="dark"] .wordset ul li a img,
+        body[data-theme="dark"] .table-top .wordset img,
+        body[data-theme="dark"] .table tbody td a img,
+        body[data-theme="dark"] .action-set img,
+        body[data-theme="dark"] .btn-filter img,
+        body[data-theme="dark"] .btn-searchset img,
+        body[data-theme="dark"] .page-btn .btn-added img {
+            filter: brightness(0) invert(1) !important;
+        }
+        body[data-theme="dark"] .table tbody td a i,
+        body[data-theme="dark"] .table tbody td a .fas,
+        body[data-theme="dark"] .table tbody td a .far {
+            color: #f8fafc !important;
+        }
+        body[data-theme="dark"] .table tbody td a:hover i,
+        body[data-theme="dark"] .table tbody td a:hover .fas {
+            color: #38bdf8 !important;
         }
 
         /* Pure Black Cards & Elevated Panels */
