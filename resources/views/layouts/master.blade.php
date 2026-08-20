@@ -1115,8 +1115,8 @@
 
                 <!-- Notification Bell -->
                 @php
-                    $unreadNotifications = \App\Models\Notification::latest()->take(5)->get();
-                    $totalUnreadCount = \App\Models\Notification::where('is_read', false)->count();
+                    $unreadNotifications = \App\Models\Notification::where('is_read', false)->latest()->take(5)->get();
+                    $totalUnreadCount = $unreadNotifications->count();
                 @endphp
                 <li class="nav-item dropdown">
                     <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
@@ -1151,7 +1151,7 @@
                                 </li>
                                 @empty
                                 <li class="notification-message p-3 text-center text-muted fs-12">
-                                    No new notifications
+                                    <i class="fas fa-check-circle text-success me-1"></i> No unread notifications
                                 </li>
                                 @endforelse
                             </ul>
@@ -1237,7 +1237,7 @@
                                 </li>
                                 @empty
                                 <li class="notification-message p-3 text-center text-muted fs-7">
-                                    No new notifications
+                                    <i class="fas fa-check-circle text-success me-1"></i> No unread notifications
                                 </li>
                                 @endforelse
                             </ul>

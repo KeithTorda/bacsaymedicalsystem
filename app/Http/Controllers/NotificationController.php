@@ -14,23 +14,12 @@ class NotificationController extends Controller
     }
 
     /**
-     * Get role-filtered notifications for current user.
+     * Get unread notifications for current user/system.
      */
     public function index()
     {
-        $user = Auth::user();
-        $userRole = strtolower($user->role_name ?? 'staff');
-
-        $query = Notification::query()
-            ->where(function($q) use ($user, $userRole) {
-                $q->where('user_id', $user->id)
-                  ->orWhere('target_role', 'all')
-                  ->orWhere('target_role', $userRole)
-                  ->orWhere('target_role', ucfirst($userRole));
-            });
-
-        $notifications = $query->latest()->take(10)->get();
-        $unreadCount = (clone $query)->where('is_read', false)->count();
+        $notifications = Notification::where('is_read', false)->latest()->take(10)->get();
+        $unreadCount = $notifications->count();
 
         return response()->json([
             'notifications' => $notifications,
@@ -43,39 +32,23 @@ class NotificationController extends Controller
      */
     public function markAsRead($id)
     {
-        $user = Auth::user();
-        $userRole = strtolower($user->role_name ?? 'staff');
-
         if ($id === 'all') {
-            Notification::where(function($q) use ($user, $userRole) {
-                $q->where('user_id', $user->id)
-                  ->orWhere('target_role', 'all')
-                  ->orWhere('target_role', $userRole)
-                  ->orWhere('target_role', ucfirst($userRole));
-            })->update(['is_read' => true]);
+            Notification::where('is_read', false)->update(['is_read' => true]);
         } else {
             Notification::where('id', $id)->update(['is_read' => true]);
         }
 
-        return redirect()->back()->with('success', 'Notifications updated.');
+        return redirect()->back()->with('success', 'Notifications marked as read.');
     }
 
     /**
-     * Clear all notifications for current user context.
+     * Clear all notifications completely.
      */
     public function clearAll()
     {
-        $user = Auth::user();
-        $userRole = strtolower($user->role_name ?? 'staff');
+        Notification::query()->delete();
 
-        Notification::where(function($q) use ($user, $userRole) {
-            $q->where('user_id', $user->id)
-              ->orWhere('target_role', 'all')
-              ->orWhere('target_role', $userRole)
-              ->orWhere('target_role', ucfirst($userRole));
-        })->delete();
-
-        return redirect()->back()->with('success', 'Notifications cleared.');
+        return redirect()->back()->with('success', 'All notifications cleared successfully.');
     }
 
     /**
