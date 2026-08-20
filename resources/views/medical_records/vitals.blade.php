@@ -4,8 +4,8 @@
 <div class="page-wrapper">
     <div class="content">
         <!-- Page Header -->
-        <div class="page-header">
-            <div class="page-title">
+        <div class="page-header d-flex flex-wrap justify-content-between align-items-center mb-4">
+            <div class="page-title mb-2 mb-md-0">
                 <h4>Patient Vital Signs Monitoring Center</h4>
                 <h6>Real-time physiological measurements, triage monitoring, and biometric assessments</h6>
             </div>
@@ -16,46 +16,53 @@
             </div>
         </div>
 
-        <!-- Summary KPI Cards -->
-        <div class="row mb-4">
-            <div class="col-lg-3 col-sm-6 col-12 d-flex">
-                <div class="dash-count das1 w-100 p-3 rounded text-white">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <span class="fs-4"><i class="fas fa-clipboard-check"></i></span>
-                        <span class="badge bg-white text-primary fw-bold">Logged</span>
+        <!-- Summary KPI Cards (Standardized Clean Dashboard Widgets) -->
+        <div class="row">
+            <div class="col-lg-3 col-sm-6 col-12">
+                <div class="dash-widget">
+                    <div class="dash-widgetimg">
+                        <span><i class="fas fa-clipboard-check" style="font-size: 22px; color: #f96e6f;"></i></span>
                     </div>
-                    <h3 class="fw-bold mb-1">{{ count($consultations) }}</h3>
-                    <p class="mb-0 fs-7 text-white-50">Total Vital Sets Recorded</p>
+                    <div class="dash-widgetcontent">
+                        <h5><span class="counters" data-count="{{ count($consultations) }}">{{ count($consultations) }}</span></h5>
+                        <h6>Total Vital Sets Recorded</h6>
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-6 col-12 d-flex">
-                <div class="dash-count das3 w-100 p-3 rounded text-white">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <span class="fs-4"><i class="fas fa-heart"></i></span>
-                        <span class="badge bg-white text-success fw-bold">Cardiovascular</span>
+
+            <div class="col-lg-3 col-sm-6 col-12">
+                <div class="dash-widget dash1">
+                    <div class="dash-widgetimg">
+                        <span><i class="fas fa-heart" style="font-size: 22px; color: #28c76f;"></i></span>
                     </div>
-                    <h3 class="fw-bold mb-1">{{ $consultations->whereNotNull('bp')->count() }}</h3>
-                    <p class="mb-0 fs-7 text-white-50">Blood Pressure Screenings</p>
+                    <div class="dash-widgetcontent">
+                        <h5><span class="counters" data-count="{{ $consultations->whereNotNull('bp')->count() }}">{{ $consultations->whereNotNull('bp')->count() }}</span></h5>
+                        <h6>Blood Pressure Screenings</h6>
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-6 col-12 d-flex">
-                <div class="dash-count das2 w-100 p-3 rounded text-white">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <span class="fs-4"><i class="fas fa-thermometer-half"></i></span>
-                        <span class="badge bg-white text-dark fw-bold">Thermoregulation</span>
+
+            <div class="col-lg-3 col-sm-6 col-12">
+                <div class="dash-widget dash2">
+                    <div class="dash-widgetimg">
+                        <span><i class="fas fa-thermometer-half" style="font-size: 22px; color: #00cfe8;"></i></span>
                     </div>
-                    <h3 class="fw-bold mb-1">{{ $consultations->whereNotNull('temperature')->count() }}</h3>
-                    <p class="mb-0 fs-7 text-white-50">Temperature Checks</p>
+                    <div class="dash-widgetcontent">
+                        <h5><span class="counters" data-count="{{ $consultations->whereNotNull('temperature')->count() }}">{{ $consultations->whereNotNull('temperature')->count() }}</span></h5>
+                        <h6>Temperature Checks</h6>
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-6 col-12 d-flex">
-                <div class="dash-count w-100 p-3 rounded text-white" style="background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%) !important;">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <span class="fs-4"><i class="fas fa-user-nurse"></i></span>
-                        <span class="badge bg-white text-info fw-bold">Clinical Care</span>
+
+            <div class="col-lg-3 col-sm-6 col-12">
+                <div class="dash-widget dash3">
+                    <div class="dash-widgetimg">
+                        <span><i class="fas fa-user-nurse" style="font-size: 22px; color: #ea5455;"></i></span>
                     </div>
-                    <h3 class="fw-bold mb-1">Luna, Apayao</h3>
-                    <p class="mb-0 fs-7 text-white-50">Barangay Bacsay Health Center</p>
+                    <div class="dash-widgetcontent">
+                        <h5><span>Luna, Apayao</span></h5>
+                        <h6>Barangay Health Center</h6>
+                    </div>
                 </div>
             </div>
         </div>

@@ -16,58 +16,62 @@
             </div>
         </div>
 
-        <!-- Document Shortcuts Cards -->
-        <div class="row mb-4">
-            <div class="col-lg-3 col-sm-6 col-12 d-flex mb-3 mb-lg-0">
-                <div class="dash-count das1 w-100 p-3 rounded text-white">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <span class="fs-4"><i class="fas fa-id-card"></i></span>
-                        <a href="{{ route('print.patient') }}" target="_blank" class="badge bg-white text-primary text-decoration-none fw-bold">
-                            <i class="fas fa-print me-1"></i> Sample
-                        </a>
+        <!-- Document Shortcuts Cards (Clean Consistent Dashboard Cards) -->
+        <div class="row">
+            <div class="col-lg-3 col-sm-6 col-12">
+                <a href="{{ route('print.patient') }}" target="_blank" class="text-decoration-none">
+                    <div class="dash-widget">
+                        <div class="dash-widgetimg">
+                            <span><i class="fas fa-id-card" style="font-size: 22px; color: #f96e6f;"></i></span>
+                        </div>
+                        <div class="dash-widgetcontent">
+                            <h5><span>Patient Info Sheet</span></h5>
+                            <h6>Demographics & Allergies</h6>
+                        </div>
                     </div>
-                    <h5 class="fw-bold mb-1">Patient Info Sheet</h5>
-                    <p class="mb-0 fs-7 text-white-50">Demographics, Allergies & Emergency Contact</p>
-                </div>
+                </a>
             </div>
 
-            <div class="col-lg-3 col-sm-6 col-12 d-flex mb-3 mb-lg-0">
-                <div class="dash-count das3 w-100 p-3 rounded text-white">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <span class="fs-4"><i class="fas fa-file-medical-alt"></i></span>
-                        <a href="{{ route('print.medical-record') }}" target="_blank" class="badge bg-white text-success text-decoration-none fw-bold">
-                            <i class="fas fa-print me-1"></i> Sample
-                        </a>
+            <div class="col-lg-3 col-sm-6 col-12">
+                <a href="{{ route('print.medical-record') }}" target="_blank" class="text-decoration-none">
+                    <div class="dash-widget dash1">
+                        <div class="dash-widgetimg">
+                            <span><i class="fas fa-file-medical-alt" style="font-size: 22px; color: #28c76f;"></i></span>
+                        </div>
+                        <div class="dash-widgetcontent">
+                            <h5><span>Clinical Record</span></h5>
+                            <h6>Diagnosis & Encounters</h6>
+                        </div>
                     </div>
-                    <h5 class="fw-bold mb-1">Clinical Record</h5>
-                    <p class="mb-0 fs-7 text-white-50">Consultations, Diagnosis & Vitals</p>
-                </div>
+                </a>
             </div>
 
-            <div class="col-lg-3 col-sm-6 col-12 d-flex mb-3 mb-lg-0">
-                <div class="dash-count das2 w-100 p-3 rounded text-white">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <span class="fs-4"><i class="fas fa-prescription"></i></span>
-                        <a href="{{ route('print.prescription') }}" target="_blank" class="badge bg-white text-dark text-decoration-none fw-bold">
-                            <i class="fas fa-print me-1"></i> Sample
-                        </a>
+            <div class="col-lg-3 col-sm-6 col-12">
+                <a href="{{ route('print.prescription') }}" target="_blank" class="text-decoration-none">
+                    <div class="dash-widget dash2">
+                        <div class="dash-widgetimg">
+                            <span><i class="fas fa-prescription" style="font-size: 22px; color: #00cfe8;"></i></span>
+                        </div>
+                        <div class="dash-widgetcontent">
+                            <h5><span>Prescription (Rx)</span></h5>
+                            <h6>Medication Orders</h6>
+                        </div>
                     </div>
-                    <h5 class="fw-bold mb-1">Prescription (Rx)</h5>
-                    <p class="mb-0 fs-7 text-white-50">Official Medication Orders & Notes</p>
-                </div>
+                </a>
             </div>
 
-            <div class="col-lg-3 col-sm-6 col-12 d-flex mb-3 mb-lg-0">
-                <div class="dash-count w-100 p-3 rounded text-white" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <span class="fs-4"><i class="fas fa-notes-medical"></i></span>
-                        <a href="{{ route('print.referral') }}" target="_blank" class="badge bg-white text-warning text-decoration-none fw-bold" style="color: #b45309 !important;">
-                            <i class="fas fa-print me-1"></i> Sample
-                        </a>
+            <div class="col-lg-3 col-sm-6 col-12">
+                <a href="{{ route('print.referral') }}" target="_blank" class="text-decoration-none">
+                    <div class="dash-widget dash3">
+                        <div class="dash-widgetimg">
+                            <span><i class="fas fa-notes-medical" style="font-size: 22px; color: #ea5455;"></i></span>
+                        </div>
+                        <div class="dash-widgetcontent">
+                            <h5><span>Referral Slip</span></h5>
+                            <h6>Hospital Transfer Form</h6>
+                        </div>
                     </div>
-                    <h5 class="fw-bold mb-1">Referral Slip</h5>
-                    <p class="mb-0 fs-7 text-white-50">Hospital & Specialist Transfer Slip</p>
-                </div>
+                </a>
             </div>
         </div>
 

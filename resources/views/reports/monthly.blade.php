@@ -4,7 +4,7 @@
 <div class="page-wrapper">
     <div class="content">
         <!-- Page Header & Controls -->
-        <div class="page-header d-flex flex-wrap justify-content-between align-items-center">
+        <div class="page-header d-flex flex-wrap justify-content-between align-items-center mb-4">
             <div class="page-title mb-2 mb-md-0">
                 <h4>Monthly Health Center Analytics & Report</h4>
                 <h6>Barangay Bacsay Health Center — {{ \Carbon\Carbon::createFromDate($selectedYear, $selectedMonth, 1)->format('F Y') }} Clinical Summary</h6>
@@ -36,49 +36,53 @@
             </div>
         </div>
 
-        <!-- Monthly KPI Stat Cards -->
-        <div class="row mb-4">
-            <div class="col-lg-3 col-sm-6 col-12 d-flex">
-                <div class="dash-count das1 w-100 p-3 rounded text-white">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <span class="fs-4"><i class="fas fa-calendar-check"></i></span>
-                        <span class="badge bg-white text-primary fw-bold">{{ \Carbon\Carbon::createFromDate($selectedYear, $selectedMonth, 1)->format('M Y') }}</span>
+        <!-- Monthly KPI Stat Cards (Standardized Clean Dashboard Widgets) -->
+        <div class="row">
+            <div class="col-lg-3 col-sm-6 col-12">
+                <div class="dash-widget">
+                    <div class="dash-widgetimg">
+                        <span><i class="fas fa-calendar-check" style="font-size: 22px; color: #f96e6f;"></i></span>
                     </div>
-                    <h3 class="fw-bold mb-1">{{ $stats['total_consultations'] }}</h3>
-                    <p class="mb-0 fs-7 text-white-50">Total Consultations</p>
+                    <div class="dash-widgetcontent">
+                        <h5><span class="counters" data-count="{{ $stats['total_consultations'] }}">{{ $stats['total_consultations'] }}</span></h5>
+                        <h6>Total Consultations</h6>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-lg-3 col-sm-6 col-12 d-flex">
-                <div class="dash-count das2 w-100 p-3 rounded text-white">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <span class="fs-4"><i class="fas fa-user-check"></i></span>
-                        <span class="badge bg-white text-dark fw-bold">Individual</span>
+            <div class="col-lg-3 col-sm-6 col-12">
+                <div class="dash-widget dash1">
+                    <div class="dash-widgetimg">
+                        <span><i class="fas fa-user-check" style="font-size: 22px; color: #28c76f;"></i></span>
                     </div>
-                    <h3 class="fw-bold mb-1">{{ $stats['unique_patients'] }}</h3>
-                    <p class="mb-0 fs-7 text-white-50">Unique Patients Served</p>
+                    <div class="dash-widgetcontent">
+                        <h5><span class="counters" data-count="{{ $stats['unique_patients'] }}">{{ $stats['unique_patients'] }}</span></h5>
+                        <h6>Unique Patients Served</h6>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-lg-3 col-sm-6 col-12 d-flex">
-                <div class="dash-count das3 w-100 p-3 rounded text-white">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <span class="fs-4"><i class="fas fa-prescription-bottle-alt"></i></span>
-                        <span class="badge bg-white text-success fw-bold">Prescriptions</span>
+            <div class="col-lg-3 col-sm-6 col-12">
+                <div class="dash-widget dash2">
+                    <div class="dash-widgetimg">
+                        <span><i class="fas fa-prescription-bottle-alt" style="font-size: 22px; color: #00cfe8;"></i></span>
                     </div>
-                    <h3 class="fw-bold mb-1">{{ $stats['prescriptions_issued'] }}</h3>
-                    <p class="mb-0 fs-7 text-white-50">Medication Orders Issued</p>
+                    <div class="dash-widgetcontent">
+                        <h5><span class="counters" data-count="{{ $stats['prescriptions_issued'] }}">{{ $stats['prescriptions_issued'] }}</span></h5>
+                        <h6>Medication Orders Issued</h6>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-lg-3 col-sm-6 col-12 d-flex">
-                <div class="dash-count w-100 p-3 rounded text-white" style="background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%) !important;">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <span class="fs-4"><i class="fas fa-user-plus"></i></span>
-                        <span class="badge bg-white text-indigo fw-bold">Census</span>
+            <div class="col-lg-3 col-sm-6 col-12">
+                <div class="dash-widget dash3">
+                    <div class="dash-widgetimg">
+                        <span><i class="fas fa-user-plus" style="font-size: 22px; color: #ea5455;"></i></span>
                     </div>
-                    <h3 class="fw-bold mb-1">{{ $stats['new_patients'] }}</h3>
-                    <p class="mb-0 fs-7 text-white-50">Newly Registered Residents</p>
+                    <div class="dash-widgetcontent">
+                        <h5><span class="counters" data-count="{{ $stats['new_patients'] }}">{{ $stats['new_patients'] }}</span></h5>
+                        <h6>Newly Registered Residents</h6>
+                    </div>
                 </div>
             </div>
         </div>

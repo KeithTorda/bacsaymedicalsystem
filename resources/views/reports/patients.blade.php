@@ -4,7 +4,7 @@
 <div class="page-wrapper">
     <div class="content">
         <!-- Page Header & Actions -->
-        <div class="page-header d-flex flex-wrap justify-content-between align-items-center">
+        <div class="page-header d-flex flex-wrap justify-content-between align-items-center mb-4">
             <div class="page-title mb-2 mb-md-0">
                 <h4>Barangay Bacsay Patient Demographics & Census Report</h4>
                 <h6>Longitudinal resident health census, epidemiological demographics, and community vital statistics</h6>
@@ -19,51 +19,53 @@
             </div>
         </div>
 
-        <!-- Census Demographic Overview Cards -->
-        <div class="row mb-4">
-            <div class="col-lg-3 col-sm-6 col-12 d-flex">
-                <div class="dash-count das1 w-100 p-3 rounded text-white">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <span class="fs-4"><i class="fas fa-users"></i></span>
-                        <span class="badge bg-white text-primary fw-bold">Total Census</span>
+        <!-- Census Demographic Overview Cards (Standardized Clean Dashboard Widgets) -->
+        <div class="row">
+            <div class="col-lg-3 col-sm-6 col-12">
+                <div class="dash-widget">
+                    <div class="dash-widgetimg">
+                        <span><i class="fas fa-users" style="font-size: 22px; color: #f96e6f;"></i></span>
                     </div>
-                    <h3 class="fw-bold mb-1">{{ $totalPatients }}</h3>
-                    <p class="mb-0 fs-7 text-white-50">Registered Bacsay Residents</p>
+                    <div class="dash-widgetcontent">
+                        <h5><span class="counters" data-count="{{ $totalPatients }}">{{ $totalPatients }}</span></h5>
+                        <h6>Registered Bacsay Residents</h6>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-lg-3 col-sm-6 col-12 d-flex">
-                <div class="dash-count das2 w-100 p-3 rounded text-white">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <span class="fs-4"><i class="fas fa-venus-mars"></i></span>
-                        <span class="badge bg-white text-dark fw-bold">Gender Ratio</span>
+            <div class="col-lg-3 col-sm-6 col-12">
+                <div class="dash-widget dash1">
+                    <div class="dash-widgetimg">
+                        <span><i class="fas fa-venus-mars" style="font-size: 22px; color: #28c76f;"></i></span>
                     </div>
-                    <h3 class="fw-bold mb-1">{{ $maleCount }}M / {{ $femaleCount }}F</h3>
-                    <p class="mb-0 fs-7 text-white-50">
-                        {{ $totalPatients > 0 ? round(($maleCount / $totalPatients) * 100) : 0 }}% Male • {{ $totalPatients > 0 ? round(($femaleCount / $totalPatients) * 100) : 0 }}% Female
-                    </p>
+                    <div class="dash-widgetcontent">
+                        <h5><span>{{ $maleCount }}M / {{ $femaleCount }}F</span></h5>
+                        <h6>Gender Ratio ({{ $totalPatients > 0 ? round(($maleCount / $totalPatients) * 100) : 0 }}% M)</h6>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-lg-3 col-sm-6 col-12 d-flex">
-                <div class="dash-count das3 w-100 p-3 rounded text-white">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <span class="fs-4"><i class="fas fa-blind"></i></span>
-                        <span class="badge bg-white text-success fw-bold">Priority Group</span>
+            <div class="col-lg-3 col-sm-6 col-12">
+                <div class="dash-widget dash2">
+                    <div class="dash-widgetimg">
+                        <span><i class="fas fa-blind" style="font-size: 22px; color: #00cfe8;"></i></span>
                     </div>
-                    <h3 class="fw-bold mb-1">{{ ($ageGroups['60-74 yrs (Senior)'] ?? 0) + ($ageGroups['75+ yrs (Geriatric)'] ?? 0) }}</h3>
-                    <p class="mb-0 fs-7 text-white-50">Senior Citizens (60+ yrs)</p>
+                    <div class="dash-widgetcontent">
+                        <h5><span class="counters" data-count="{{ ($ageGroups['60-74 yrs (Senior)'] ?? 0) + ($ageGroups['75+ yrs (Geriatric)'] ?? 0) }}">{{ ($ageGroups['60-74 yrs (Senior)'] ?? 0) + ($ageGroups['75+ yrs (Geriatric)'] ?? 0) }}</span></h5>
+                        <h6>Senior Citizens (60+ yrs)</h6>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-lg-3 col-sm-6 col-12 d-flex">
-                <div class="dash-count w-100 p-3 rounded text-white" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%) !important;">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <span class="fs-4"><i class="fas fa-baby"></i></span>
-                        <span class="badge bg-white text-cyan fw-bold">Pediatric</span>
+            <div class="col-lg-3 col-sm-6 col-12">
+                <div class="dash-widget dash3">
+                    <div class="dash-widgetimg">
+                        <span><i class="fas fa-baby" style="font-size: 22px; color: #ea5455;"></i></span>
                     </div>
-                    <h3 class="fw-bold mb-1">{{ $ageGroups['0-12 yrs (Pediatric)'] ?? 0 }}</h3>
-                    <p class="mb-0 fs-7 text-white-50">Children (0-12 yrs)</p>
+                    <div class="dash-widgetcontent">
+                        <h5><span class="counters" data-count="{{ $ageGroups['0-12 yrs (Pediatric)'] ?? 0 }}">{{ $ageGroups['0-12 yrs (Pediatric)'] ?? 0 }}</span></h5>
+                        <h6>Children (0-12 yrs)</h6>
+                    </div>
                 </div>
             </div>
         </div>
@@ -181,7 +183,7 @@
                             @foreach($patients as $pt)
                             <tr>
                                 <td><span class="badge bg-outline-primary fw-bold">{{ $pt->patient_code }}</span></td>
-                                <td class="fw-bold text-dark">{{ $pt->name }}</td>
+                                <td><a href="{{ route('patients.show', $pt->id) }}" class="fw-bold text-dark text-decoration-none">{{ $pt->name }}</a></td>
                                 <td>{{ ucfirst($pt->sex ?? 'Unspecified') }}</td>
                                 <td>{{ $pt->age ?? (\Carbon\Carbon::parse($pt->birthdate)->age ?? 'N/A') }} yrs</td>
                                 <td>{{ $pt->civil_status ?? 'Single' }}</td>
@@ -190,7 +192,7 @@
                                 <td>{{ $pt->address ?? 'Barangay Bacsay, Luna' }}</td>
                                 <td class="text-center">
                                     <a href="{{ route('patients.show', $pt->id) }}" class="btn btn-sm btn-outline-primary">
-                                        <i class="fas fa-eye"></i> View Profile
+                                        <i class="fas fa-eye me-1"></i> Profile
                                     </a>
                                 </td>
                             </tr>
