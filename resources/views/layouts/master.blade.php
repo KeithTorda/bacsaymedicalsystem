@@ -720,6 +720,85 @@
             font-weight: 600 !important;
         }
 
+        /* ═══════════════════════════════════════════════════
+           BULLETPROOF RESPONSIVE NOTIFICATIONS SYSTEM
+           ═══════════════════════════════════════════════════ */
+        .notifications {
+            width: 340px !important;
+            max-width: 92vw !important;
+            border-radius: 12px !important;
+            overflow: hidden;
+            box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.15) !important;
+            border: 1px solid #e2e8f0 !important;
+        }
+        .notifications .topnav-dropdown-header {
+            padding: 12px 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            background-color: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .notifications .noti-content {
+            max-height: 280px;
+            overflow-y: auto;
+        }
+        .notifications .notification-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .notifications .notification-message {
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .notifications .notification-message a {
+            display: flex !important;
+            align-items: flex-start !important;
+            padding: 10px 14px !important;
+            text-decoration: none !important;
+            color: inherit !important;
+            transition: background 0.15s ease;
+        }
+        .notifications .notification-message a:hover {
+            background-color: rgba(2, 132, 199, 0.06) !important;
+        }
+        .notifications .noti-details {
+            color: #1e293b !important;
+            font-size: 12.5px !important;
+            line-height: 1.35 !important;
+            margin-bottom: 3px !important;
+        }
+        .notifications .noti-title {
+            font-weight: 700 !important;
+            color: #0f172a !important;
+            display: block !important;
+            margin-bottom: 2px !important;
+        }
+        .notifications .notification-time {
+            font-size: 11px !important;
+            color: #64748b !important;
+        }
+        .notifications .topnav-dropdown-footer {
+            padding: 10px 16px !important;
+            text-align: center !important;
+            background-color: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        @media (max-width: 575.98px) {
+            .dropdown-menu.notifications {
+                position: fixed !important;
+                top: 60px !important;
+                left: 8px !important;
+                right: 8px !important;
+                width: auto !important;
+                max-width: calc(100vw - 16px) !important;
+                transform: none !important;
+                z-index: 1060 !important;
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3) !important;
+            }
+        }
+
         /* Pitch Black Notifications Dropdown */
         body[data-theme="dark"] .notifications {
             background-color: #121214 !important;
@@ -734,13 +813,21 @@
             color: #ffffff !important;
             font-weight: 600;
         }
-        body[data-theme="dark"] .noti-title,
+        body[data-theme="dark"] .noti-title {
+            color: #ffffff !important;
+        }
         body[data-theme="dark"] .noti-details {
-            color: #f1f5f9 !important;
+            color: #e2e8f0 !important;
         }
         body[data-theme="dark"] .notification-time,
         body[data-theme="dark"] .noti-details span {
             color: #94a3b8 !important;
+        }
+        body[data-theme="dark"] .notification-message {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+        }
+        body[data-theme="dark"] .notification-message a:hover {
+            background-color: rgba(56, 189, 248, 0.1) !important;
         }
         body[data-theme="dark"] .topnav-dropdown-footer {
             background-color: #18181b !important;
@@ -1049,15 +1136,15 @@
                                 <li class="notification-message">
                                     <a href="{{ route('notifications.read', $noti->id) }}">
                                         <div class="media d-flex">
-                                            <span class="avatar flex-shrink-0 bg-light-primary rounded-circle p-2 text-center me-2">
-                                                <i class="fas fa-bell text-primary fs-5"></i>
+                                            <span class="avatar flex-shrink-0 bg-primary-subtle text-primary rounded-circle p-2 text-center me-2" style="width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center;">
+                                                <i class="fas fa-bell text-primary fs-6"></i>
                                             </span>
-                                            <div class="media-body flex-grow-1">
+                                            <div class="media-body flex-grow-1" style="min-width: 0;">
                                                 <p class="noti-details">
                                                     <span class="noti-title">{{ $noti->title }}</span> 
                                                     {{ $noti->message }}
                                                 </p>
-                                                <p class="noti-time"><span class="notification-time">{{ $noti->created_at ? $noti->created_at->diffForHumans() : 'Just now' }}</span></p>
+                                                <p class="noti-time mb-0"><span class="notification-time"><i class="far fa-clock me-1"></i>{{ $noti->created_at ? $noti->created_at->diffForHumans() : 'Just now' }}</span></p>
                                             </div>
                                         </div>
                                     </a>
@@ -1122,24 +1209,41 @@
                 <div class="dropdown">
                     <a href="javascript:void(0);" class="header-action-btn position-relative text-decoration-none" data-bs-toggle="dropdown" title="Notifications">
                         <i class="fas fa-bell fs-6"></i>
-                        <span class="badge rounded-pill bg-danger position-absolute" style="top: -2px; right: -2px; font-size: 8px; padding: 2px 4px;">4</span>
+                        @if($totalUnreadCount > 0)
+                            <span class="badge rounded-pill bg-danger position-absolute" style="top: -2px; right: -2px; font-size: 8px; padding: 2px 4px;">{{ $totalUnreadCount }}</span>
+                        @endif
                     </a>
                     <div class="dropdown-menu dropdown-menu-end notifications p-0">
-                        <div class="topnav-dropdown-header p-3 border-bottom">
+                        <div class="topnav-dropdown-header p-3 border-bottom d-flex align-items-center justify-content-between">
                             <span class="notification-title fw-bold">Notifications</span>
+                            <a href="{{ route('notifications.clear') }}" class="clear-noti small text-muted">Clear All</a>
                         </div>
-                        <div class="noti-content p-2">
+                        <div class="noti-content p-0">
                             <ul class="notification-list list-unstyled mb-0">
-                                <li class="notification-message p-2 border-bottom">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <img src="{{ asset('assets/img/profiles/avatar-02.jpg') }}" alt="KBOT" class="rounded-circle" style="width: 30px; height: 30px;">
-                                        <div>
-                                            <span class="fw-semibold fs-7 d-block">KBOT System</span>
-                                            <span class="text-muted fs-8">Welcome to KBOT Mobile Dashboard!</span>
+                                @forelse($unreadNotifications as $noti)
+                                <li class="notification-message">
+                                    <a href="{{ route('notifications.read', $noti->id) }}" class="d-flex align-items-start gap-2 p-2 border-bottom text-decoration-none">
+                                        <span class="avatar flex-shrink-0 bg-primary-subtle text-primary rounded-circle p-2 text-center me-1" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;">
+                                            <i class="fas fa-bell" style="font-size: 13px;"></i>
+                                        </span>
+                                        <div class="media-body flex-grow-1" style="min-width: 0;">
+                                            <div class="noti-title fw-bold text-dark fs-7 text-truncate mb-0">{{ $noti->title }}</div>
+                                            <div class="noti-details text-muted fs-8 text-break mb-1">{{ $noti->message }}</div>
+                                            <div class="notification-time text-muted" style="font-size: 10.5px;">
+                                                <i class="far fa-clock me-1"></i>{{ $noti->created_at ? $noti->created_at->diffForHumans() : 'Just now' }}
+                                            </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </li>
+                                @empty
+                                <li class="notification-message p-3 text-center text-muted fs-7">
+                                    No new notifications
+                                </li>
+                                @endforelse
                             </ul>
+                        </div>
+                        <div class="topnav-dropdown-footer p-2 text-center border-top">
+                            <a href="{{ route('notifications.read', 'all') }}" class="small fw-bold text-primary text-decoration-none">Mark All as Read</a>
                         </div>
                     </div>
                 </div>
