@@ -2,7 +2,7 @@
     <!-- Custom Mobile Drawer Header with Close (X) Button -->
     <div class="d-flex align-items-center justify-content-between px-3 py-3 border-bottom d-lg-none" id="mobile_sidebar_header">
         <span class="fw-bold fs-6 text-primary d-flex align-items-center gap-2">
-            <img src="{{ asset('assets/img/bacsaymedsys-icon.svg') }}" alt="BacsayMedSys" style="width: 24px; height: 24px;"> BacsayMedSys
+            <img src="{{ asset('assets/img/bacsay-seal.jpg') }}" alt="BacsayMedSys" class="rounded-circle" style="width: 26px; height: 26px; object-fit: cover;"> BacsayMedSys
         </span>
         <button type="button" id="custom_mobile_close_btn" class="btn btn-sm btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; padding: 0;">
             <i class="fas fa-times"></i>

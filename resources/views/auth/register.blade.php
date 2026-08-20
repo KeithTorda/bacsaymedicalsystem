@@ -3,7 +3,7 @@
 @section('content')
 <!-- Top Centered Brand Logo -->
 <div class="d-flex align-items-center justify-content-center gap-2 mb-3">
-    <img src="{{ asset('assets/img/bacsaymedsys-icon.svg') }}" alt="Logo" style="width: 38px; height: 38px;">
+    <img src="{{ asset('assets/img/bacsay-seal.jpg') }}" alt="Barangay Bacsay Seal" class="rounded-circle shadow-sm" style="width: 46px; height: 46px; object-fit: cover;">
     <span class="fw-bold fs-4 text-dark">Bacsay<span style="color: #ea580c;">MedSys</span></span>
 </div>
 

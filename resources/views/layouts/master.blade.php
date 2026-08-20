@@ -989,11 +989,11 @@
             <!-- Desktop Header Left (Hidden on Mobile, Displayed >= 992px) -->
             <div class="header-left active d-none d-lg-flex align-items-center">
                 <a href="{{ route('home') }}" class="logo text-decoration-none d-flex align-items-center">
-                    <img src="{{ asset('assets/img/bacsaymedsys-icon.svg') }}" alt="BacsayMedSys" class="me-2" style="width: 32px; height: 32px; object-fit: contain;">
+                    <img src="{{ asset('assets/img/bacsay-seal.jpg') }}" alt="BacsayMedSys" class="me-2 rounded-circle" style="width: 34px; height: 34px; object-fit: cover;">
                     <span class="fw-bold fs-6 brand-logo-text text-dark">Bacsay<span class="text-primary">MedSys</span></span>
                 </a>
                 <a href="{{ route('home') }}" class="logo-small text-decoration-none d-flex align-items-center justify-content-center">
-                    <img src="{{ asset('assets/img/bacsaymedsys-icon.svg') }}" alt="BacsayMedSys" style="width: 28px; height: 28px; object-fit: contain;">
+                    <img src="{{ asset('assets/img/bacsay-seal.jpg') }}" alt="BacsayMedSys" class="rounded-circle" style="width: 28px; height: 28px; object-fit: cover;">
                 </a>
                 <a id="toggle_btn" href="javascript:void(0);">
                 </a>

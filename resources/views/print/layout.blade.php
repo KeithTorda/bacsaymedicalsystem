@@ -346,7 +346,7 @@
 
     <div class="no-print">
         <div class="d-flex align-items-center gap-2">
-            <img src="{{ asset('assets/img/bacsaymedsys-icon.svg') }}" style="width: 28px; height: 28px;">
+            <img src="{{ asset('assets/img/bacsay-seal.jpg') }}" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
             <span style="font-weight: 700; font-size: 15px;">BacsayMedSys — Official Patient Medical Record Print</span>
         </div>
         <div>

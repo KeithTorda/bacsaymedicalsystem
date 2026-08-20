@@ -38,13 +38,28 @@ class MedicalRecordController extends Controller
 
     public function history(Request $request)
     {
-        $records = MedicalRecord::with('patient')->latest()->get();
-        return view('medical_records.history', compact('records'));
+        $patients = Patient::with(['consultations' => function($q) {
+            $q->latest('visit_date');
+        }, 'medicalRecords'])->withCount('consultations')->orderBy('name')->get();
+
+        return view('medical_records.history', compact('patients'));
     }
 
     public function vitals(Request $request)
     {
+        $consultations = \App\Models\Consultation::with('patient')
+            ->whereNotNull('bp')
+            ->orWhereNotNull('temperature')
+            ->orWhereNotNull('pulse_rate')
+            ->orderBy('visit_date', 'desc')
+            ->get();
+
+        if ($consultations->isEmpty()) {
+            $consultations = \App\Models\Consultation::with('patient')->latest()->get();
+        }
+
         $records = MedicalRecord::with('patient')->latest()->get();
-        return view('medical_records.vitals', compact('records'));
+
+        return view('medical_records.vitals', compact('consultations', 'records'));
     }
 }

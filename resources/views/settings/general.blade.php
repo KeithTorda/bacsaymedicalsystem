@@ -88,10 +88,10 @@
                     <div class="card mb-4 text-center p-3">
                         <div class="card-body">
                             <div class="mb-3">
-                                <img src="{{ asset('assets/img/profiles/avatar-02.jpg') }}" alt="Bacsay Logo" class="rounded-circle shadow-sm" style="width: 90px; height: 90px; object-fit: cover; border: 3px solid #38bdf8;">
+                                <img src="{{ asset('assets/img/bacsay-seal.jpg') }}" alt="Barangay Bacsay Seal" class="rounded-circle shadow-sm" style="width: 90px; height: 90px; object-fit: cover; border: 3px solid #38bdf8;">
                             </div>
-                            <h5 class="fw-bold mb-1">KBOT System Logo</h5>
-                            <p class="text-muted fs-7 mb-3">JPG or PNG format, max 2MB</p>
+                            <h5 class="fw-bold mb-1">Barangay Bacsay Official Seal</h5>
+                            <p class="text-muted fs-7 mb-3">Luna, Apayao Official Barangay Seal</p>
                             <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3" onclick="triggerLogoUpload()">
                                 <i class="fas fa-upload me-1"></i> Upload New Logo
                             </button>

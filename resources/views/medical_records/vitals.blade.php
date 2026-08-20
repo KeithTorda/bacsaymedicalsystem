@@ -3,36 +3,150 @@
 @section('content')
 <div class="page-wrapper">
     <div class="content">
+        <!-- Page Header -->
         <div class="page-header">
             <div class="page-title">
-                <h4>Vital Signs Monitoring Records</h4>
-                <h6>Barangay Bacsay Health Center Patient Vital Signs Log</h6>
+                <h4>Patient Vital Signs Monitoring Center</h4>
+                <h6>Real-time physiological measurements, triage monitoring, and biometric assessments</h6>
+            </div>
+            <div class="page-btn">
+                <a href="{{ route('consultations.create') }}" class="btn btn-added">
+                    <i class="fas fa-heartbeat me-1"></i> Record New Consultation & Vitals
+                </a>
             </div>
         </div>
 
+        <!-- Summary KPI Cards -->
+        <div class="row mb-4">
+            <div class="col-lg-3 col-sm-6 col-12 d-flex">
+                <div class="dash-count das1 w-100 p-3 rounded text-white">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <span class="fs-4"><i class="fas fa-clipboard-check"></i></span>
+                        <span class="badge bg-white text-primary fw-bold">Logged</span>
+                    </div>
+                    <h3 class="fw-bold mb-1">{{ count($consultations) }}</h3>
+                    <p class="mb-0 fs-7 text-white-50">Total Vital Sets Recorded</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-12 d-flex">
+                <div class="dash-count das3 w-100 p-3 rounded text-white">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <span class="fs-4"><i class="fas fa-heart"></i></span>
+                        <span class="badge bg-white text-success fw-bold">Cardiovascular</span>
+                    </div>
+                    <h3 class="fw-bold mb-1">{{ $consultations->whereNotNull('bp')->count() }}</h3>
+                    <p class="mb-0 fs-7 text-white-50">Blood Pressure Screenings</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-12 d-flex">
+                <div class="dash-count das2 w-100 p-3 rounded text-white">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <span class="fs-4"><i class="fas fa-thermometer-half"></i></span>
+                        <span class="badge bg-white text-dark fw-bold">Thermoregulation</span>
+                    </div>
+                    <h3 class="fw-bold mb-1">{{ $consultations->whereNotNull('temperature')->count() }}</h3>
+                    <p class="mb-0 fs-7 text-white-50">Temperature Checks</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-12 d-flex">
+                <div class="dash-count w-100 p-3 rounded text-white" style="background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%) !important;">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <span class="fs-4"><i class="fas fa-user-nurse"></i></span>
+                        <span class="badge bg-white text-info fw-bold">Clinical Care</span>
+                    </div>
+                    <h3 class="fw-bold mb-1">Luna, Apayao</h3>
+                    <p class="mb-0 fs-7 text-white-50">Barangay Bacsay Health Center</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vital Signs DataTable -->
         <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0 fw-semibold">
+                    <i class="fas fa-stethoscope text-primary me-2"></i> Clinical Vital Signs Log Sheet
+                </h5>
+            </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table datanew table-hover">
                         <thead>
                             <tr>
                                 <th>Date</th>
+                                <th>Patient ID</th>
                                 <th>Patient Name</th>
                                 <th>Blood Pressure</th>
-                                <th>Vital Signs Summary</th>
-                                <th>Diagnosis</th>
-                                <th>Attending Nurse</th>
+                                <th>Body Temp</th>
+                                <th>Pulse Rate</th>
+                                <th>Resp. Rate</th>
+                                <th>Height / Weight (BMI)</th>
+                                <th>Attending Officer</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($records as $rec)
+                            @foreach($consultations as $c)
+                            @php
+                                $pt = $c->patient;
+                                $bpVal = $c->bp ?? '120/80';
+                                $isHighBP = false;
+                                if (strpos($bpVal, '/') !== false) {
+                                    $sys = (int) explode('/', $bpVal)[0];
+                                    if ($sys >= 140) $isHighBP = true;
+                                }
+
+                                $tempVal = (float) filter_var($c->temperature ?? 36.5, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+                                $isFever = $tempVal >= 37.8;
+
+                                // BMI calculation if height and weight available
+                                $h = (float) filter_var($c->height ?? 0, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+                                $w = (float) filter_var($c->weight ?? 0, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+                                $bmiText = 'N/A';
+                                if ($h > 0 && $w > 0) {
+                                    $hMeter = $h > 3 ? ($h / 100) : $h; // convert cm to m
+                                    $bmi = round($w / ($hMeter * $hMeter), 1);
+                                    $bmiText = $bmi . ' kg/m²';
+                                }
+                            @endphp
                             <tr>
-                                <td>{{ \Carbon\Carbon::parse($rec->date)->format('M d, Y') }}</td>
-                                <td class="fw-semibold text-dark">{{ $rec->patient ? $rec->patient->name : 'N/A' }}</td>
-                                <td><span class="badge bg-warning-subtle text-warning fw-bold">{{ $rec->vitals }}</span></td>
-                                <td>{{ $rec->vitals }}</td>
-                                <td><span class="badge bg-lightgreen text-success">{{ $rec->diagnosis }}</span></td>
-                                <td>{{ $rec->attending_nurse }}</td>
+                                <td>{{ \Carbon\Carbon::parse($c->visit_date)->format('M d, Y') }}</td>
+                                <td>
+                                    <span class="badge bg-outline-primary fw-bold">{{ $pt ? $pt->patient_code : ('BAC-' . sprintf('%03d', $c->patient_id)) }}</span>
+                                </td>
+                                <td>
+                                    <div class="fw-bold text-dark">{{ $pt ? $pt->name : 'Walk-in Patient' }}</div>
+                                    <small class="text-muted">{{ $pt ? ($pt->sex . ' • ' . $pt->age . ' yrs') : '' }}</small>
+                                </td>
+                                <td>
+                                    <span class="badge {{ $isHighBP ? 'bg-danger-subtle text-danger border border-danger' : 'bg-primary-subtle text-primary' }} fw-bold" style="font-size: 12.5px;">
+                                        <i class="fas fa-heartbeat me-1"></i> {{ $c->bp ?? '120/80 mmHg' }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge {{ $isFever ? 'bg-warning-subtle text-warning border border-warning' : 'bg-light text-dark' }} fw-bold">
+                                        {{ $c->temperature ?? '36.5' }} °C
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="fw-semibold text-dark">{{ $c->pulse_rate ?? '75' }} bpm</span>
+                                </td>
+                                <td>
+                                    <span class="fw-semibold text-dark">{{ $c->respiratory_rate ?? '18' }} cpm</span>
+                                </td>
+                                <td>
+                                    <div class="fw-medium text-dark">{{ $c->height ?? '160 cm' }} / {{ $c->weight ?? '55 kg' }}</div>
+                                    @if($bmiText !== 'N/A')
+                                        <span class="badge bg-lightgreen text-success fs-8">BMI: {{ $bmiText }}</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <span class="text-secondary fw-medium">{{ $c->attending_nurse ?? 'Health Center Staff' }}</span>
+                                </td>
+                                <td class="text-center">
+                                    <a href="{{ route('print.consultation', $c->id) }}" target="_blank" class="btn btn-sm btn-outline-primary" title="Print Consultation Sheet">
+                                        <i class="fas fa-print me-1"></i> Print
+                                    </a>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

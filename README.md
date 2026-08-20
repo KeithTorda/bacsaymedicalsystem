@@ -1,83 +1,163 @@
-# 🏥 BacsayMedSys (Barangay Bacsay Medical Record Management System) — Version 1.1 Official Release (VPS Live)
+# BacsayMedSys
 
-![Release Version](https://img.shields.io/badge/Release-v1.1%20VPS%20Live-orange)
-![System Status](https://img.shields.io/badge/Status-Operational-brightgreen)
-![Framework](https://img.shields.io/badge/Laravel-v11.x%20%2F%2012.x-red)
-![PHP Version](https://img.shields.io/badge/PHP-v8.3%20FPM-blue)
-![Database](https://img.shields.io/badge/Database-SQLite%20%2F%20MySQL-teal)
+A Laravel-based medical record management system designed for barangay health centers.
 
-A comprehensive, dynamic, role-secured, and high-performance medical record management system designed specifically for **Barangay Bacsay Health Center, Luna, Apayao** to streamline patient registration, clinical encounters, vital signs monitoring, digital prescription issuance, appointments, reports, and official Philippine DOH-aligned printable forms.
+## Overview
 
----
+BacsayMedSys streamlines patient registration, clinical encounters, vital signs monitoring, digital prescription issuance, appointments, reports, and official printable forms for the Barangay Bacsay Health Center.
 
-## 🚀 Live VPS Production Server
-- **Live URL**: [http://167.99.69.239:8085](http://167.99.69.239:8085)
-- **Deployment Host**: Ubuntu Linux VPS (`167.99.69.239`)
-- **Nginx Web Server**: Configured on Port `8085` using PHP 8.3 FPM
-- **Status**: 100% Operational & Tested (HTTP 200 OK)
+## Features
 
----
+### Authentication and Access Control
+Secure login system via Laravel's built-in authentication. Public registration is restricted; accounts can only be created by an Admin.
 
-## 🌟 Key Features (Version 1.1 Official)
+### Patient Management
+Full CRUD operations for patient records. Automatically generates unique Patient Codes (`BAC-YYYY-XXX`). Records store health profiles including civil status, blood type, allergies, chronic diseases, vaccination history, and emergency contacts.
 
-- **🔐 Warm Beige-Orange Centered Login System**:
-  - Single centered glassmorphic login card with inset floating label inputs.
-  - Public self-registration disabled (Admin-controlled staff creation).
+### Medical Records and Consultations
+Logs clinical consultations and tracks vital signs including blood pressure, temperature, pulse rate, respiratory rate, height, and weight. Archives medical history for patient care tracking.
 
-- **👥 Patient Management**:
-  - Full CRUD operations with auto-generated unique Patient Codes (`BAC-YYYY-XXX`).
-  - Search by name, code, contact number, or address.
-  - Comprehensive health profile: age, sex, civil status, blood type, allergies, chronic conditions, emergency contacts.
+### Prescription Management
+Digital prescription creation with unique identifiers (`RX-YYYY-XXX`). Manages medicine names, dosage, frequency, duration, and instructions.
 
-- **🩺 Medical Records & Clinical Consultations**:
-  - Consultation logs with vital signs tracking (BP, Body Temp, Pulse Rate, Resp Rate, Height, Weight).
-  - Medical history archive and longitudinal patient care tracking.
+### Appointment Scheduling
+Patient appointment scheduling and status tracking (Scheduled, Completed, Cancelled).
 
-- **💊 Digital Prescription System**:
-  - Multi-item prescription creation (`RX-YYYY-XXX`).
-  - Medicine dosage, frequency, duration, and instructions management.
+### Reports and Analytics
+Generates daily, monthly, and patient demographic reports. Features interactive dashboard charting metrics.
 
-- **📅 Appointment Scheduling**:
-  - Patient appointment scheduling and status updates (*Scheduled, Completed, Cancelled*).
+### Print Center
+Generates dynamic database-driven forms including Patient Information Sheets, Clinical Medical Records, Consultation Encounter Forms, Prescription Forms, and Referral Slips.
 
-- **📊 Health Analytics & Reports**:
-  - Daily, Monthly, and Patient Demographic reports with export options.
-  - ApexCharts interactive dashboard metrics.
+### Notifications
+Role-specific notifications for system events such as system audits, daily health summaries, new appointments, prescription issuances, and vaccination reminders.
 
-- **🖨️ Official Philippine DOH & Barangay Bacsay Print Slips**:
-  - 100% dynamic database data rendering for Patient Information Sheets, Clinical Medical Records, Consultation Encounter Forms, Rx Forms, and Referral Slips.
-  - **Dynamic Signature Line**: Automatically signs document with current logged-in user's name and role.
+## User Roles and Access Control
 
-- **🛡️ 2-Role Role-Based Access Control (RBAC)**:
-  - `Admin`: Full system access, System Users Management (`/users`), and General Settings (`/settings`).
-  - `Staff`: Clinical operations (Patients, Consultations, Vitals, Prescriptions, Reports, Print Center).
+| Role | Access |
+|---|---|
+| Admin | Full system access, system users management (`/users`), and general settings (`/settings`) |
+| Staff | Clinical operations including patients, consultations, vitals, prescriptions, reports, and printing |
 
-- **🔔 Role-Specific Notification System**:
-  - Distinct alerts tailored for Admin (*Security Audit, Daily Summaries*) vs Staff (*Appointments, Prescriptions, Patient Updates*).
+## Technology Stack
 
-- **💻 Development Team Credits**:
-  - Interactive Capstone Team Modal featuring project start date (`08/05/2026`), tech stack, photos, and team roles (**MARK CHRISTIAN GAON**, **ARMIE VELASCO**, **JOCEL ROSE TORDA**).
+* Laravel 12.x (Framework)
+* PHP 8.2+
+* SQLite (Default) / MySQL (Supported via standard Laravel configuration)
+* Tailwind CSS (v4.0.0 via Vite)
+* Bootstrap (v5.2.3 via Vite)
+* Vite (Asset Bundler)
 
----
+## System Modules and Routes
 
-## 🛠️ Recent Production Fixes & Updates
-1. **Helper Autoload Fix**: Moved `app/Helper/helpers.php` to main Composer `autoload` section and added `set_active()` fallback in `AppServiceProvider.php` to resolve production `500 Server Error`.
-2. **Route Caching Fix**: Fixed duplicate route names in `web.php` for `logout`, `forget-password`, and `reset-password` to support `php artisan route:cache`.
-3. **Dark Mode Modal Overrides**: Added CSS rules for `.modal-content`, `.modal-header`, and high-contrast `(X)` close button for night/dark theme.
+| Module | Method | Route | Purpose | Access |
+|---|---|---|---|---|
+| Dashboard | GET | `/home` | Main system dashboard | Admin, Staff |
+| Patients | GET | `/patients` | Patient record management | Admin, Staff |
+| Consultations | GET | `/consultations/create` | Consultation records creation | Admin, Staff |
+| Medical Records | GET | `/medical-records` | Medical history tracking | Admin, Staff |
+| Appointments | GET | `/appointments` | Appointment scheduling | Admin, Staff |
+| Prescriptions | GET | `/prescriptions` | Digital prescription issuance | Admin, Staff |
+| Notifications | GET | `/notifications` | Role-specific alerts | Admin, Staff |
+| Daily Reports | GET | `/reports/daily` | Daily health reports | Admin, Staff |
+| Monthly Reports | GET | `/reports/monthly` | Monthly health reports | Admin, Staff |
+| Patient Reports | GET | `/reports/patients` | Patient demographic reports | Admin, Staff |
+| Print Center | GET | `/print` | Document generation | Admin, Staff |
+| Users | GET | `/users` | System user management | Admin |
+| Settings | GET | `/settings` | General system settings | Admin |
 
----
+## System Workflow
 
-## 🔑 Default Credentials (Seeded)
+1. Authentication: Users log in using provided credentials.
+2. Patient Registration or Search: Users register a new patient or search for an existing record.
+3. Consultation and Vital Signs: Users record vital signs and clinical diagnoses.
+4. Prescription: Users generate digital prescriptions linked to a consultation.
+5. Printing and Release: Users print official forms from the Print Center.
+6. Reporting: Users generate and review end-of-day or end-of-month reports.
 
-- **Admin Account**: `admin@gmail.com` | `admin123`
-- **Staff Account**: `staff@bacsay.gov.ph` | `admin123`
+## Installation
 
----
+```bash
+composer install
+npm install
+cp .env.example .env
+php artisan key:generate
+```
 
-## 👨‍💻 Capstone Project Team
+### Database Setup
 
-- **MARK CHRISTIAN GAON** — Lead Programmer & Full-Stack Systems Developer
-- **ARMIE VELASCO** — Project Lead & System UI/UX Designer
-- **JOCEL ROSE TORDA** — Quality Assurance & Technical Documentation Specialist
+SQLite is the default database used in development. Ensure the database file exists before migrating:
 
-*Project Started: August 05, 2026*
+**For Unix/macOS:**
+```bash
+touch database/database.sqlite
+```
+
+**For Windows (PowerShell):**
+```powershell
+New-Item -ItemType File -Path "database\database.sqlite"
+```
+
+Once the database is ready, run the migrations and seeders:
+```bash
+php artisan migrate
+php artisan db:seed
+```
+
+### Development Server
+
+To run the application locally, start both the Vite development server and the Laravel server:
+
+```bash
+npm run dev
+php artisan serve
+```
+
+For production deployment, build the frontend assets:
+```bash
+npm run build
+```
+
+## Seeded Accounts
+
+The application includes the following seeded accounts for development and initial access. These must be changed in a production environment:
+
+* Admin: `admin@gmail.com` / `admin123`
+* Staff: `staff@bacsay.gov.ph` / `admin123`
+
+## Environment Configuration
+
+Configure standard Laravel `.env` variables such as `DB_CONNECTION`, `DB_DATABASE`, and `APP_URL` depending on your environment.
+
+## Project Structure
+
+```text
+app/
+├── Http/
+│   └── Controllers/
+├── Models/
+└── ...
+
+database/
+├── migrations/
+└── seeders/
+
+public/
+resources/
+├── css/
+├── js/
+└── views/
+
+routes/
+└── web.php
+```
+
+## Security
+
+* Authentication is required for all routes except the login interface.
+* Public registration is disabled to prevent unauthorized access.
+* Specific routes (`/settings` and `/users`) strictly enforce Admin-only access.
+
+## Documentation Notes
+
+This documentation is based on the current repository implementation, reflecting verified routes, models, migrations, views, and configuration.
